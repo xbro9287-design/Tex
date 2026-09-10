@@ -3,110 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2D Car Racing Game</title>
+    <title>misti AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            overflow: hidden;
-            background: #e0e0e0;
-        }
-        canvas {
-            display: block;
-            margin: auto;
-            background: #fff;
-            border: 2px solid #000;
-        }
-        #score {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 24px;
-            color: #000;
-        }
-        #restart {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: none;
-            font-size: 30px;
-            background: #ff0000;
+            font-family: 'Poppins', sans-serif;
+            background: rgba(0, 0, 0, 0.8);
             color: #fff;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .message {
+            margin: 10px 0;
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 70%;
+            position: relative;
+        }
+        .user {
+            background: rgba(255, 0, 150, 0.7);
+            align-self: flex-end;
+        }
+        .misti {
+            background: rgba(0, 0, 255, 0.7);
+            align-self: flex-start;
+        }
+        .input-container {
+            display: flex;
             padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            margin-right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+        .input-container button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
+            background: #ff0080;
+            color: #fff;
             cursor: pointer;
+        }
+        .typing-indicator {
+            display: none;
+            font-style: italic;
+            color: #ff0080;
         }
     </style>
 </head>
 <body>
-    <div id="score">Score: 0</div>
-    <div id="restart" onclick="restartGame()">Restart</div>
-    <canvas id="gameCanvas" width="400" height="600"></canvas>
+    <div class="chat-container" id="chatContainer"></div>
+    <div class="input-container">
+        <input type="text" id="userInput" placeholder="Type your message...">
+        <button id="sendButton">Send</button>
+    </div>
+    <div class="typing-indicator" id="typingIndicator">misti AI is typing...</div>
+
     <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        let carWidth = 40, carHeight = 70;
-        let carX = canvas.width / 2 - carWidth / 2, carY = canvas.height - carHeight - 10;
-        let obstacles = [], score = 0, gameOver = false;
+        const apiKey = "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";
+        const chatContainer = document.getElementById('chatContainer');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        const typingIndicator = document.getElementById('typingIndicator');
 
-        document.addEventListener('keydown', moveCar);
-        setInterval(updateGame, 100);
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') sendMessage();
+        });
 
-        function moveCar(e) {
-            if (gameOver) return;
-            if (e.key === 'ArrowLeft' && carX > 0) carX -= 20;
-            if (e.key === 'ArrowRight' && carX < canvas.width - carWidth) carX += 20;
+        function sendMessage() {
+            const message = userInput.value;
+            if (!message) return;
+            appendMessage(message, 'user');
+            userInput.value = '';
+            getResponse(message);
         }
 
-        function updateGame() {
-            if (gameOver) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawCar();
-            drawObstacles();
-            updateObstacles();
-            checkCollision();
-            score++;
-            document.getElementById('score').innerText = 'Score: ' + score;
+        function appendMessage(message, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', sender);
+            messageElement.textContent = message;
+            chatContainer.appendChild(messageElement);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
-        function drawCar() {
-            ctx.fillStyle = 'blue';
-            ctx.fillRect(carX, carY, carWidth, carHeight);
-        }
-
-        function drawObstacles() {
-            obstacles.forEach(obstacle => {
-                ctx.fillStyle = 'red';
-                ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-            });
-        }
-
-        function updateObstacles() {
-            if (Math.random() < 0.1) {
-                let width = Math.random() * (canvas.width / 2) + 20;
-                obstacles.push({ x: Math.random() * (canvas.width - width), y: 0, width: width, height: 20 });
-            }
-            obstacles.forEach(obstacle => obstacle.y += 5);
-            obstacles = obstacles.filter(obstacle => obstacle.y < canvas.height);
-        }
-
-        function checkCollision() {
-            for (let obstacle of obstacles) {
-                if (carX < obstacle.x + obstacle.width && carX + carWidth > obstacle.x && carY < obstacle.y + obstacle.height && carY + carHeight > obstacle.y) {
-                    gameOver = true;
-                    document.getElementById('restart').style.display = 'block';
-                }
-            }
-        }
-
-        function restartGame() {
-            carX = canvas.width / 2 - carWidth / 2;
-            carY = canvas.height - carHeight - 10;
-            obstacles = [];
-            score = 0;
-            gameOver = false;
-            document.getElementById('restart').style.display = 'none';
-            document.getElementById('score').innerText = 'Score: 0';
-            setInterval(updateGame, 100);
+        function getResponse(message) {
+            typingIndicator.style.display = 'block';
+            setTimeout(() => {
+                typingIndicator.style.display = 'none';
+                const response = "This is a placeholder response from misti AI."; // Replace with actual API call
+                appendMessage(response, 'misti');
+            }, 2000);
         }
     </script>
 </body>
