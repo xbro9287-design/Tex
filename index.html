@@ -22,7 +22,7 @@
         .container {
             position: absolute;
             width: 100%;
-            top: 35%;
+            top: 38%;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
@@ -32,47 +32,85 @@
 
         /* text ස්ටයිල් */
         .Flores_Amarillas {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-family: 'Georgia', serif;
             color: #ffe600;
             text-shadow: 0 0 15px rgba(255, 230, 0, 0.7);
-            margin-bottom: 25px;
+            margin-bottom: 35px;
         }
 
-        /* Animated "GO" Button ස්ටයිල් */
+        /* Floating & Animated "GO" Button */
         .go-btn {
-            background: transparent;
+            background: rgba(5, 5, 5, 0.8);
             border: 2px solid #ffe600;
             color: #ffe600;
-            padding: 10px 30px;
-            font-size: 2rem;
+            padding: 8px 25px;
+            font-size: 1.6rem;
             font-family: 'Georgia', cursive, serif;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             cursor: pointer;
             position: relative;
-            box-shadow: 0 0 15px rgba(255, 230, 0, 0.4), inset 0 0 15px rgba(255, 230, 0, 0.4);
-            border-radius: 8px;
-            animation: pulseGlow 2s infinite ease-in-out;
-            transition: all 0.3s ease;
+            display: inline-block;
+            border-radius: 6px;
+            overflow: hidden; /* තරු බටන් එක ඇතුළේ විතරක් පෙනීමට */
+            box-shadow: 0 0 15px rgba(255, 230, 0, 0.4), inset 0 0 10px rgba(255, 230, 0, 0.3);
+            
+            /* බටන් එක මුළුමනින්ම උඩ පහළ පාවෙන Animation එක */
+            animation: floatButton 3s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
+            transition: transform 0.3s ease;
         }
 
-        .go-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px rgba(255, 230, 0, 0.8), inset 0 0 25px rgba(255, 230, 0, 0.8);
-            background-color: rgba(255, 230, 0, 0.1);
+        /* බටන් එක පාවෙන Animation එක */
+        @keyframes floatButton {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         /* Button Glow Animation */
         @keyframes pulseGlow {
             0%, 100% {
-                box-shadow: 0 0 10px #ffe600, inset 0 0 10px #ffe600;
+                box-shadow: 0 0 12px #ffe600, inset 0 0 8px #ffe600;
             }
             50% {
-                box-shadow: 0 0 25px #ffe600, 0 0 10px #ffffff, inset 0 0 15px #ffe600;
+                box-shadow: 0 0 22px #ffe600, 0 0 8px #ffffff, inset 0 0 14px #ffe600;
             }
         }
 
-        /* මල්/තරු/particles සඳහා CSS */
+        /* බටන් එක ඇතුළේ පාවෙන තරු (Button Stars) */
+        .btn-star {
+            position: absolute;
+            color: #ffe600;
+            font-size: 10px;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: innerStarMove 2.5s ease-in-out infinite alternate;
+        }
+
+        /* බටන් එක ඇතුළේ තරු උඩ පහළ/දෙපැත්තට පැද්දෙන Animation එක */
+        @keyframes innerStarMove {
+            0% {
+                transform: translate(0, 0) scale(0.8) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(6px, -8px) scale(1.2) rotate(45deg);
+                opacity: 0.4;
+            }
+        }
+
+        .go-btn:hover {
+            transform: scale(1.08) translateY(-5px);
+            background-color: rgba(255, 230, 0, 0.15);
+        }
+
+        /* පසුබිමේ යන මල්/තරු CSS */
         .flower {
             position: absolute;
             background-color: #ffd700;
@@ -130,7 +168,7 @@
 
         .next-page h1 {
             color: #ffe600;
-            font-size: 3rem;
+            font-size: 2.8rem;
             text-shadow: 0 0 20px #ffe600;
             font-family: 'Georgia', serif;
             text-align: center;
@@ -146,7 +184,15 @@
         <div class="Flores_Amarillas">
             💛 Happy birthday Thenara 💛
         </div>
-        <button class="go-btn" onclick="startTransition()">✨ go ✨</button>
+        
+        <!-- Animated Floating Button with Inner Stars -->
+        <button class="go-btn" id="goButton" onclick="startTransition()">
+            <span class="btn-star" style="top: 3px; left: 6px; animation-delay: 0s;">✦</span>
+            <span class="btn-star" style="bottom: 4px; left: 12px; animation-delay: 0.5s;">◆</span>
+            <span class="btn-star" style="top: 4px; right: 8px; animation-delay: 1s;">✦</span>
+            <span class="btn-star" style="bottom: 3px; right: 14px; animation-delay: 1.5s;">★</span>
+            go
+        </button>
     </div>
 
     <!-- ඊළඟට පෙන්වන කළු පැහැති Page එක -->
@@ -161,13 +207,11 @@
             const flower = document.createElement('div');
             flower.classList.add('flower');
 
-            // size & position
             const sizeNum = isExplosion ? Math.random() * 25 + 10 : Math.random() * 8 + 4;
             flower.style.width = sizeNum + 'px';
             flower.style.height = sizeNum + 'px';
             flower.style.left = Math.random() * 100 + 'vw';
 
-            // duration
             const duration = isExplosion ? (Math.random() * 1.5 + 1) : (Math.random() * 3 + 3);
             flower.style.animationDuration = duration + 's';
 
@@ -178,23 +222,18 @@
             }, duration * 1000);
         }
 
-        // Button එක Click කළ විට සිදුවන ඇනිමේෂන් එක
         function startTransition() {
-            // 1. Particle වේගයෙන් සහ විශාලව සෑදීම
             clearInterval(spawnInterval);
             let explosionInterval = setInterval(() => {
                 createFlower(true);
             }, 20);
 
-            // 2. ප්‍රධාන Text & Button එක fade out කිරීම
             document.getElementById('mainContainer').style.opacity = '0';
 
-            // 3. Screen එක කහ පැහැයෙන් පිරී යෑම (Yellow Screen Fill)
             setTimeout(() => {
                 document.getElementById('overlay').style.opacity = '1';
             }, 800);
 
-            // 4. හිමීට කළු පැහැති අලුත් Page එකට මාරු වීම
             setTimeout(() => {
                 clearInterval(explosionInterval);
                 document.getElementById('nextPage').style.opacity = '1';
