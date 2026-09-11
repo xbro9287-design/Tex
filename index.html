@@ -33,39 +33,39 @@
             transform: translate3d(-50%, -50%, 0);
             text-align: center;
             z-index: 10;
-            width: 90%;
-            max-width: 320px;
+            width: 95%;
+            max-width: 500px;
             transition: opacity 1s ease;
         }
 
-        /* ෆෝන් එකට හරියන කුඩා Text එක */
+        /* විශාල කර සකස් කළ Text එක */
         .Flores_Amarillas {
-            font-size: 1.1rem; /* ෆෝන් එකට ඉතා සුදුසු කුඩා ප්‍රමාණය */
+            font-size: 2.2rem; /* ලොකු පැහැදිලි Font Size එක */
             font-family: 'Georgia', serif;
             color: #ffe600;
-            text-shadow: 0 0 10px rgba(255, 230, 0, 0.6);
+            text-shadow: 0 0 15px rgba(255, 230, 0, 0.7);
             white-space: nowrap;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: center;
         }
 
         /* Mobile-Optimized Floating "GO" Button */
         .go-btn {
             background: rgba(5, 5, 5, 0.9);
-            border: 1.5px solid #ffe600;
+            border: 2px solid #ffe600;
             color: #ffe600;
-            padding: 6px 20px;
-            font-size: 0.95rem;
+            padding: 10px 30px;
+            font-size: 1.5rem; /* බටන් එකේ අකුරුත් ලොකු කළා */
             font-family: 'Georgia', cursive, serif;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             cursor: pointer;
             position: relative;
             display: inline-block;
-            border-radius: 6px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 0 10px rgba(255, 230, 0, 0.4), inset 0 0 6px rgba(255, 230, 0, 0.3);
+            box-shadow: 0 0 15px rgba(255, 230, 0, 0.4), inset 0 0 10px rgba(255, 230, 0, 0.3);
             
-            /* Mobile GPU performance සඳහා translate3d භාවිතය */
+            /* Mobile GPU performance සඳහා transform භාවිතය */
             -webkit-animation: floatButtonMobile 2.5s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
             animation: floatButtonMobile 2.5s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
             will-change: transform, box-shadow;
@@ -78,8 +78,8 @@
                 transform: translate3d(0, 0, 0);
             }
             50% {
-                -webkit-transform: translate3d(0, -7px, 0);
-                transform: translate3d(0, -7px, 0);
+                -webkit-transform: translate3d(0, -9px, 0);
+                transform: translate3d(0, -9px, 0);
             }
         }
         @keyframes floatButtonMobile {
@@ -88,18 +88,18 @@
                 transform: translate3d(0, 0, 0);
             }
             50% {
-                -webkit-transform: translate3d(0, -7px, 0);
-                transform: translate3d(0, -7px, 0);
+                -webkit-transform: translate3d(0, -9px, 0);
+                transform: translate3d(0, -9px, 0);
             }
         }
 
         /* Button Glow Animation */
         @keyframes pulseGlow {
             0%, 100% {
-                box-shadow: 0 0 8px #ffe600, inset 0 0 5px #ffe600;
+                box-shadow: 0 0 10px #ffe600, inset 0 0 6px #ffe600;
             }
             50% {
-                box-shadow: 0 0 15px #ffe600, 0 0 5px #ffffff, inset 0 0 8px #ffe600;
+                box-shadow: 0 0 20px #ffe600, 0 0 8px #ffffff, inset 0 0 12px #ffe600;
             }
         }
 
@@ -107,7 +107,7 @@
         .btn-star {
             position: absolute;
             color: #ffe600;
-            font-size: 8px;
+            font-size: 10px;
             pointer-events: none;
             opacity: 0.8;
             -webkit-animation: innerStarMove 2s ease-in-out infinite alternate;
@@ -120,7 +120,7 @@
                 opacity: 0.3;
             }
             100% {
-                transform: translate3d(3px, -4px, 0) scale(1.2);
+                transform: translate3d(4px, -5px, 0) scale(1.2);
                 opacity: 0.9;
             }
         }
@@ -185,8 +185,8 @@
 
         .next-page h1 {
             color: #ffe600;
-            font-size: 1.3rem;
-            text-shadow: 0 0 12px #ffe600;
+            font-size: 2.2rem; /* ඊළඟ Page එකේ Text එකත් ලොකු කළා */
+            text-shadow: 0 0 15px #ffe600;
             font-family: 'Georgia', serif;
             text-align: center;
             margin: 0 15px;
@@ -204,12 +204,12 @@
             💛 Happy birthday Thenara 💛
         </div>
         
-        <!-- Mobile Floating Button -->
+        <!-- Animated Floating Button -->
         <button class="go-btn" id="goButton" onclick="startTransition()">
-            <span class="btn-star" style="top: 2px; left: 4px; animation-delay: 0s;">✦</span>
-            <span class="btn-star" style="bottom: 2px; left: 8px; animation-delay: 0.5s;">◆</span>
-            <span class="btn-star" style="top: 3px; right: 5px; animation-delay: 1s;">✦</span>
-            <span class="btn-star" style="bottom: 2px; right: 8px; animation-delay: 1.5s;">★</span>
+            <span class="btn-star" style="top: 3px; left: 5px; animation-delay: 0s;">✦</span>
+            <span class="btn-star" style="bottom: 3px; left: 10px; animation-delay: 0.5s;">◆</span>
+            <span class="btn-star" style="top: 4px; right: 6px; animation-delay: 1s;">✦</span>
+            <span class="btn-star" style="bottom: 3px; right: 10px; animation-delay: 1.5s;">★</span>
             go
         </button>
     </div>
@@ -226,7 +226,7 @@
             const flower = document.createElement('div');
             flower.classList.add('flower');
 
-            const sizeNum = isExplosion ? Math.random() * 16 + 6 : Math.random() * 5 + 3;
+            const sizeNum = isExplosion ? Math.random() * 20 + 8 : Math.random() * 6 + 4;
             flower.style.width = sizeNum + 'px';
             flower.style.height = sizeNum + 'px';
             flower.style.left = Math.random() * 100 + 'vw';
