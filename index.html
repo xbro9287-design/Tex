@@ -18,96 +18,94 @@
             transition: background-color 1.5s ease;
         }
 
-        /* ප්‍රධාන Container එක */
+        /* හරියටම තිරයේ මැදට ගන්න Container එක */
         .container {
             position: absolute;
-            width: 100%;
-            top: 38%;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translate(-50%, -50%);
             text-align: center;
             z-index: 10;
+            width: 100%;
+            max-width: 400px;
             transition: opacity 1s ease;
         }
 
-        /* text ස්ටයිල් */
+        /* එක පේළියට තියෙන කුඩා Text එක */
         .Flores_Amarillas {
-            font-size: 2.2rem;
+            font-size: 1.1rem; /* ගොඩක් කුඩා, Clean ප්‍රමාණය */
             font-family: 'Georgia', serif;
             color: #ffe600;
-            text-shadow: 0 0 15px rgba(255, 230, 0, 0.7);
-            margin-bottom: 35px;
+            text-shadow: 0 0 10px rgba(255, 230, 0, 0.6);
+            white-space: nowrap; /* එක පේළියක පමණක් තැබීමට */
+            margin-bottom: 20px;
         }
 
-        /* Floating & Animated "GO" Button */
+        /* කුඩා, පාවෙන "GO" Button එක */
         .go-btn {
-            background: rgba(5, 5, 5, 0.8);
-            border: 2px solid #ffe600;
+            background: rgba(5, 5, 5, 0.9);
+            border: 1.5px solid #ffe600;
             color: #ffe600;
-            padding: 8px 25px;
-            font-size: 1.6rem;
+            padding: 4px 16px;
+            font-size: 0.9rem; /* කුඩා Button Text */
             font-family: 'Georgia', cursive, serif;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             cursor: pointer;
             position: relative;
             display: inline-block;
-            border-radius: 6px;
-            overflow: hidden; /* තරු බටන් එක ඇතුළේ විතරක් පෙනීමට */
-            box-shadow: 0 0 15px rgba(255, 230, 0, 0.4), inset 0 0 10px rgba(255, 230, 0, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(255, 230, 0, 0.4), inset 0 0 6px rgba(255, 230, 0, 0.3);
             
-            /* බටන් එක මුළුමනින්ම උඩ පහළ පාවෙන Animation එක */
-            animation: floatButton 3s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
+            /* Smooth වෙන්ව පාවෙන Animation එක */
+            animation: floatButton 2.5s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
             transition: transform 0.3s ease;
         }
 
-        /* බටන් එක පාවෙන Animation එක */
+        /* බටන් එක හිමීට පාවෙන Animation එක */
         @keyframes floatButton {
             0%, 100% {
                 transform: translateY(0px);
             }
             50% {
-                transform: translateY(-10px);
+                transform: translateY(-6px);
             }
         }
 
-        /* Button Glow Animation */
+        /* බටන් Glow එක */
         @keyframes pulseGlow {
             0%, 100% {
-                box-shadow: 0 0 12px #ffe600, inset 0 0 8px #ffe600;
+                box-shadow: 0 0 8px #ffe600, inset 0 0 5px #ffe600;
             }
             50% {
-                box-shadow: 0 0 22px #ffe600, 0 0 8px #ffffff, inset 0 0 14px #ffe600;
+                box-shadow: 0 0 15px #ffe600, 0 0 5px #ffffff, inset 0 0 8px #ffe600;
             }
         }
 
-        /* බටන් එක ඇතුළේ පාවෙන තරු (Button Stars) */
+        /* බටන් එක ඇතුළේ ඇනිමේට් වෙන කුඩා තරු */
         .btn-star {
             position: absolute;
             color: #ffe600;
-            font-size: 10px;
+            font-size: 7px;
             pointer-events: none;
             opacity: 0.8;
-            animation: innerStarMove 2.5s ease-in-out infinite alternate;
+            animation: innerStarMove 2s ease-in-out infinite alternate;
         }
 
-        /* බටන් එක ඇතුළේ තරු උඩ පහළ/දෙපැත්තට පැද්දෙන Animation එක */
         @keyframes innerStarMove {
             0% {
-                transform: translate(0, 0) scale(0.8) rotate(0deg);
+                transform: translate(0, 0) scale(0.8);
                 opacity: 0.3;
             }
-            50% {
-                opacity: 1;
-            }
             100% {
-                transform: translate(6px, -8px) scale(1.2) rotate(45deg);
-                opacity: 0.4;
+                transform: translate(3px, -4px) scale(1.2);
+                opacity: 0.9;
             }
         }
 
         .go-btn:hover {
-            transform: scale(1.08) translateY(-5px);
-            background-color: rgba(255, 230, 0, 0.15);
+            transform: scale(1.05) translateY(-3px);
+            background-color: rgba(255, 230, 0, 0.2);
         }
 
         /* පසුබිමේ යන මල්/තරු CSS */
@@ -168,8 +166,8 @@
 
         .next-page h1 {
             color: #ffe600;
-            font-size: 2.8rem;
-            text-shadow: 0 0 20px #ffe600;
+            font-size: 1.5rem; /* ඊළඟ Page එකේ Text එකත් කුඩාවට සකස් කර ඇත */
+            text-shadow: 0 0 15px #ffe600;
             font-family: 'Georgia', serif;
             text-align: center;
             margin: 0 20px;
@@ -180,22 +178,23 @@
 
     <div class="yellow-overlay" id="overlay"></div>
 
+    <!-- හරියටම මැද පිහිටන Container එක -->
     <div class="container" id="mainContainer">
         <div class="Flores_Amarillas">
             💛 Happy birthday Thenara 💛
         </div>
         
-        <!-- Animated Floating Button with Inner Stars -->
+        <!-- කුඩා Floating Button එක -->
         <button class="go-btn" id="goButton" onclick="startTransition()">
-            <span class="btn-star" style="top: 3px; left: 6px; animation-delay: 0s;">✦</span>
-            <span class="btn-star" style="bottom: 4px; left: 12px; animation-delay: 0.5s;">◆</span>
-            <span class="btn-star" style="top: 4px; right: 8px; animation-delay: 1s;">✦</span>
-            <span class="btn-star" style="bottom: 3px; right: 14px; animation-delay: 1.5s;">★</span>
+            <span class="btn-star" style="top: 2px; left: 4px; animation-delay: 0s;">✦</span>
+            <span class="btn-star" style="bottom: 2px; left: 8px; animation-delay: 0.5s;">◆</span>
+            <span class="btn-star" style="top: 3px; right: 5px; animation-delay: 1s;">✦</span>
+            <span class="btn-star" style="bottom: 2px; right: 8px; animation-delay: 1.5s;">★</span>
             go
         </button>
     </div>
 
-    <!-- ඊළඟට පෙන්වන කළු පැහැති Page එක -->
+    <!-- ඊළඟ Page එක -->
     <div class="next-page" id="nextPage">
         <h1>✨ May all your dreams come true! ✨</h1>
     </div>
@@ -207,7 +206,7 @@
             const flower = document.createElement('div');
             flower.classList.add('flower');
 
-            const sizeNum = isExplosion ? Math.random() * 25 + 10 : Math.random() * 8 + 4;
+            const sizeNum = isExplosion ? Math.random() * 20 + 8 : Math.random() * 6 + 3;
             flower.style.width = sizeNum + 'px';
             flower.style.height = sizeNum + 'px';
             flower.style.left = Math.random() * 100 + 'vw';
