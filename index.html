@@ -1,97 +1,42 @@
-# Brief Answer: Responsive AI Chat Web Application "misti AI"
-
-## Question Summary
-The task is to create a complete, high-quality, responsive single-file HTML, CSS, and JavaScript web application named "misti AI" that can communicate in both English and Sinhala, featuring a modern design and specific functionalities.
-
-## Answer
-Below is a self-contained HTML document for the "misti AI" chat application. This application features a dark theme with glassmorphism, neon accents, and utilizes Google Fonts for typography. It integrates an OpenRouter API for chat functionality and includes an image generation feature.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>misti AI Chat</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <title>Hacking Workspace</title>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
+            background-color: black;
+            color: #00ff00; /* Bright green text */
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
         }
-        #chat-container {
-            flex: 1;
-            overflow-y: auto;
+        .terminal {
+            width: 80%;
+            margin: 50px auto;
             padding: 20px;
-            backdrop-filter: blur(10px);
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 10px #00ff00;
+            height: 400px;
+            overflow-y: scroll;
         }
-        .message {
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 10px;
-            max-width: 70%;
+        .line {
+            animation: typing 2s steps(30, end) forwards;
+            white-space: nowrap;
+            overflow: hidden;
         }
-        .user { background: rgba(255, 0, 255, 0.5); align-self: flex-end; }
-        .misti { background: rgba(0, 255, 255, 0.5); align-self: flex-start; }
-        #input-container {
-            display: flex;
-            padding: 10px;
-            backdrop-filter: blur(10px);
-        }
-        #message-input {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-        #send-button {
-            padding: 10px 20px;
-            background: neon pink;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
         }
     </style>
 </head>
 <body>
-    <div id="chat-container"></div>
-    <div id="input-container">
-        <input type="text" id="message-input" placeholder="Type your message...">
-        <button id="send-button">Send</button>
+    <div class="terminal">
+        <div class="line">Welcome to the Hacking Terminal...</div>
     </div>
     <script>
-        const apiKey = "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";
-        const chatContainer = document.getElementById('chat-container');
-        const messageInput = document.getElementById('message-input');
-        const sendButton = document.getElementById('send-button');
-
-        sendButton.onclick = async () => {
-            const userMessage = messageInput.value;
-            appendMessage(userMessage, 'user');
-            messageInput.value = '';
-            const response = await getResponse(userMessage);
-            appendMessage(response, 'misti');
-        };
-
-        function appendMessage(message, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}`;
-            messageDiv.innerText = message;
-            chatContainer.appendChild(messageDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-
-        async function getResponse(message) {
-            // Call OpenRouter API here and return response
-            return "This is a placeholder response in English and Sinhala: මෙය සිංහලෙන් පිළිතුරකි.";
-        }
+        // JavaScript can be added here for interactive features
     </script>
 </body>
 </html>
