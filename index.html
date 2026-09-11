@@ -1,104 +1,94 @@
-import http.server
-import socketserver
-import webbrowser
-import threading
-import os
-
-PORT = 8080
-
-HTML_CONTENT = """
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magic Big Coats Workshop</title>
+    <title>Galaxia de Amor</title>
     <style>
+        :root {
+            --letter-love: 200px;
+        }
+
         body {
-            background-color: #0d0d0d;
-            color: #00ffcc;
-            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            background-color: #050505;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* රූපයේ තිබූ CSS කොටස */
+        .Flores_Amarillas {
+            position: absolute;
+            width: 90%;
+            font-size: 2.5rem;
+            font-family: 'Georgia', serif;
+            height: var(--letter-love);
+            transform: translateX(-50%);
+            left: 50%;
+            top: 40%;
             text-align: center;
-            padding: 50px;
+            color: #ffe600;
+            text-shadow: 0 0 15px rgba(255, 230, 0, 0.7);
+            z-index: 10;
         }
-        h1 {
-            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+
+        /* මල්/තරු ඇනිමේෂන් සඳහා CSS */
+        .flower {
+            position: absolute;
+            background-color: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffae00;
+            animation: floatUp linear infinite;
         }
-        .container {
-            border: 2px dashed #00ffcc;
-            padding: 20px;
-            display: inline-block;
-            border-radius: 10px;
-            background: rgba(0, 255, 204, 0.05);
-        }
-        button {
-            background: #00ffcc;
-            color: #0d0d0d;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 20px;
-            box-shadow: 0 0 10px #00ffcc;
-        }
-        button:hover {
-            background: #fff;
-            box-shadow: 0 0 20px #fff;
-        }
-        #output {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #ff00ff;
-            text-shadow: 0 0 5px #ff00ff;
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>✨ Magic Big Coats Generator ✨</h1>
-        <p>Hacking reality to stitch the biggest, warmest coats in the universe.</p>
-        <button onclick="conjureCoat()">Synthesize Big Coat</button>
-        <div id="output"></div>
+
+    <div class="Flores_Amarillas">
+        Te Amo 💛
     </div>
 
     <script>
-        function conjureCoat() {
-            const coats = [
-                "🧥 A quantum-threaded trench coat that deflects bad weather and suspicious glances.",
-                "🧥 A hyper-dimensional parka equipped with infinite pocket dimensions.",
-                "🧥 A neon-infused cyberpunk duster humming with magical energy.",
-                "🧥 An absolute unit of a winter coat woven from starlight and pure comfort."
-            ];
-            const randomCoat = coats[Math.floor(Math.random() * coats.length)];
-            document.getElementById('output').innerText = randomCoat;
+        // පසුබිමේ මල්/කහ පාට particles සෑදීමට JavaScript
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+
+            // සයිස් එක සහ පිහිටීම Random ලෙස වෙනස් කිරීම
+            const size = Math.random() * 8 + 4 + 'px';
+            flower.style.width = size;
+            flower.style.height = size;
+            flower.style.left = Math.random() * 100 + 'vw';
+
+            // ඇනිමේෂන් වෙන වේගය වෙනස් කිරීම
+            const duration = Math.random() * 3 + 3 + 's';
+            flower.style.animationDuration = duration;
+
+            document.body.appendChild(flower);
+
+            setTimeout(() => {
+                flower.remove();
+            }, parseFloat(duration) * 1000);
         }
+
+        // තත්පරයෙන් පංගුවකට වරක් අලුත් particle එකක් හදයි
+        setInterval(createFlower, 150);
     </script>
+
 </body>
 </html>
-"""
-
-class MagicHandler(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/html")
-        self.end_headers()
-        self.wfile.write(HTML_CONTENT.encode("utf-8"))
-
-    def log_message(self, format, *args):
-        pass
-
-def main():
-    Handler = MagicHandler
-    with socketserver.TCPServer(("", PORT), Handler) as httpd:
-        print(f"Magic server active at http://localhost:{PORT}")
-        print("Press Ctrl+C to stop the magic.")
-        threading.Timer(1.0, lambda: webbrowser.open(f"http://localhost:{PORT}")).start()
-        try:
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            print("\nShutting down the magic workshop. Goodbye!")
-
-if __name__ == "__main__":
-    main()
