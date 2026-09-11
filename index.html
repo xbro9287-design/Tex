@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Galaxia de Amor - Thenara</title>
     <style>
-        :root {
-            --letter-love: 200px;
-        }
-
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
@@ -19,7 +15,7 @@
             padding: 0;
             background-color: #050505;
             overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             width: 100vw;
             height: 100vh;
         }
@@ -29,7 +25,6 @@
             position: absolute;
             top: 40%;
             left: 50%;
-            -webkit-transform: translate3d(-50%, -50%, 0);
             transform: translate3d(-50%, -50%, 0);
             text-align: center;
             z-index: 10;
@@ -43,9 +38,7 @@
             font-family: 'Georgia', serif;
             color: #ffe600;
             text-shadow: 0 0 15px rgba(255, 230, 0, 0.7);
-            white-space: nowrap;
             margin-bottom: 30px;
-            text-align: center;
         }
 
         .go-btn {
@@ -54,56 +47,26 @@
             color: #ffe600;
             padding: 10px 30px;
             font-size: 1.5rem;
-            font-family: 'Georgia', cursive, serif;
+            font-family: 'Georgia', serif;
             letter-spacing: 3px;
             cursor: pointer;
-            position: relative;
-            display: inline-block;
             border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(255, 230, 0, 0.4), inset 0 0 10px rgba(255, 230, 0, 0.3);
-            -webkit-animation: floatButtonMobile 2.5s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
-            animation: floatButtonMobile 2.5s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
-            will-change: transform, box-shadow;
-        }
-
-        @-webkit-keyframes floatButtonMobile {
-            0%, 100% { transform: translate3d(0, 0, 0); }
-            50% { transform: translate3d(0, -9px, 0); }
-        }
-        @keyframes floatButtonMobile {
-            0%, 100% { transform: translate3d(0, 0, 0); }
-            50% { transform: translate3d(0, -9px, 0); }
+            box-shadow: 0 0 15px rgba(255, 230, 0, 0.4);
+            animation: pulseGlow 2s infinite ease-in-out;
         }
 
         @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 10px #ffe600, inset 0 0 6px #ffe600; }
-            50% { box-shadow: 0 0 20px #ffe600, 0 0 8px #ffffff, inset 0 0 12px #ffe600; }
+            0%, 100% { box-shadow: 0 0 10px #ffe600; }
+            50% { box-shadow: 0 0 22px #ffe600, 0 0 8px #ffffff; }
         }
 
-        .btn-star {
-            position: absolute;
-            color: #ffe600;
-            font-size: 10px;
-            pointer-events: none;
-            opacity: 0.8;
-            animation: innerStarMove 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes innerStarMove {
-            0% { transform: translate3d(0, 0, 0) scale(0.8); opacity: 0.3; }
-            100% { transform: translate3d(4px, -5px, 0) scale(1.2); opacity: 0.9; }
-        }
-
-        /* Particles */
         .flower {
             position: absolute;
             background-color: #ffd700;
             border-radius: 50%;
-            box-shadow: 0 0 8px #ffd700, 0 0 15px #ffae00;
+            box-shadow: 0 0 8px #ffd700;
             animation: floatUp linear infinite;
             pointer-events: none;
-            will-change: transform;
         }
 
         @keyframes floatUp {
@@ -112,22 +75,7 @@
             100% { transform: translate3d(0, -10vh, 0) scale(1.2); opacity: 0; }
         }
 
-        /* Special Rain Effects (Rose & Star Shower) */
-        .special-rain {
-            position: fixed;
-            top: -50px;
-            pointer-events: none;
-            z-index: 15;
-            animation: fallDown linear forwards;
-            font-size: 20px;
-        }
-
-        @keyframes fallDown {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-        }
-
-        /* ------------------ CUTE BABY CHARACTER ------------------ */
+        /* ------------------ 1ST PAGE BABY ------------------ */
         .baby-container {
             position: absolute;
             bottom: -280px;
@@ -141,23 +89,11 @@
             filter: drop-shadow(0 0 18px rgba(255, 230, 0, 0.8));
         }
 
-        .baby-container.enter {
-            bottom: 25px;
-        }
+        .baby-container.enter { bottom: 25px; }
+        .baby-container.exit { bottom: -280px; transition: bottom 1.2s ease-in-out; }
 
-        .baby-container.exit {
-            bottom: -280px;
-            transition: bottom 1.2s ease-in-out;
-        }
-
-        .talking .baby-mouth {
-            animation: talkMouth 0.22s infinite alternate ease-in-out;
-        }
-
-        @keyframes talkMouth {
-            0% { transform: scaleY(0.2) scaleX(0.8); }
-            100% { transform: scaleY(1.9) scaleX(1.1); }
-        }
+        .talking .baby-mouth { animation: talkMouth 0.22s infinite alternate ease-in-out; }
+        @keyframes talkMouth { 0% { transform: scaleY(0.2); } 100% { transform: scaleY(1.8); } }
 
         .yellow-overlay {
             position: fixed;
@@ -174,28 +110,11 @@
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-direction: column;
-            padding: 40px 10px;
             opacity: 0;
             pointer-events: none;
             z-index: 200;
-            transition: opacity 2s ease;
+            transition: opacity 1.5s ease;
             overflow: hidden;
-        }
-
-        .next-page h1 {
-            color: #ffe600;
-            font-size: 1.8rem;
-            text-shadow: 0 0 15px #ffe600;
-            font-family: 'Georgia', serif;
-            text-align: center;
-            margin-top: 20px;
-            line-height: 1.4;
-            z-index: 205;
-            pointer-events: none;
         }
 
         #thenaraCanvas {
@@ -204,82 +123,38 @@
             z-index: 201;
         }
 
-        .next-btn {
-            background: rgba(15, 15, 15, 0.85);
-            border: 2px solid #ffe600;
-            color: #ffe600;
-            padding: 12px 28px;
-            font-size: 1.1rem;
-            font-family: 'Georgia', serif;
-            border-radius: 25px;
-            cursor: pointer;
+        /* ------------------ FAIRY FLYING BABY (2ND PAGE) ------------------ */
+        .fairy-baby {
+            position: absolute;
+            width: 120px;
+            height: 150px;
             z-index: 210;
-            box-shadow: 0 0 15px rgba(255, 230, 0, 0.5);
-            transition: transform 0.3s, background 0.3s;
-            margin-bottom: 20px;
-        }
-
-        .next-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* ------------------ THIRD PAGE (WISH CARD) ------------------ */
-        .third-page {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle, #1a1805 0%, #000000 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
+            top: 30%;
+            left: -150px; /* Start outside screen */
             pointer-events: none;
-            z-index: 300;
-            transition: opacity 1.5s ease;
-            padding: 20px;
+            display: none;
+            filter: drop-shadow(0 0 15px #ffe600);
         }
 
-        .wish-card {
-            background: rgba(20, 20, 20, 0.9);
-            border: 2px solid #ffe600;
-            border-radius: 15px;
-            padding: 30px 20px;
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 0 25px rgba(255, 230, 0, 0.3);
-            transform: translateY(30px);
-            transition: transform 1s ease;
+        /* Flapping Wings Animation */
+        .wing-left {
+            transform-origin: right center;
+            animation: flapLeft 0.15s infinite alternate ease-in-out;
+        }
+        .wing-right {
+            transform-origin: left center;
+            animation: flapRight 0.15s infinite alternate ease-in-out;
         }
 
-        .third-page.active .wish-card {
-            transform: translateY(0);
-        }
+        @keyframes flapLeft { 0% { transform: rotate(0deg) scaleX(1); } 100% { transform: rotate(-25deg) scaleX(0.4); } }
+        @keyframes flapRight { 0% { transform: rotate(0deg) scaleX(1); } 100% { transform: rotate(25deg) scaleX(0.4); } }
 
-        .wish-card h2 {
-            color: #ffe600;
-            font-family: 'Georgia', serif;
-            font-size: 2rem;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px #ffe600;
-        }
-
-        .wish-card p {
-            color: #fff8c4;
-            font-size: 1.05rem;
-            line-height: 1.7;
-            font-family: 'Georgia', serif;
-            margin-bottom: 20px;
-        }
-
-        .heart-icon {
-            font-size: 2.5rem;
-            color: #ffe600;
-            animation: heartBeat 1.5s infinite ease-in-out;
-        }
-
-        @keyframes heartBeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+        /* Magic Blast Overlay Canvas */
+        #magicBlastCanvas {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 215;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -292,325 +167,240 @@
         <div class="Flores_Amarillas">
             💛 Happy birthday Thenara 💛
         </div>
-        
-        <button class="go-btn" id="goButton" onclick="startTransition()">
-            <span class="btn-star" style="top: 3px; left: 5px; animation-delay: 0s;">✦</span>
-            <span class="btn-star" style="bottom: 3px; left: 10px; animation-delay: 0.5s;">◆</span>
-            <span class="btn-star" style="top: 4px; right: 6px; animation-delay: 1s;">✦</span>
-            <span class="btn-star" style="bottom: 3px; right: 10px; animation-delay: 1.5s;">★</span>
-            go
-        </button>
+        <button class="go-btn" id="goButton" onclick="startTransition()">go</button>
     </div>
 
-    <!-- CUTE CHIBI CARTOON BABY (SVG) -->
+    <!-- FIRST PAGE BABY -->
     <div class="baby-container" id="babyCharacter">
         <svg viewBox="0 0 200 240" width="100%" height="100%">
-            <!-- Hair Background -->
-            <path d="M 30 110 C 20 20, 180 20, 170 110 C 175 160, 25 160, 30 110 Z" fill="#3b2210"/>
-            
-            <!-- Dress -->
-            <path d="M 60 140 Q 100 130 140 140 L 160 215 C 160 225, 40 225, 40 215 Z" fill="#ffe600" stroke="#ffd700" stroke-width="3"/>
-            <path d="M 75 140 L 100 160 L 125 140 Z" fill="#ffffff" opacity="0.9"/>
-            <circle cx="100" cy="175" r="4" fill="#3b2210"/>
-
-            <!-- Head Frame -->
-            <rect x="45" y="55" width="110" height="95" rx="35" ry="35" fill="#fff0e1" stroke="#ffcca8" stroke-width="2"/>
-
-            <!-- Blush -->
-            <ellipse cx="65" cy="115" rx="12" ry="7" fill="#ff9999" opacity="0.6"/>
-            <ellipse cx="135" cy="115" rx="12" ry="7" fill="#ff9999" opacity="0.6"/>
-
-            <!-- Eyes -->
+            <path d="M 30 110 C 20 20, 180 20, 170 110 Z" fill="#3b2210"/>
+            <path d="M 60 140 Q 100 130 140 140 L 160 215 C 160 225, 40 225, 40 215 Z" fill="#ffe600"/>
+            <rect x="45" y="55" width="110" height="95" rx="35" fill="#fff0e1"/>
             <ellipse cx="75" cy="98" rx="10" ry="13" fill="#2b1a0e"/>
             <ellipse cx="125" cy="98" rx="10" ry="13" fill="#2b1a0e"/>
-            <circle cx="72" cy="93" r="4" fill="#ffffff"/>
-            <circle cx="123" cy="93" r="4" fill="#ffffff"/>
-            <circle cx="78" cy="103" r="2" fill="#ffffff"/>
-            <circle cx="128" cy="103" r="2" fill="#ffffff"/>
-
-            <!-- Hair Band & Hair -->
-            <rect x="43" y="50" width="114" height="16" rx="8" ry="8" fill="#ffe600"/>
-            <path d="M 85 45 Q 100 35 115 45 Q 100 55 85 45 Z" fill="#ffae00"/>
-            <path d="M 45 75 C 55 45, 145 45, 155 75 C 135 60, 115 70, 100 60 C 85 70, 65 60, 45 75 Z" fill="#4a2c11"/>
-
-            <!-- Mouth -->
-            <g id="mouthGroup">
-                <ellipse class="baby-mouth" cx="100" cy="122" rx="7" ry="5" fill="#e64a19" style="transform-origin: 100px 122px;"/>
-            </g>
+            <rect x="43" y="50" width="114" height="16" rx="8" fill="#ffe600"/>
+            <ellipse class="baby-mouth" cx="100" cy="122" rx="7" ry="5" fill="#e64a19"/>
         </svg>
     </div>
 
-    <!-- AUDIO ELEMENT -->
     <audio id="babyVoice" src="Convert_lv_0_20260911223306.mp3" preload="auto"></audio>
 
     <!-- SECOND PAGE CONTAINER -->
     <div class="next-page" id="nextPage">
         <canvas id="thenaraCanvas"></canvas>
-        <h1>✨ May all your dreams come true! ✨</h1>
-        <button class="next-btn" onclick="goToThirdPage()">Special Message 💌</button>
-    </div>
+        <canvas id="magicBlastCanvas"></canvas>
 
-    <!-- THIRD PAGE CONTAINER -->
-    <div class="third-page" id="thirdPage">
-        <div class="wish-card">
-            <div class="heart-icon">💛</div>
-            <h2>Dear Thenara,</h2>
-            <p>
-                May your birthday be filled with endless joy, golden smiles, and magical moments! 
-                Wishing you a wonderful year ahead filled with happiness and success in everything you do. 
-                Keep glowing like the brightest star! ✨
-            </p>
-            <div style="color: #ffe600; font-size: 0.9rem;">~ Happy Birthday ~</div>
+        <!-- FLYING FAIRY BABY WITH WINGS AND WAND -->
+        <div class="fairy-baby" id="fairyBaby">
+            <svg viewBox="0 0 200 240" width="100%" height="100%">
+                <!-- Wings -->
+                <path class="wing-left" d="M 50 80 C 0 20, -20 100, 50 110 Z" fill="#fff59d" opacity="0.8"/>
+                <path class="wing-right" d="M 150 80 C 200 20, 220 100, 150 110 Z" fill="#fff59d" opacity="0.8"/>
+
+                <!-- Body & Dress -->
+                <path d="M 60 130 Q 100 120 140 130 L 155 190 C 155 200, 45 200, 45 190 Z" fill="#ffe600"/>
+                <rect x="50" y="50" width="100" height="85" rx="30" fill="#fff0e1"/>
+                <ellipse cx="75" cy="88" rx="8" ry="11" fill="#2b1a0e"/>
+                <ellipse cx="125" cy="88" rx="8" ry="11" fill="#2b1a0e"/>
+
+                <!-- Magic Wand in Hand -->
+                <line x1="140" y1="120" x2="185" y2="80" stroke="#ffd700" stroke-width="4"/>
+                <polygon points="185,70 190,80 200,82 192,90 195,100 185,93 175,100 178,90 170,82 180,80" fill="#ffffff" filter="drop-shadow(0 0 5px #ffe600)"/>
+            </svg>
         </div>
     </div>
 
     <script>
-        // ---------------- FIRST PAGE LOGIC ----------------
         let spawnInterval = setInterval(createFlower, 180);
 
-        function createFlower(isExplosion = false) {
+        function createFlower() {
             const flower = document.createElement('div');
             flower.classList.add('flower');
-
-            const sizeNum = isExplosion ? Math.random() * 20 + 8 : Math.random() * 6 + 4;
-            flower.style.width = sizeNum + 'px';
-            flower.style.height = sizeNum + 'px';
+            flower.style.width = '6px';
+            flower.style.height = '6px';
             flower.style.left = Math.random() * 100 + 'vw';
-
-            const duration = isExplosion ? (Math.random() * 1.5 + 1) : (Math.random() * 3 + 3);
-            flower.style.animationDuration = duration + 's';
-
+            flower.style.animationDuration = (Math.random() * 3 + 3) + 's';
             document.body.appendChild(flower);
-
-            setTimeout(() => {
-                flower.remove();
-            }, duration * 1000);
+            setTimeout(() => flower.remove(), 5000);
         }
 
-        // Trigger Yellow Roses & Stars Rain Shower after Voice ends
-        function triggerSpecialShower() {
-            const items = ['🌹', '✨', '💛', '🌟', '🌼'];
-            for (let i = 0; i < 45; i++) {
-                setTimeout(() => {
-                    const rainItem = document.createElement('div');
-                    rainItem.classList.add('special-rain');
-                    rainItem.innerText = items[Math.floor(Math.random() * items.length)];
-                    rainItem.style.left = Math.random() * 100 + 'vw';
-                    const duration = Math.random() * 2.5 + 2;
-                    rainItem.style.animationDuration = duration + 's';
-                    document.body.appendChild(rainItem);
-
-                    setTimeout(() => rainItem.remove(), duration * 1000);
-                }, i * 120);
-            }
-        }
-
-        // ---------------- AUTOPLAY & BABY VOICE LOGIC ----------------
+        // Voice Trigger
         let hasTriggered = false;
-
         function triggerBabyAnimation() {
             if (hasTriggered) return;
             hasTriggered = true;
-
             const baby = document.getElementById('babyCharacter');
             const voice = document.getElementById('babyVoice');
 
             setTimeout(() => {
                 baby.classList.add('enter');
-
                 setTimeout(() => {
-                    voice.play().then(() => {
-                        baby.classList.add('talking');
-                    }).catch(e => {
-                        console.log("Audio autoplay prevented by browser.");
-                    });
+                    voice.play().then(() => baby.classList.add('talking')).catch(() => {});
                 }, 1200);
-
-            }, 3000);
+            }, 2000);
 
             voice.addEventListener('ended', () => {
-                baby.classList.remove('talking');
-                baby.classList.remove('enter');
+                baby.classList.remove('talking', 'enter');
                 baby.classList.add('exit');
-                
-                // Trigger Star & Rose Rain
-                triggerSpecialShower();
             });
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             triggerBabyAnimation();
-
             const enableAudio = () => {
                 triggerBabyAnimation();
-                const voice = document.getElementById('babyVoice');
-                voice.play().then(() => {
-                    voice.pause();
-                    voice.currentTime = 0;
-                }).catch(() => {});
                 window.removeEventListener('touchstart', enableAudio);
                 window.removeEventListener('click', enableAudio);
             };
-
             window.addEventListener('touchstart', enableAudio);
             window.addEventListener('click', enableAudio);
         });
 
         function startTransition() {
             clearInterval(spawnInterval);
-            let explosionInterval = setInterval(() => {
-                createFlower(true);
-            }, 25);
-
             document.getElementById('mainContainer').style.opacity = '0';
-
+            setTimeout(() => document.getElementById('overlay').style.opacity = '1', 600);
             setTimeout(() => {
-                document.getElementById('overlay').style.opacity = '1';
-            }, 800);
-
-            setTimeout(() => {
-                clearInterval(explosionInterval);
                 document.getElementById('nextPage').style.opacity = '1';
                 document.getElementById('nextPage').style.pointerEvents = 'auto';
-                initThenaraCanvas();
-            }, 2000);
+                initSecondPage();
+            }, 1800);
         }
 
-        function goToThirdPage() {
-            document.getElementById('nextPage').style.opacity = '0';
-            document.getElementById('nextPage').style.pointerEvents = 'none';
+        /* ------------------ SECOND PAGE FLYING & BLAST LOGIC ------------------ */
+        let fairyX = -150, fairyY = window.innerHeight * 0.3;
 
-            const thirdPage = document.getElementById('thirdPage');
-            thirdPage.style.opacity = '1';
-            thirdPage.style.pointerEvents = 'auto';
-            thirdPage.classList.add('active');
-        }
-
-        // ---------------- SECOND PAGE LOGIC (THENARA ADVANCED ANIMATION) ----------------
-        function initThenaraCanvas() {
+        function initSecondPage() {
             const canvas = document.getElementById('thenaraCanvas');
             const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
+            const fairy = document.getElementById('fairyBaby');
+            fairy.style.display = 'block';
 
+            // Particles Array for "THENARA"
             const particles = [];
-            const particleCount = 40;
+            for (let i = 0; i < 45; i++) {
+                particles.push({
+                    x: Math.random() * (canvas.width - 80),
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.8,
+                    vy: (Math.random() - 0.5) * 0.8,
+                    size: Math.random() * 4 + 10
+                });
+            }
 
-            let targetX = canvas.width / 2;
-            let targetY = canvas.height / 2;
-            let isHolding = false;
+            // Flying Animation Sequence
+            let startTime = null;
+            function flyStep(timestamp) {
+                if (!startTime) startTime = timestamp;
+                let progress = (timestamp - startTime) / 1000;
 
-            class ThenaraParticle {
-                constructor() {
-                    this.size = Math.random() * 4 + 9;
-                    this.resetInitial();
-                    this.opacity = Math.random() * 0.5 + 0.4;
+                if (progress < 1.5) {
+                    // Fly in fast from left
+                    fairyX = -150 + (canvas.width * 0.5 + 150) * (progress / 1.5);
+                    fairyY = canvas.height * 0.3 + Math.sin(progress * 8) * 40;
+                } else if (progress < 4.0) {
+                    // Rapid Zig-Zag Flying Across Screen
+                    fairyX = canvas.width / 2 + Math.sin(progress * 5) * (canvas.width * 0.35);
+                    fairyY = canvas.height / 2 + Math.cos(progress * 6) * (canvas.height * 0.25);
+                } else if (progress < 5.0) {
+                    // Move to Exact Center
+                    fairyX += (canvas.width / 2 - 60 - fairyX) * 0.1;
+                    fairyY += (canvas.height / 2 - 75 - fairyY) * 0.1;
+                } else if (progress >= 5.0) {
+                    // Magic Blast Event Trigger!
+                    triggerMagicBallsBlast(canvas.width / 2, canvas.height / 2);
+                    return;
                 }
 
-                resetInitial() {
-                    this.x = Math.random() * (canvas.width - 60);
-                    this.y = Math.random() * canvas.height;
-                    this.vx = (Math.random() - 0.5) * 0.6;
-                    this.vy = (Math.random() - 0.5) * 0.6;
-                }
+                fairy.style.left = fairyX + 'px';
+                fairy.style.top = fairyY + 'px';
 
-                update() {
-                    if (isHolding) {
-                        const dx = targetX - this.x;
-                        const dy = targetY - this.y;
-                        this.x += dx * 0.035;
-                        this.y += dy * 0.035;
-                    } else {
-                        this.x += this.vx;
-                        this.y += this.vy;
-
-                        if (this.x < 0 || this.x > canvas.width - 50) this.vx *= -1;
-                        if (this.y < 20 || this.y > canvas.height) this.vy *= -1;
-                    }
-                }
-
-                draw() {
-                    ctx.save();
-                    ctx.font = `600 ${this.size}px Georgia, serif`;
-                    ctx.fillStyle = '#ffe600';
-                    ctx.globalAlpha = this.opacity;
-                    ctx.shadowColor = '#ffe600';
-                    ctx.shadowBlur = 6;
-                    ctx.fillText('THENARA', this.x, this.y);
-                    ctx.restore();
-                }
-            }
-
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new ThenaraParticle());
-            }
-
-            function startHold(e) {
-                isHolding = true;
-                updateTarget(e);
-            }
-
-            function moveHold(e) {
-                if (isHolding) {
-                    updateTarget(e);
-                }
-            }
-
-            function endHold() {
-                isHolding = false;
-            }
-
-            function updateTarget(e) {
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                targetX = clientX;
-                targetY = clientY;
-            }
-
-            window.addEventListener('mousedown', startHold);
-            window.addEventListener('mousemove', moveHold);
-            window.addEventListener('mouseup', endHold);
-
-            window.addEventListener('touchstart', startHold);
-            window.addEventListener('touchmove', moveHold);
-            window.addEventListener('touchend', endHold);
-
-            function animate() {
+                // Draw THENARA Particles & Make them REPEL away from Fairy!
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const p1 = particles[i];
-                        const p2 = particles[j];
-                        const dx = p1.x - p2.x;
-                        const dy = p1.y - p2.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < 35 && !isHolding) {
-                            p1.x += dx * 0.02;
-                            p1.y += dy * 0.02;
-                            p2.x -= dx * 0.02;
-                            p2.y -= dy * 0.02;
-                        }
-                    }
-                }
-
                 particles.forEach(p => {
-                    p.update();
-                    p.draw();
+                    // Calculate distance to Fairy
+                    let dx = p.x - (fairyX + 60);
+                    let dy = p.y - (fairyY + 75);
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+
+                    // Push Particles away from Fairy!
+                    if (dist < 140) {
+                        let force = (140 - dist) / 140;
+                        p.x += (dx / dist) * force * 18;
+                        p.y += (dy / dist) * force * 18;
+                    } else {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                    }
+
+                    ctx.save();
+                    ctx.font = `600 ${p.size}px Georgia, serif`;
+                    ctx.fillStyle = '#ffe600';
+                    ctx.shadowColor = '#ffe600';
+                    ctx.shadowBlur = 8;
+                    ctx.fillText('THENARA', p.x, p.y);
+                    ctx.restore();
                 });
 
-                requestAnimationFrame(animate);
+                requestAnimationFrame(flyStep);
             }
 
-            animate();
+            requestAnimationFrame(flyStep);
+        }
+
+        /* Magic Yellow Balls Expansion & Full Yellow Cover */
+        function triggerMagicBallsBlast(centerX, centerY) {
+            const bCanvas = document.getElementById('magicBlastCanvas');
+            const bCtx = bCanvas.getContext('2d');
+            bCanvas.width = window.innerWidth;
+            bCanvas.height = window.innerHeight;
+
+            const magicBalls = [];
+            for (let i = 0; i < 30; i++) {
+                magicBalls.push({
+                    x: centerX,
+                    y: centerY,
+                    vx: (Math.random() - 0.5) * 22,
+                    vy: (Math.random() - 0.5) * 22,
+                    radius: Math.random() * 10 + 5,
+                    growth: Math.random() * 2 + 1.5
+                });
+            }
+
+            function animateBlast() {
+                bCtx.clearRect(0, 0, bCanvas.width, bCanvas.height);
+                let allBig = true;
+
+                magicBalls.forEach(ball => {
+                    ball.x += ball.vx;
+                    ball.y += ball.vy;
+                    ball.radius += ball.growth;
+
+                    bCtx.beginPath();
+                    bCtx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                    bCtx.fillStyle = '#ffe600';
+                    bCtx.shadowColor = '#ffe600';
+                    bCtx.shadowBlur = 20;
+                    bCtx.fill();
+
+                    if (ball.radius < Math.max(bCanvas.width, bCanvas.height)) {
+                        allBig = false;
+                    }
+                });
+
+                if (!allBig) {
+                    requestAnimationFrame(animateBlast);
+                } else {
+                    // Full Screen Turned Yellow! Ready for next instructions
+                    console.log("Page transformed to solid yellow/magic background!");
+                }
+            }
+
+            animateBlast();
         }
     </script>
-
 </body>
 </html>
