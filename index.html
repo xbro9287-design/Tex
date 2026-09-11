@@ -1,113 +1,104 @@
-88ejj8sn8d. duis.: s🫴sjbs8888dggdjkdnhhdi, hjd. hs. xu.
+import http.server
+import socketserver
+import webbrowser
+import threading
+import os
+
+PORT = 8080
+
+HTML_CONTENT = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SATELLITE_TRACE // Neural Link</title>
-    <!-- Leaflet CSS for the map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <title>Magic Big Coats Workshop</title>
     <style>
-        :root {
-            --neon-green: #0f0;
-            --dark-bg: #050505;
-            --crt-overlay: rgba(18, 16, 16, 0.1);
-        }
-
         body {
-            background-color: var(--dark-bg);
-            color: var(--neon-green);
+            background-color: #0d0d0d;
+            color: #00ffcc;
             font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
+            text-align: center;
+            padding: 50px;
         }
-
-        /* CRT Screen Effect */
-        body::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.06), rgba(0, 0, 255, 0.06));
-            z-index: 100;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
+        h1 {
+            text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
         }
-
-        /* Header / Terminal */
-        #terminal {
-            background: #000;
-            border-bottom: 2px solid var(--neon-green);
+        .container {
+            border: 2px dashed #00ffcc;
             padding: 20px;
-            z-index: 10;
-            box-shadow: 0 0 15px var(--neon-green);
+            display: inline-block;
+            border-radius: 10px;
+            background: rgba(0, 255, 204, 0.05);
         }
-
-        .glitch-text {
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-        }
-
-        .input-group {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        input {
-            background: transparent;
-            border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-            padding: 10px;
-            font-family: 'Courier New', monospace;
-            outline: none;
-            width: 250px;
-        }
-
         button {
-            background: var(--neon-green);
-            color: black;
+            background: #00ffcc;
+            color: #0d0d0d;
             border: none;
             padding: 10px 20px;
-            cursor: pointer;
+            font-size: 16px;
             font-weight: bold;
-            text-transform: uppercase;
-            transition: 0.3s;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px #00ffcc;
         }
-
         button:hover {
-            background: white;
-            box-shadow: 0 0 20px var(--neon-green);
+            background: #fff;
+            box-shadow: 0 0 20px #fff;
         }
-
-        /* Map Area */
-        #map-container {
-            flex-grow: 1;
-            position: relative;
-            background: #111;
+        #output {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ff00ff;
+            text-shadow: 0 0 5px #ff00ff;
         }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Magic Big Coats Generator ✨</h1>
+        <p>Hacking reality to stitch the biggest, warmest coats in the universe.</p>
+        <button onclick="conjureCoat()">Synthesize Big Coat</button>
+        <div id="output"></div>
+    </div>
 
-        #map {
-            height: 100%;
-            width: 100%;
-            filter: invert(100%) hue-rotate(180deg) brightness(1.2) contrast(1.2);
+    <script>
+        function conjureCoat() {
+            const coats = [
+                "🧥 A quantum-threaded trench coat that deflects bad weather and suspicious glances.",
+                "🧥 A hyper-dimensional parka equipped with infinite pocket dimensions.",
+                "🧥 A neon-infused cyberpunk duster humming with magical energy.",
+                "🧥 An absolute unit of a winter coat woven from starlight and pure comfort."
+            ];
+            const randomCoat = coats[Math.floor(Math.random() * coats.length)];
+            document.getElementById('output').innerText = randomCoat;
         }
+    </script>
+</body>
+</html>
+"""
 
-        /* Overlay Console */
-        #console {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 300px;
-            height: 200px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--neon-green);
-            padding: 10px;
-            font-size: 12px;
-            overflow-y
+class MagicHandler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(HTML_CONTENT.encode("utf-8"))
+
+    def log_message(self, format, *args):
+        pass
+
+def main():
+    Handler = MagicHandler
+    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+        print(f"Magic server active at http://localhost:{PORT}")
+        print("Press Ctrl+C to stop the magic.")
+        threading.Timer(1.0, lambda: webbrowser.open(f"http://localhost:{PORT}")).start()
+        try:
+            httpd.serve_forever()
+        except KeyboardInterrupt:
+            print("\nShutting down the magic workshop. Goodbye!")
+
+if __name__ == "__main__":
+    main()
