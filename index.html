@@ -2,11 +2,16 @@
 <html lang="si">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Galaxia de Amor - Thenara</title>
     <style>
         :root {
             --letter-love: 200px;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -14,8 +19,9 @@
             padding: 0;
             background-color: #050505;
             overflow: hidden;
-            font-family: Arial, sans-serif;
-            transition: background-color 1.5s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            width: 100vw;
+            height: 100vh;
         }
 
         /* හරියටම තිරයේ මැදට ගන්න Container එක */
@@ -23,56 +29,71 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            -webkit-transform: translate3d(-50%, -50%, 0);
+            transform: translate3d(-50%, -50%, 0);
             text-align: center;
             z-index: 10;
-            width: 100%;
-            max-width: 400px;
+            width: 90%;
+            max-width: 320px;
             transition: opacity 1s ease;
         }
 
-        /* එක පේළියට තියෙන කුඩා Text එක */
+        /* ෆෝන් එකට හරියන කුඩා Text එක */
         .Flores_Amarillas {
-            font-size: 1.1rem; /* ගොඩක් කුඩා, Clean ප්‍රමාණය */
+            font-size: 1.1rem; /* ෆෝන් එකට ඉතා සුදුසු කුඩා ප්‍රමාණය */
             font-family: 'Georgia', serif;
             color: #ffe600;
             text-shadow: 0 0 10px rgba(255, 230, 0, 0.6);
-            white-space: nowrap; /* එක පේළියක පමණක් තැබීමට */
-            margin-bottom: 20px;
+            white-space: nowrap;
+            margin-bottom: 25px;
+            text-align: center;
         }
 
-        /* කුඩා, පාවෙන "GO" Button එක */
+        /* Mobile-Optimized Floating "GO" Button */
         .go-btn {
             background: rgba(5, 5, 5, 0.9);
             border: 1.5px solid #ffe600;
             color: #ffe600;
-            padding: 4px 16px;
-            font-size: 0.9rem; /* කුඩා Button Text */
+            padding: 6px 20px;
+            font-size: 0.95rem;
             font-family: 'Georgia', cursive, serif;
             letter-spacing: 2px;
             cursor: pointer;
             position: relative;
             display: inline-block;
-            border-radius: 4px;
+            border-radius: 6px;
             overflow: hidden;
             box-shadow: 0 0 10px rgba(255, 230, 0, 0.4), inset 0 0 6px rgba(255, 230, 0, 0.3);
             
-            /* Smooth වෙන්ව පාවෙන Animation එක */
-            animation: floatButton 2.5s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
-            transition: transform 0.3s ease;
+            /* Mobile GPU performance සඳහා translate3d භාවිතය */
+            -webkit-animation: floatButtonMobile 2.5s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
+            animation: floatButtonMobile 2.5s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
+            will-change: transform, box-shadow;
         }
 
-        /* බටන් එක හිමීට පාවෙන Animation එක */
-        @keyframes floatButton {
+        /* ජංගම දුරකථන සඳහාම විශේෂිත Floating Animation එක */
+        @-webkit-keyframes floatButtonMobile {
             0%, 100% {
-                transform: translateY(0px);
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
             }
             50% {
-                transform: translateY(-6px);
+                -webkit-transform: translate3d(0, -7px, 0);
+                transform: translate3d(0, -7px, 0);
+            }
+        }
+        @keyframes floatButtonMobile {
+            0%, 100% {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+            50% {
+                -webkit-transform: translate3d(0, -7px, 0);
+                transform: translate3d(0, -7px, 0);
             }
         }
 
-        /* බටන් Glow එක */
+        /* Button Glow Animation */
         @keyframes pulseGlow {
             0%, 100% {
                 box-shadow: 0 0 8px #ffe600, inset 0 0 5px #ffe600;
@@ -86,26 +107,22 @@
         .btn-star {
             position: absolute;
             color: #ffe600;
-            font-size: 7px;
+            font-size: 8px;
             pointer-events: none;
             opacity: 0.8;
+            -webkit-animation: innerStarMove 2s ease-in-out infinite alternate;
             animation: innerStarMove 2s ease-in-out infinite alternate;
         }
 
         @keyframes innerStarMove {
             0% {
-                transform: translate(0, 0) scale(0.8);
+                transform: translate3d(0, 0, 0) scale(0.8);
                 opacity: 0.3;
             }
             100% {
-                transform: translate(3px, -4px) scale(1.2);
+                transform: translate3d(3px, -4px, 0) scale(1.2);
                 opacity: 0.9;
             }
-        }
-
-        .go-btn:hover {
-            transform: scale(1.05) translateY(-3px);
-            background-color: rgba(255, 230, 0, 0.2);
         }
 
         /* පසුබිමේ යන මල්/තරු CSS */
@@ -113,21 +130,23 @@
             position: absolute;
             background-color: #ffd700;
             border-radius: 50%;
-            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffae00;
+            box-shadow: 0 0 8px #ffd700, 0 0 15px #ffae00;
+            -webkit-animation: floatUp linear infinite;
             animation: floatUp linear infinite;
             pointer-events: none;
+            will-change: transform;
         }
 
         @keyframes floatUp {
             0% {
-                transform: translateY(100vh) scale(0);
+                transform: translate3d(0, 100vh, 0) scale(0);
                 opacity: 0;
             }
             50% {
                 opacity: 0.8;
             }
             100% {
-                transform: translateY(-10vh) scale(1.2);
+                transform: translate3d(0, -10vh, 0) scale(1.2);
                 opacity: 0;
             }
         }
@@ -166,11 +185,12 @@
 
         .next-page h1 {
             color: #ffe600;
-            font-size: 1.5rem; /* ඊළඟ Page එකේ Text එකත් කුඩාවට සකස් කර ඇත */
-            text-shadow: 0 0 15px #ffe600;
+            font-size: 1.3rem;
+            text-shadow: 0 0 12px #ffe600;
             font-family: 'Georgia', serif;
             text-align: center;
-            margin: 0 20px;
+            margin: 0 15px;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -184,7 +204,7 @@
             💛 Happy birthday Thenara 💛
         </div>
         
-        <!-- කුඩා Floating Button එක -->
+        <!-- Mobile Floating Button -->
         <button class="go-btn" id="goButton" onclick="startTransition()">
             <span class="btn-star" style="top: 2px; left: 4px; animation-delay: 0s;">✦</span>
             <span class="btn-star" style="bottom: 2px; left: 8px; animation-delay: 0.5s;">◆</span>
@@ -200,13 +220,13 @@
     </div>
 
     <script>
-        let spawnInterval = setInterval(createFlower, 150);
+        let spawnInterval = setInterval(createFlower, 180);
 
         function createFlower(isExplosion = false) {
             const flower = document.createElement('div');
             flower.classList.add('flower');
 
-            const sizeNum = isExplosion ? Math.random() * 20 + 8 : Math.random() * 6 + 3;
+            const sizeNum = isExplosion ? Math.random() * 16 + 6 : Math.random() * 5 + 3;
             flower.style.width = sizeNum + 'px';
             flower.style.height = sizeNum + 'px';
             flower.style.left = Math.random() * 100 + 'vw';
@@ -225,7 +245,7 @@
             clearInterval(spawnInterval);
             let explosionInterval = setInterval(() => {
                 createFlower(true);
-            }, 20);
+            }, 25);
 
             document.getElementById('mainContainer').style.opacity = '0';
 
