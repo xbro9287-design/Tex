@@ -1,118 +1,207 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Clockmaker's Debt</title>
+    <title>Galaxia de Amor - Thenara</title>
     <style>
         :root {
-            --bg-color: #0a0a0c;
-            --text-color: #d1d1d1;
-            --accent-color: #c4a46a;
-            --fade-speed: 1.5s;
+            --letter-love: 200px;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Georgia', serif;
             margin: 0;
+            padding: 0;
+            background-color: #050505;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            transition: background-color 1.5s ease;
+        }
+
+        /* ප්‍රධාන Container එක */
+        .container {
+            position: absolute;
+            width: 100%;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+            transition: opacity 1s ease;
+        }
+
+        /* text ස්ටයිල් */
+        .Flores_Amarillas {
+            font-size: 2.5rem;
+            font-family: 'Georgia', serif;
+            color: #ffe600;
+            text-shadow: 0 0 15px rgba(255, 230, 0, 0.7);
+            margin-bottom: 25px;
+        }
+
+        /* Animated "GO" Button ස්ටයිල් */
+        .go-btn {
+            background: transparent;
+            border: 2px solid #ffe600;
+            color: #ffe600;
+            padding: 10px 30px;
+            font-size: 2rem;
+            font-family: 'Georgia', cursive, serif;
+            letter-spacing: 4px;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 0 15px rgba(255, 230, 0, 0.4), inset 0 0 15px rgba(255, 230, 0, 0.4);
+            border-radius: 8px;
+            animation: pulseGlow 2s infinite ease-in-out;
+            transition: all 0.3s ease;
+        }
+
+        .go-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(255, 230, 0, 0.8), inset 0 0 25px rgba(255, 230, 0, 0.8);
+            background-color: rgba(255, 230, 0, 0.1);
+        }
+
+        /* Button Glow Animation */
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 10px #ffe600, inset 0 0 10px #ffe600;
+            }
+            50% {
+                box-shadow: 0 0 25px #ffe600, 0 0 10px #ffffff, inset 0 0 15px #ffe600;
+            }
+        }
+
+        /* මල්/තරු/particles සඳහා CSS */
+        .flower {
+            position: absolute;
+            background-color: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffae00;
+            animation: floatUp linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Screen එක කහ පැහැයෙන් පිරී යන overlay එක */
+        .yellow-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #ffe600;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 100;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* ඊළඟට එන කළු පාට New Page එක */
+        .next-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        #story-container {
-            max-width: 650px;
-            padding: 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* The unusual opener styling */
-        .hook {
-            font-size: 1.8rem;
-            font-style: italic;
-            color: var(--accent-color);
-            margin-bottom: 2rem;
+            flex-direction: column;
             opacity: 0;
-            transition: opacity 2s ease-in;
-        }
-
-        .passage {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all var(--fade-speed) ease-out;
-            display: none;
-        }
-
-        .passage.visible {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .image-container {
-            width: 100%;
-            height: 300px;
-            margin: 2rem 0;
-            overflow: hidden;
-            border: 1px solid #333;
-            opacity: 0;
-            transition: opacity 2s ease-in;
-        }
-
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(50%) sepia(20%);
-            transition: transform 10s linear;
-        }
-
-        .image-container:hover img {
-            transform: scale(1.1);
-        }
-
-        #next-btn {
-            background: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 10px 25px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: 0.3s;
-            display: none;
-        }
-
-        #next-btn:hover {
-            background: var(--accent-color);
-            color: var(--bg-color);
-        }
-
-        /* Background Ambience */
-        .dust-particle {
-            position: fixed;
-            background: white;
-            border-radius: 50%;
-            opacity: 0.1;
             pointer-events: none;
-            z-index: 1;
+            z-index: 200;
+            transition: opacity 2s ease;
+        }
+
+        .next-page h1 {
+            color: #ffe600;
+            font-size: 3rem;
+            text-shadow: 0 0 20px #ffe600;
+            font-family: 'Georgia', serif;
+            text-align: center;
+            margin: 0 20px;
         }
     </style>
 </head>
 <body>
 
-    <div id="story-container">
-        <!-- Unusual Opener -->
-        <div class="hook" id="hook">"The owners of the shop never mentioned that the clocks would start ticking backward the moment the blood hit the floor."</div>
+    <div class="yellow-overlay" id="overlay"></div>
 
-        <div class="passage" id="p1">
-            Elias didn't panic. Panic was for people who still believed in the linearity of time. He simply looked at the shattered porcelain of the heirloom vase and then at the man standing in the
+    <div class="container" id="mainContainer">
+        <div class="Flores_Amarillas">
+            💛 Happy birthday Thenara 💛
+        </div>
+        <button class="go-btn" onclick="startTransition()">✨ go ✨</button>
+    </div>
+
+    <!-- ඊළඟට පෙන්වන කළු පැහැති Page එක -->
+    <div class="next-page" id="nextPage">
+        <h1>✨ May all your dreams come true! ✨</h1>
+    </div>
+
+    <script>
+        let spawnInterval = setInterval(createFlower, 150);
+
+        function createFlower(isExplosion = false) {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+
+            // size & position
+            const sizeNum = isExplosion ? Math.random() * 25 + 10 : Math.random() * 8 + 4;
+            flower.style.width = sizeNum + 'px';
+            flower.style.height = sizeNum + 'px';
+            flower.style.left = Math.random() * 100 + 'vw';
+
+            // duration
+            const duration = isExplosion ? (Math.random() * 1.5 + 1) : (Math.random() * 3 + 3);
+            flower.style.animationDuration = duration + 's';
+
+            document.body.appendChild(flower);
+
+            setTimeout(() => {
+                flower.remove();
+            }, duration * 1000);
+        }
+
+        // Button එක Click කළ විට සිදුවන ඇනිමේෂන් එක
+        function startTransition() {
+            // 1. Particle වේගයෙන් සහ විශාලව සෑදීම
+            clearInterval(spawnInterval);
+            let explosionInterval = setInterval(() => {
+                createFlower(true);
+            }, 20);
+
+            // 2. ප්‍රධාන Text & Button එක fade out කිරීම
+            document.getElementById('mainContainer').style.opacity = '0';
+
+            // 3. Screen එක කහ පැහැයෙන් පිරී යෑම (Yellow Screen Fill)
+            setTimeout(() => {
+                document.getElementById('overlay').style.opacity = '1';
+            }, 800);
+
+            // 4. හිමීට කළු පැහැති අලුත් Page එකට මාරු වීම
+            setTimeout(() => {
+                clearInterval(explosionInterval);
+                document.getElementById('nextPage').style.opacity = '1';
+                document.getElementById('nextPage').style.pointerEvents = 'auto';
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
