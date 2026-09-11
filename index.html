@@ -95,7 +95,7 @@
             100% { transform: translate3d(4px, -5px, 0) scale(1.2); opacity: 0.9; }
         }
 
-        /* 1st Page Yellow Particles */
+        /* Particles */
         .flower {
             position: absolute;
             background-color: #ffd700;
@@ -112,7 +112,22 @@
             100% { transform: translate3d(0, -10vh, 0) scale(1.2); opacity: 0; }
         }
 
-        /* ------------------ CUTE BOX/AVATAR BABY CHARACTER ------------------ */
+        /* Special Rain Effects (Rose & Star Shower) */
+        .special-rain {
+            position: fixed;
+            top: -50px;
+            pointer-events: none;
+            z-index: 15;
+            animation: fallDown linear forwards;
+            font-size: 20px;
+        }
+
+        @keyframes fallDown {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* ------------------ CUTE BABY CHARACTER ------------------ */
         .baby-container {
             position: absolute;
             bottom: -280px;
@@ -135,7 +150,6 @@
             transition: bottom 1.2s ease-in-out;
         }
 
-        /* Lip Sync Movement Animation */
         .talking .baby-mouth {
             animation: talkMouth 0.22s infinite alternate ease-in-out;
         }
@@ -161,9 +175,10 @@
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #000;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             flex-direction: column;
+            padding: 40px 10px;
             opacity: 0;
             pointer-events: none;
             z-index: 200;
@@ -173,11 +188,11 @@
 
         .next-page h1 {
             color: #ffe600;
-            font-size: 2rem;
+            font-size: 1.8rem;
             text-shadow: 0 0 15px #ffe600;
             font-family: 'Georgia', serif;
             text-align: center;
-            margin: 0 15px;
+            margin-top: 20px;
             line-height: 1.4;
             z-index: 205;
             pointer-events: none;
@@ -185,11 +200,86 @@
 
         #thenaraCanvas {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 201;
+        }
+
+        .next-btn {
+            background: rgba(15, 15, 15, 0.85);
+            border: 2px solid #ffe600;
+            color: #ffe600;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-family: 'Georgia', serif;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 210;
+            box-shadow: 0 0 15px rgba(255, 230, 0, 0.5);
+            transition: transform 0.3s, background 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .next-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ------------------ THIRD PAGE (WISH CARD) ------------------ */
+        .third-page {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle, #1a1805 0%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 300;
+            transition: opacity 1.5s ease;
+            padding: 20px;
+        }
+
+        .wish-card {
+            background: rgba(20, 20, 20, 0.9);
+            border: 2px solid #ffe600;
+            border-radius: 15px;
+            padding: 30px 20px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(255, 230, 0, 0.3);
+            transform: translateY(30px);
+            transition: transform 1s ease;
+        }
+
+        .third-page.active .wish-card {
+            transform: translateY(0);
+        }
+
+        .wish-card h2 {
+            color: #ffe600;
+            font-family: 'Georgia', serif;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #ffe600;
+        }
+
+        .wish-card p {
+            color: #fff8c4;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            font-family: 'Georgia', serif;
+            margin-bottom: 20px;
+        }
+
+        .heart-icon {
+            font-size: 2.5rem;
+            color: #ffe600;
+            animation: heartBeat 1.5s infinite ease-in-out;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
     </style>
 </head>
@@ -212,25 +302,25 @@
         </button>
     </div>
 
-    <!-- NEW CUTE CHIBI CARTOON BABY (SVG) -->
+    <!-- CUTE CHIBI CARTOON BABY (SVG) -->
     <div class="baby-container" id="babyCharacter">
         <svg viewBox="0 0 200 240" width="100%" height="100%">
             <!-- Hair Background -->
             <path d="M 30 110 C 20 20, 180 20, 170 110 C 175 160, 25 160, 30 110 Z" fill="#3b2210"/>
             
-            <!-- Dress / Cute Yellow Outfit -->
+            <!-- Dress -->
             <path d="M 60 140 Q 100 130 140 140 L 160 215 C 160 225, 40 225, 40 215 Z" fill="#ffe600" stroke="#ffd700" stroke-width="3"/>
             <path d="M 75 140 L 100 160 L 125 140 Z" fill="#ffffff" opacity="0.9"/>
             <circle cx="100" cy="175" r="4" fill="#3b2210"/>
 
-            <!-- Head Frame (Chibi Rounded Box Face) -->
+            <!-- Head Frame -->
             <rect x="45" y="55" width="110" height="95" rx="35" ry="35" fill="#fff0e1" stroke="#ffcca8" stroke-width="2"/>
 
-            <!-- Cheeks / Blush -->
+            <!-- Blush -->
             <ellipse cx="65" cy="115" rx="12" ry="7" fill="#ff9999" opacity="0.6"/>
             <ellipse cx="135" cy="115" rx="12" ry="7" fill="#ff9999" opacity="0.6"/>
 
-            <!-- Cute Big Eyes -->
+            <!-- Eyes -->
             <ellipse cx="75" cy="98" rx="10" ry="13" fill="#2b1a0e"/>
             <ellipse cx="125" cy="98" rx="10" ry="13" fill="#2b1a0e"/>
             <circle cx="72" cy="93" r="4" fill="#ffffff"/>
@@ -238,12 +328,12 @@
             <circle cx="78" cy="103" r="2" fill="#ffffff"/>
             <circle cx="128" cy="103" r="2" fill="#ffffff"/>
 
-            <!-- Hair Front / Bangs & Yellow Hairband -->
+            <!-- Hair Band & Hair -->
             <rect x="43" y="50" width="114" height="16" rx="8" ry="8" fill="#ffe600"/>
             <path d="M 85 45 Q 100 35 115 45 Q 100 55 85 45 Z" fill="#ffae00"/>
             <path d="M 45 75 C 55 45, 145 45, 155 75 C 135 60, 115 70, 100 60 C 85 70, 65 60, 45 75 Z" fill="#4a2c11"/>
 
-            <!-- Mouth for Lip Sync Animation -->
+            <!-- Mouth -->
             <g id="mouthGroup">
                 <ellipse class="baby-mouth" cx="100" cy="122" rx="7" ry="5" fill="#e64a19" style="transform-origin: 100px 122px;"/>
             </g>
@@ -257,6 +347,21 @@
     <div class="next-page" id="nextPage">
         <canvas id="thenaraCanvas"></canvas>
         <h1>✨ May all your dreams come true! ✨</h1>
+        <button class="next-btn" onclick="goToThirdPage()">Special Message 💌</button>
+    </div>
+
+    <!-- THIRD PAGE CONTAINER -->
+    <div class="third-page" id="thirdPage">
+        <div class="wish-card">
+            <div class="heart-icon">💛</div>
+            <h2>Dear Thenara,</h2>
+            <p>
+                May your birthday be filled with endless joy, golden smiles, and magical moments! 
+                Wishing you a wonderful year ahead filled with happiness and success in everything you do. 
+                Keep glowing like the brightest star! ✨
+            </p>
+            <div style="color: #ffe600; font-size: 0.9rem;">~ Happy Birthday ~</div>
+        </div>
     </div>
 
     <script>
@@ -282,6 +387,24 @@
             }, duration * 1000);
         }
 
+        // Trigger Yellow Roses & Stars Rain Shower after Voice ends
+        function triggerSpecialShower() {
+            const items = ['🌹', '✨', '💛', '🌟', '🌼'];
+            for (let i = 0; i < 45; i++) {
+                setTimeout(() => {
+                    const rainItem = document.createElement('div');
+                    rainItem.classList.add('special-rain');
+                    rainItem.innerText = items[Math.floor(Math.random() * items.length)];
+                    rainItem.style.left = Math.random() * 100 + 'vw';
+                    const duration = Math.random() * 2.5 + 2;
+                    rainItem.style.animationDuration = duration + 's';
+                    document.body.appendChild(rainItem);
+
+                    setTimeout(() => rainItem.remove(), duration * 1000);
+                }, i * 120);
+            }
+        }
+
         // ---------------- AUTOPLAY & BABY VOICE LOGIC ----------------
         let hasTriggered = false;
 
@@ -292,7 +415,6 @@
             const baby = document.getElementById('babyCharacter');
             const voice = document.getElementById('babyVoice');
 
-            // 3 Seconds Delay to Float Up
             setTimeout(() => {
                 baby.classList.add('enter');
 
@@ -306,20 +428,19 @@
 
             }, 3000);
 
-            // Voice End Event -> Stop Mouth & Float Down
             voice.addEventListener('ended', () => {
                 baby.classList.remove('talking');
                 baby.classList.remove('enter');
                 baby.classList.add('exit');
+                
+                // Trigger Star & Rose Rain
+                triggerSpecialShower();
             });
         }
 
-        // Global User Touch/Click Listener for guaranteed Smooth Autoplay
         window.addEventListener('DOMContentLoaded', () => {
-            // First attempt direct trigger
             triggerBabyAnimation();
 
-            // Touch fallback to bypass browser autoplay blocks
             const enableAudio = () => {
                 triggerBabyAnimation();
                 const voice = document.getElementById('babyVoice');
@@ -351,8 +472,18 @@
                 clearInterval(explosionInterval);
                 document.getElementById('nextPage').style.opacity = '1';
                 document.getElementById('nextPage').style.pointerEvents = 'auto';
-                initThenaraCanvas(); // 2nd page canvas initiation
+                initThenaraCanvas();
             }, 2000);
+        }
+
+        function goToThirdPage() {
+            document.getElementById('nextPage').style.opacity = '0';
+            document.getElementById('nextPage').style.pointerEvents = 'none';
+
+            const thirdPage = document.getElementById('thirdPage');
+            thirdPage.style.opacity = '1';
+            thirdPage.style.pointerEvents = 'auto';
+            thirdPage.classList.add('active');
         }
 
         // ---------------- SECOND PAGE LOGIC (THENARA ADVANCED ANIMATION) ----------------
@@ -377,7 +508,6 @@
             class ThenaraParticle {
                 constructor() {
                     this.size = Math.random() * 4 + 9;
-                    this.textWidth = this.size * 5; 
                     this.resetInitial();
                     this.opacity = Math.random() * 0.5 + 0.4;
                 }
