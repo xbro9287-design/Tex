@@ -24,7 +24,7 @@
             height: 100vh;
         }
 
-        /* හරියටම තිරයේ මැදට ගන්න Container එක */
+        /* ------------------ FIRST PAGE ------------------ */
         .container {
             position: absolute;
             top: 50%;
@@ -38,9 +38,8 @@
             transition: opacity 1s ease;
         }
 
-        /* විශාල කර සකස් කළ Text එක */
         .Flores_Amarillas {
-            font-size: 2.2rem; /* ලොකු පැහැදිලි Font Size එක */
+            font-size: 2.2rem;
             font-family: 'Georgia', serif;
             color: #ffe600;
             text-shadow: 0 0 15px rgba(255, 230, 0, 0.7);
@@ -49,13 +48,12 @@
             text-align: center;
         }
 
-        /* Mobile-Optimized Floating "GO" Button */
         .go-btn {
             background: rgba(5, 5, 5, 0.9);
             border: 2px solid #ffe600;
             color: #ffe600;
             padding: 10px 30px;
-            font-size: 1.5rem; /* බටන් එකේ අකුරුත් ලොකු කළා */
+            font-size: 1.5rem;
             font-family: 'Georgia', cursive, serif;
             letter-spacing: 3px;
             cursor: pointer;
@@ -64,100 +62,59 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 0 15px rgba(255, 230, 0, 0.4), inset 0 0 10px rgba(255, 230, 0, 0.3);
-            
-            /* Mobile GPU performance සඳහා transform භාවිතය */
             -webkit-animation: floatButtonMobile 2.5s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
             animation: floatButtonMobile 2.5s ease-in-out infinite, pulseGlow 2s infinite ease-in-out;
             will-change: transform, box-shadow;
         }
 
-        /* ජංගම දුරකථන සඳහාම විශේෂිත Floating Animation එක */
         @-webkit-keyframes floatButtonMobile {
-            0%, 100% {
-                -webkit-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-            }
-            50% {
-                -webkit-transform: translate3d(0, -9px, 0);
-                transform: translate3d(0, -9px, 0);
-            }
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, -9px, 0); }
         }
         @keyframes floatButtonMobile {
-            0%, 100% {
-                -webkit-transform: translate3d(0, 0, 0);
-                transform: translate3d(0, 0, 0);
-            }
-            50% {
-                -webkit-transform: translate3d(0, -9px, 0);
-                transform: translate3d(0, -9px, 0);
-            }
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, -9px, 0); }
         }
 
-        /* Button Glow Animation */
         @keyframes pulseGlow {
-            0%, 100% {
-                box-shadow: 0 0 10px #ffe600, inset 0 0 6px #ffe600;
-            }
-            50% {
-                box-shadow: 0 0 20px #ffe600, 0 0 8px #ffffff, inset 0 0 12px #ffe600;
-            }
+            0%, 100% { box-shadow: 0 0 10px #ffe600, inset 0 0 6px #ffe600; }
+            50% { box-shadow: 0 0 20px #ffe600, 0 0 8px #ffffff, inset 0 0 12px #ffe600; }
         }
 
-        /* බටන් එක ඇතුළේ ඇනිමේට් වෙන කුඩා තරු */
         .btn-star {
             position: absolute;
             color: #ffe600;
             font-size: 10px;
             pointer-events: none;
             opacity: 0.8;
-            -webkit-animation: innerStarMove 2s ease-in-out infinite alternate;
             animation: innerStarMove 2s ease-in-out infinite alternate;
         }
 
         @keyframes innerStarMove {
-            0% {
-                transform: translate3d(0, 0, 0) scale(0.8);
-                opacity: 0.3;
-            }
-            100% {
-                transform: translate3d(4px, -5px, 0) scale(1.2);
-                opacity: 0.9;
-            }
+            0% { transform: translate3d(0, 0, 0) scale(0.8); opacity: 0.3; }
+            100% { transform: translate3d(4px, -5px, 0) scale(1.2); opacity: 0.9; }
         }
 
-        /* පසුබිමේ යන මල්/තරු CSS */
+        /* 1st Page Yellow Particles */
         .flower {
             position: absolute;
             background-color: #ffd700;
             border-radius: 50%;
             box-shadow: 0 0 8px #ffd700, 0 0 15px #ffae00;
-            -webkit-animation: floatUp linear infinite;
             animation: floatUp linear infinite;
             pointer-events: none;
             will-change: transform;
         }
 
         @keyframes floatUp {
-            0% {
-                transform: translate3d(0, 100vh, 0) scale(0);
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translate3d(0, -10vh, 0) scale(1.2);
-                opacity: 0;
-            }
+            0% { transform: translate3d(0, 100vh, 0) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translate3d(0, -10vh, 0) scale(1.2); opacity: 0; }
         }
 
-        /* Screen එක කහ පැහැයෙන් පිරී යන overlay එක */
         .yellow-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #ffe600;
             opacity: 0;
             pointer-events: none;
@@ -165,13 +122,10 @@
             transition: opacity 1s ease-in-out;
         }
 
-        /* ඊළඟට එන කළු පාට New Page එක */
+        /* ------------------ SECOND PAGE ------------------ */
         .next-page {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #000;
             display: flex;
             justify-content: center;
@@ -181,16 +135,29 @@
             pointer-events: none;
             z-index: 200;
             transition: opacity 2s ease;
+            overflow: hidden;
         }
 
         .next-page h1 {
             color: #ffe600;
-            font-size: 2.2rem; /* ඊළඟ Page එකේ Text එකත් ලොකු කළා */
+            font-size: 2.2rem;
             text-shadow: 0 0 15px #ffe600;
             font-family: 'Georgia', serif;
             text-align: center;
             margin: 0 15px;
             line-height: 1.4;
+            z-index: 205;
+            pointer-events: none;
+        }
+
+        /* පාවෙන THENARA නම සඳහා Canvas */
+        #thenaraCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 201;
         }
     </style>
 </head>
@@ -198,13 +165,12 @@
 
     <div class="yellow-overlay" id="overlay"></div>
 
-    <!-- හරියටම මැද පිහිටන Container එක -->
+    <!-- FIRST PAGE CONTAINER -->
     <div class="container" id="mainContainer">
         <div class="Flores_Amarillas">
             💛 Happy birthday Thenara 💛
         </div>
         
-        <!-- Animated Floating Button -->
         <button class="go-btn" id="goButton" onclick="startTransition()">
             <span class="btn-star" style="top: 3px; left: 5px; animation-delay: 0s;">✦</span>
             <span class="btn-star" style="bottom: 3px; left: 10px; animation-delay: 0.5s;">◆</span>
@@ -214,12 +180,14 @@
         </button>
     </div>
 
-    <!-- ඊළඟ Page එක -->
+    <!-- SECOND PAGE CONTAINER -->
     <div class="next-page" id="nextPage">
+        <canvas id="thenaraCanvas"></canvas>
         <h1>✨ May all your dreams come true! ✨</h1>
     </div>
 
     <script>
+        // ---------------- FIRST PAGE LOGIC ----------------
         let spawnInterval = setInterval(createFlower, 180);
 
         function createFlower(isExplosion = false) {
@@ -257,7 +225,106 @@
                 clearInterval(explosionInterval);
                 document.getElementById('nextPage').style.opacity = '1';
                 document.getElementById('nextPage').style.pointerEvents = 'auto';
+                initThenaraCanvas(); // දෙවෙනි පේජ් එකේ "THENARA" Animation එක ආරම්භ කිරීම
             }, 2000);
+        }
+
+        // ---------------- SECOND PAGE LOGIC (THENARA ANIMATION) ----------------
+        function initThenaraCanvas() {
+            const canvas = document.getElementById('thenaraCanvas');
+            const ctx = canvas.getContext('2d');
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const particles = [];
+            const particleCount = 35; // පාවෙන "THENARA" වචන ගණන
+
+            let targetX = null;
+            let targetY = null;
+            let isAttracting = false;
+
+            class ThenaraParticle {
+                constructor() {
+                    this.reset();
+                    this.y = Math.random() * canvas.height; // ආරම්භයේදී එක එක තැන්වල පිහිටීමට
+                }
+
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height + Math.random() * 50;
+                    this.size = Math.random() * 10 + 12; // කුඩා සයිස් (12px - 22px)
+                    this.speedY = Math.random() * 1.5 + 0.8;
+                    this.speedX = (Math.random() - 0.5) * 0.8;
+                    this.opacity = Math.random() * 0.6 + 0.4;
+                }
+
+                update() {
+                    // Click/Touch කළ තැනට ඇදී යාම (Magnet Effect)
+                    if (isAttracting && targetX !== null && targetY !== null) {
+                        const dx = targetX - this.x;
+                        const dy = targetY - this.y;
+                        this.x += dx * 0.08;
+                        this.y += dy * 0.08;
+                    } else {
+                        // සාමාන්‍ය පරිදි උඩට පාවී යාම
+                        this.y -= this.speedY;
+                        this.x += this.speedX;
+
+                        // තිරයෙන් උඩට ගිය පසු නැවත යටින් ආරම්භ වීම
+                        if (this.y < -30) {
+                            this.reset();
+                        }
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.font = `bold ${this.size}px Georgia, serif`;
+                    ctx.fillStyle = `#ffe600`;
+                    ctx.globalAlpha = this.opacity;
+                    ctx.shadowColor = '#ffe600';
+                    ctx.shadowBlur = 8;
+                    ctx.fillText('THENARA', this.x, this.y);
+                    ctx.restore();
+                }
+            }
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new ThenaraParticle());
+            }
+
+            // Click/Touch සවන්දීම (Attract & Release)
+            function handlePointerDown(e) {
+                isAttracting = true;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                targetX = clientX;
+                targetY = clientY;
+
+                // ළඟට ඇවිත් තත්පරයකින් ආයෙත් හිමීට ඈතට පාවී යාම
+                setTimeout(() => {
+                    isAttracting = false;
+                }, 1000);
+            }
+
+            window.addEventListener('mousedown', handlePointerDown);
+            window.addEventListener('touchstart', handlePointerDown);
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+
+            animate();
         }
     </script>
 
