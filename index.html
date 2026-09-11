@@ -112,36 +112,37 @@
             100% { transform: translate3d(0, -10vh, 0) scale(1.2); opacity: 0; }
         }
 
-        /* ------------------ CODE-GENERATED BABY ANIMATION ------------------ */
+        /* ------------------ CUTE BOX/AVATAR BABY CHARACTER ------------------ */
         .baby-container {
             position: absolute;
-            bottom: -250px;
+            bottom: -280px;
             left: 50%;
             transform: translateX(-50%);
-            width: 160px;
-            height: 220px;
+            width: 170px;
+            height: 230px;
             z-index: 20;
-            transition: bottom 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: bottom 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
-            filter: drop-shadow(0 0 12px rgba(255, 230, 0, 0.6));
+            filter: drop-shadow(0 0 18px rgba(255, 230, 0, 0.8));
         }
 
         .baby-container.enter {
-            bottom: 20px;
+            bottom: 25px;
         }
 
         .baby-container.exit {
-            bottom: -250px;
+            bottom: -280px;
+            transition: bottom 1.2s ease-in-out;
         }
 
-        /* Lip Movement Animation */
+        /* Lip Sync Movement Animation */
         .talking .baby-mouth {
-            animation: talkMouth 0.25s infinite alternate;
+            animation: talkMouth 0.22s infinite alternate ease-in-out;
         }
 
         @keyframes talkMouth {
-            0% { transform: scaleY(0.2); }
-            100% { transform: scaleY(1.8); }
+            0% { transform: scaleY(0.2) scaleX(0.8); }
+            100% { transform: scaleY(1.9) scaleX(1.1); }
         }
 
         .yellow-overlay {
@@ -211,28 +212,40 @@
         </button>
     </div>
 
-    <!-- CODE-GENERATED CUTE BABY SVG -->
+    <!-- NEW CUTE CHIBI CARTOON BABY (SVG) -->
     <div class="baby-container" id="babyCharacter">
         <svg viewBox="0 0 200 240" width="100%" height="100%">
-            <!-- Hair Back -->
-            <path d="M 40 100 C 30 40, 170 40, 160 100 C 165 140, 35 140, 40 100 Z" fill="#4a2c11"/>
-            <!-- Body / Yellow Dress -->
-            <path d="M 65 145 Q 100 135 135 145 L 155 220 Q 100 230 45 220 Z" fill="#ffe600" stroke="#ffd700" stroke-width="2"/>
-            <!-- Head -->
-            <ellipse cx="100" cy="100" rx="55" ry="50" fill="#ffebd7"/>
-            <!-- Blush -->
-            <ellipse cx="65" cy="112" rx="10" ry="6" fill="#ffb3b3" opacity="0.7"/>
-            <ellipse cx="135" cy="112" rx="10" ry="6" fill="#ffb3b3" opacity="0.7"/>
-            <!-- Eyes -->
-            <ellipse cx="72" cy="98" rx="7" ry="9" fill="#333"/>
-            <ellipse cx="128" cy="98" rx="7" ry="9" fill="#333"/>
-            <circle cx="70" cy="95" r="2.5" fill="#fff"/>
-            <circle cx="126" cy="95" r="2.5" fill="#fff"/>
-            <!-- Hair Front / Bangs -->
-            <path d="M 45 85 C 50 45, 150 45, 155 85 C 130 65, 120 75, 100 65 C 80 75, 70 65, 45 85 Z" fill="#5c3818"/>
-            <!-- Mouth for Lip Sync -->
+            <!-- Hair Background -->
+            <path d="M 30 110 C 20 20, 180 20, 170 110 C 175 160, 25 160, 30 110 Z" fill="#3b2210"/>
+            
+            <!-- Dress / Cute Yellow Outfit -->
+            <path d="M 60 140 Q 100 130 140 140 L 160 215 C 160 225, 40 225, 40 215 Z" fill="#ffe600" stroke="#ffd700" stroke-width="3"/>
+            <path d="M 75 140 L 100 160 L 125 140 Z" fill="#ffffff" opacity="0.9"/>
+            <circle cx="100" cy="175" r="4" fill="#3b2210"/>
+
+            <!-- Head Frame (Chibi Rounded Box Face) -->
+            <rect x="45" y="55" width="110" height="95" rx="35" ry="35" fill="#fff0e1" stroke="#ffcca8" stroke-width="2"/>
+
+            <!-- Cheeks / Blush -->
+            <ellipse cx="65" cy="115" rx="12" ry="7" fill="#ff9999" opacity="0.6"/>
+            <ellipse cx="135" cy="115" rx="12" ry="7" fill="#ff9999" opacity="0.6"/>
+
+            <!-- Cute Big Eyes -->
+            <ellipse cx="75" cy="98" rx="10" ry="13" fill="#2b1a0e"/>
+            <ellipse cx="125" cy="98" rx="10" ry="13" fill="#2b1a0e"/>
+            <circle cx="72" cy="93" r="4" fill="#ffffff"/>
+            <circle cx="123" cy="93" r="4" fill="#ffffff"/>
+            <circle cx="78" cy="103" r="2" fill="#ffffff"/>
+            <circle cx="128" cy="103" r="2" fill="#ffffff"/>
+
+            <!-- Hair Front / Bangs & Yellow Hairband -->
+            <rect x="43" y="50" width="114" height="16" rx="8" ry="8" fill="#ffe600"/>
+            <path d="M 85 45 Q 100 35 115 45 Q 100 55 85 45 Z" fill="#ffae00"/>
+            <path d="M 45 75 C 55 45, 145 45, 155 75 C 135 60, 115 70, 100 60 C 85 70, 65 60, 45 75 Z" fill="#4a2c11"/>
+
+            <!-- Mouth for Lip Sync Animation -->
             <g id="mouthGroup">
-                <ellipse class="baby-mouth" cx="100" cy="118" rx="6" ry="4" fill="#e65c00" style="transform-origin: 100px 118px;"/>
+                <ellipse class="baby-mouth" cx="100" cy="122" rx="7" ry="5" fill="#e64a19" style="transform-origin: 100px 122px;"/>
             </g>
         </svg>
     </div>
@@ -269,8 +282,13 @@
             }, duration * 1000);
         }
 
-        // ---------------- BABY CHARACTER & VOICE LOGIC ----------------
-        window.addEventListener('DOMContentLoaded', () => {
+        // ---------------- AUTOPLAY & BABY VOICE LOGIC ----------------
+        let hasTriggered = false;
+
+        function triggerBabyAnimation() {
+            if (hasTriggered) return;
+            hasTriggered = true;
+
             const baby = document.getElementById('babyCharacter');
             const voice = document.getElementById('babyVoice');
 
@@ -278,12 +296,11 @@
             setTimeout(() => {
                 baby.classList.add('enter');
 
-                // Start Voice and Lip Sync after entry animation
                 setTimeout(() => {
                     voice.play().then(() => {
                         baby.classList.add('talking');
                     }).catch(e => {
-                        console.log("Autoplay blocked or audio missing. Interaction required.");
+                        console.log("Audio autoplay prevented by browser.");
                     });
                 }, 1200);
 
@@ -295,6 +312,27 @@
                 baby.classList.remove('enter');
                 baby.classList.add('exit');
             });
+        }
+
+        // Global User Touch/Click Listener for guaranteed Smooth Autoplay
+        window.addEventListener('DOMContentLoaded', () => {
+            // First attempt direct trigger
+            triggerBabyAnimation();
+
+            // Touch fallback to bypass browser autoplay blocks
+            const enableAudio = () => {
+                triggerBabyAnimation();
+                const voice = document.getElementById('babyVoice');
+                voice.play().then(() => {
+                    voice.pause();
+                    voice.currentTime = 0;
+                }).catch(() => {});
+                window.removeEventListener('touchstart', enableAudio);
+                window.removeEventListener('click', enableAudio);
+            };
+
+            window.addEventListener('touchstart', enableAudio);
+            window.addEventListener('click', enableAudio);
         });
 
         function startTransition() {
