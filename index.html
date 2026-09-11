@@ -3,40 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacking Workspace</title>
-    <style>
-        body {
-            background-color: black;
-            color: #00ff00; /* Bright green text */
-            font-family: 'Courier New', Courier, monospace;
-            overflow: hidden;
-        }
-        .terminal {
-            width: 80%;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #00ff00;
-            box-shadow: 0 0 10px #00ff00;
-            height: 400px;
-            overflow-y: scroll;
-        }
-        .line {
-            animation: typing 2s steps(30, end) forwards;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-    </style>
+    <title>Hacking Globe</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="terminal">
-        <div class="line">Welcome to the Hacking Terminal...</div>
+    <div id="loading">Loading...</div>
+    <div id="globe-container">
+        <div id="globe"></div>
     </div>
-    <script>
-        // JavaScript can be added here for interactive features
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
