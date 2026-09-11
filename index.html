@@ -1,94 +1,118 @@
+
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galaxia de Amor</title>
+    <title>The Clockmaker's Debt</title>
     <style>
         :root {
-            --letter-love: 200px;
+            --bg-color: #0a0a0c;
+            --text-color: #d1d1d1;
+            --accent-color: #c4a46a;
+            --fade-speed: 1.5s;
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #050505;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-
-        /* රූපයේ තිබූ CSS කොටස */
-        .Flores_Amarillas {
-            position: absolute;
-            width: 90%;
-            font-size: 2.5rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: 'Georgia', serif;
-            height: var(--letter-love);
-            transform: translateX(-50%);
-            left: 50%;
-            top: 40%;
-            text-align: center;
-            color: #ffe600;
-            text-shadow: 0 0 15px rgba(255, 230, 0, 0.7);
-            z-index: 10;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* මල්/තරු ඇනිමේෂන් සඳහා CSS */
-        .flower {
-            position: absolute;
-            background-color: #ffd700;
+        #story-container {
+            max-width: 650px;
+            padding: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* The unusual opener styling */
+        .hook {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transition: opacity 2s ease-in;
+        }
+
+        .passage {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all var(--fade-speed) ease-out;
+            display: none;
+        }
+
+        .passage.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .image-container {
+            width: 100%;
+            height: 300px;
+            margin: 2rem 0;
+            overflow: hidden;
+            border: 1px solid #333;
+            opacity: 0;
+            transition: opacity 2s ease-in;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(50%) sepia(20%);
+            transition: transform 10s linear;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.1);
+        }
+
+        #next-btn {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 10px 25px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: none;
+        }
+
+        #next-btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        /* Background Ambience */
+        .dust-particle {
+            position: fixed;
+            background: white;
             border-radius: 50%;
-            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffae00;
-            animation: floatUp linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) scale(0);
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1.2);
-                opacity: 0;
-            }
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 1;
         }
     </style>
 </head>
 <body>
 
-    <div class="Flores_Amarillas">
-        Te Amo 💛
-    </div>
+    <div id="story-container">
+        <!-- Unusual Opener -->
+        <div class="hook" id="hook">"The owners of the shop never mentioned that the clocks would start ticking backward the moment the blood hit the floor."</div>
 
-    <script>
-        // පසුබිමේ මල්/කහ පාට particles සෑදීමට JavaScript
-        function createFlower() {
-            const flower = document.createElement('div');
-            flower.classList.add('flower');
-
-            // සයිස් එක සහ පිහිටීම Random ලෙස වෙනස් කිරීම
-            const size = Math.random() * 8 + 4 + 'px';
-            flower.style.width = size;
-            flower.style.height = size;
-            flower.style.left = Math.random() * 100 + 'vw';
-
-            // ඇනිමේෂන් වෙන වේගය වෙනස් කිරීම
-            const duration = Math.random() * 3 + 3 + 's';
-            flower.style.animationDuration = duration;
-
-            document.body.appendChild(flower);
-
-            setTimeout(() => {
-                flower.remove();
-            }, parseFloat(duration) * 1000);
-        }
-
-        // තත්පරයෙන් පංගුවකට වරක් අලුත් particle එකක් හදයි
-        setInterval(createFlower, 150);
-    </script>
-
-</body>
-</html>
+        <div class="passage" id="p1">
+            Elias didn't panic. Panic was for people who still believed in the linearity of time. He simply looked at the shattered porcelain of the heirloom vase and then at the man standing in the
