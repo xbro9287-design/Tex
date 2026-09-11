@@ -140,7 +140,7 @@
 
         .next-page h1 {
             color: #ffe600;
-            font-size: 2.2rem;
+            font-size: 2rem;
             text-shadow: 0 0 15px #ffe600;
             font-family: 'Georgia', serif;
             text-align: center;
@@ -150,7 +150,6 @@
             pointer-events: none;
         }
 
-        /* පාවෙන THENARA නම සඳහා Canvas */
         #thenaraCanvas {
             position: absolute;
             top: 0;
@@ -225,11 +224,11 @@
                 clearInterval(explosionInterval);
                 document.getElementById('nextPage').style.opacity = '1';
                 document.getElementById('nextPage').style.pointerEvents = 'auto';
-                initThenaraCanvas(); // දෙවෙනි පේජ් එකේ "THENARA" Animation එක ආරම්භ කිරීම
+                initThenaraCanvas(); // 2nd page canvas initiation
             }, 2000);
         }
 
-        // ---------------- SECOND PAGE LOGIC (THENARA ANIMATION) ----------------
+        // ---------------- SECOND PAGE LOGIC (THENARA ADVANCED ANIMATION) ----------------
         function initThenaraCanvas() {
             const canvas = document.getElementById('thenaraCanvas');
             const ctx = canvas.getContext('2d');
@@ -242,85 +241,120 @@
             window.addEventListener('resize', resizeCanvas);
 
             const particles = [];
-            const particleCount = 35; // පාවෙන "THENARA" වචන ගණන
+            const particleCount = 40; // මුළු Screen එක පුරාම පාවෙන කුඩා THENARA ගණන
 
-            let targetX = null;
-            let targetY = null;
-            let isAttracting = false;
+            let targetX = canvas.width / 2;
+            let targetY = canvas.height / 2;
+            let isHolding = false;
 
             class ThenaraParticle {
                 constructor() {
-                    this.reset();
-                    this.y = Math.random() * canvas.height; // ආරම්භයේදී එක එක තැන්වල පිහිටීමට
+                    this.size = Math.random() * 4 + 9; // ඉතා කුඩා, සංවේදී Font size (9px - 13px)
+                    this.textWidth = this.size * 5; 
+                    this.resetInitial();
+                    this.opacity = Math.random() * 0.5 + 0.4;
                 }
 
-                reset() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = canvas.height + Math.random() * 50;
-                    this.size = Math.random() * 10 + 12; // කුඩා සයිස් (12px - 22px)
-                    this.speedY = Math.random() * 1.5 + 0.8;
-                    this.speedX = (Math.random() - 0.5) * 0.8;
-                    this.opacity = Math.random() * 0.6 + 0.4;
+                resetInitial() {
+                    this.x = Math.random() * (canvas.width - 60);
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.6; // හතරවටේටම පාවීමට
+                    this.vy = (Math.random() - 0.5) * 0.6;
                 }
 
                 update() {
-                    // Click/Touch කළ තැනට ඇදී යාම (Magnet Effect)
-                    if (isAttracting && targetX !== null && targetY !== null) {
+                    if (isHolding) {
+                        // ඔබාගෙන සිටින විට ඉතා හිමීට (Smooth) ඇඟිල්ල තැබූ තැනටම ළඟා වීම
                         const dx = targetX - this.x;
                         const dy = targetY - this.y;
-                        this.x += dx * 0.08;
-                        this.y += dy * 0.08;
+                        this.x += dx * 0.035; // හිමීට ඇදී ඒමේ වේගය
+                        this.y += dy * 0.035;
                     } else {
-                        // සාමාන්‍ය පරිදි උඩට පාවී යාම
-                        this.y -= this.speedY;
-                        this.x += this.speedX;
+                        // අත්හළ පසු හතරවටේටම හිමීට පාවීම
+                        this.x += this.vx;
+                        this.y += this.vy;
 
-                        // තිරයෙන් උඩට ගිය පසු නැවත යටින් ආරම්භ වීම
-                        if (this.y < -30) {
-                            this.reset();
-                        }
+                        // Screen එකෙන් පිටට යාම වැළැක්වීම
+                        if (this.x < 0 || this.x > canvas.width - 50) this.vx *= -1;
+                        if (this.y < 20 || this.y > canvas.height) this.vy *= -1;
                     }
                 }
 
                 draw() {
                     ctx.save();
-                    ctx.font = `bold ${this.size}px Georgia, serif`;
-                    ctx.fillStyle = `#ffe600`;
+                    ctx.font = `600 ${this.size}px Georgia, serif`;
+                    ctx.fillStyle = '#ffe600';
                     ctx.globalAlpha = this.opacity;
                     ctx.shadowColor = '#ffe600';
-                    ctx.shadowBlur = 8;
+                    ctx.shadowBlur = 6;
                     ctx.fillText('THENARA', this.x, this.y);
                     ctx.restore();
                 }
             }
 
+            // එකිනෙක ගෑවෙන්නේ නැති ලෙස පාවෙන Particles නිර්මාණය කිරීම
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new ThenaraParticle());
             }
 
-            // Click/Touch සවන්දීම (Attract & Release)
-            function handlePointerDown(e) {
-                isAttracting = true;
+            // Touch / Press Event Handlers
+            function startHold(e) {
+                isHolding = true;
+                updateTarget(e);
+            }
+
+            function moveHold(e) {
+                if (isHolding) {
+                    updateTarget(e);
+                }
+            }
+
+            function endHold() {
+                isHolding = false; // ඇඟිල්ල ඉවතට ගත් විට ආපසු ඈතට හිමීට පාවීම
+            }
+
+            function updateTarget(e) {
                 const clientX = e.touches ? e.touches[0].clientX : e.clientX;
                 const clientY = e.touches ? e.touches[0].clientY : e.clientY;
                 targetX = clientX;
                 targetY = clientY;
-
-                // ළඟට ඇවිත් තත්පරයකින් ආයෙත් හිමීට ඈතට පාවී යාම
-                setTimeout(() => {
-                    isAttracting = false;
-                }, 1000);
             }
 
-            window.addEventListener('mousedown', handlePointerDown);
-            window.addEventListener('touchstart', handlePointerDown);
+            window.addEventListener('mousedown', startHold);
+            window.addEventListener('mousemove', moveHold);
+            window.addEventListener('mouseup', endHold);
 
+            window.addEventListener('touchstart', startHold);
+            window.addEventListener('touchmove', moveHold);
+            window.addEventListener('touchend', endHold);
+
+            // Animation Loop
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // එකිනෙක ගෑවීම වැළැක්වීමේ collision prevention logic
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p1 = particles[i];
+                        const p2 = particles[j];
+                        const dx = p1.x - p2.x;
+                        const dy = p1.y - p2.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 35 && !isHolding) {
+                            p1.x += dx * 0.02;
+                            p1.y += dy * 0.02;
+                            p2.x -= dx * 0.02;
+                            p2.y -= dy * 0.02;
+                        }
+                    }
+                }
+
                 particles.forEach(p => {
                     p.update();
                     p.draw();
                 });
+
                 requestAnimationFrame(animate);
             }
 
