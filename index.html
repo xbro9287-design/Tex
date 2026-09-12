@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Galaxia de Amor - Thenara</title>
+    <title>Galaxia de Amor - Thenara Magic</title>
     <style>
         * {
             box-sizing: border-box;
@@ -37,42 +37,42 @@
             font-size: 2.2rem;
             font-family: 'Georgia', serif;
             color: #ffe600;
-            text-shadow: 0 0 15px rgba(255, 230, 0, 0.7);
+            text-shadow: 0 0 15px rgba(255, 230, 0, 0.8), 0 0 30px #ffe600;
             margin-bottom: 30px;
         }
 
         .go-btn {
-            background: rgba(5, 5, 5, 0.9);
+            background: rgba(10, 10, 10, 0.9);
             border: 2px solid #ffe600;
             color: #ffe600;
-            padding: 10px 30px;
+            padding: 12px 35px;
             font-size: 1.5rem;
             font-family: 'Georgia', serif;
             letter-spacing: 3px;
             cursor: pointer;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(255, 230, 0, 0.4);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 230, 0, 0.6), inset 0 0 10px #ffe600;
             animation: pulseGlow 2s infinite ease-in-out;
         }
 
         @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 10px #ffe600; }
-            50% { box-shadow: 0 0 22px #ffe600, 0 0 8px #ffffff; }
+            0%, 100% { box-shadow: 0 0 15px #ffe600, inset 0 0 5px #ffe600; transform: scale(1); }
+            50% { box-shadow: 0 0 30px #ffe600, 0 0 12px #ffffff, inset 0 0 15px #ffe600; transform: scale(1.04); }
         }
 
         .flower {
             position: absolute;
             background-color: #ffd700;
             border-radius: 50%;
-            box-shadow: 0 0 8px #ffd700;
+            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffea00;
             animation: floatUp linear infinite;
             pointer-events: none;
         }
 
         @keyframes floatUp {
             0% { transform: translate3d(0, 100vh, 0) scale(0); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translate3d(0, -10vh, 0) scale(1.2); opacity: 0; }
+            50% { opacity: 0.9; }
+            100% { transform: translate3d(0, -10vh, 0) scale(1.3); opacity: 0; }
         }
 
         /* ------------------ 1ST PAGE BABY ------------------ */
@@ -86,12 +86,11 @@
             z-index: 20;
             transition: bottom 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             pointer-events: none;
-            filter: drop-shadow(0 0 18px rgba(255, 230, 0, 0.8));
+            filter: drop-shadow(0 0 20px rgba(255, 230, 0, 0.9));
         }
 
         .baby-container.enter { bottom: 25px; }
         .baby-container.exit { bottom: -280px; transition: bottom 1.2s ease-in-out; }
-
         .talking .baby-mouth { animation: talkMouth 0.22s infinite alternate ease-in-out; }
         @keyframes talkMouth { 0% { transform: scaleY(0.2); } 100% { transform: scaleY(1.8); } }
 
@@ -117,44 +116,149 @@
             overflow: hidden;
         }
 
-        #thenaraCanvas {
+        #thenaraCanvas, #magicBlastCanvas {
             position: absolute;
             top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 201;
         }
 
-        /* ------------------ FAIRY FLYING BABY (2ND PAGE) ------------------ */
         .fairy-baby {
             position: absolute;
             width: 120px;
             height: 150px;
             z-index: 210;
-            top: 30%;
-            left: -150px; /* Start outside screen */
+            top: 30%; left: -150px;
             pointer-events: none;
             display: none;
+            filter: drop-shadow(0 0 18px #ffe600);
+        }
+
+        .wing-left { transform-origin: right center; animation: flapLeft 0.15s infinite alternate ease-in-out; }
+        .wing-right { transform-origin: left center; animation: flapRight 0.15s infinite alternate ease-in-out; }
+        @keyframes flapLeft { 0% { transform: rotate(0deg) scaleX(1); } 100% { transform: rotate(-28deg) scaleX(0.3); } }
+        @keyframes flapRight { 0% { transform: rotate(0deg) scaleX(1); } 100% { transform: rotate(28deg) scaleX(0.3); } }
+
+        /* ------------------ THIRD PAGE (HIGH GRAPHICS SUNFLOWERS) ------------------ */
+        .third-page {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at center, #1f1a00 0%, #050505 100%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 300;
+            transition: opacity 1.5s ease;
+            overflow: hidden;
+        }
+
+        #vineCanvas {
+            position: absolute;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 305;
+        }
+
+        /* Glowing Sunflowers Container */
+        .sunflower-container {
+            position: absolute;
+            z-index: 310;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+        }
+
+        .sunflower {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            cursor: pointer;
+            pointer-events: auto;
+            opacity: 0;
+            transform: scale(0) rotate(-180deg);
+            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s;
             filter: drop-shadow(0 0 15px #ffe600);
         }
 
-        /* Flapping Wings Animation */
-        .wing-left {
-            transform-origin: right center;
-            animation: flapLeft 0.15s infinite alternate ease-in-out;
-        }
-        .wing-right {
-            transform-origin: left center;
-            animation: flapRight 0.15s infinite alternate ease-in-out;
+        .sunflower.bloom {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+            animation: floatFlower 3s ease-in-out infinite alternate;
         }
 
-        @keyframes flapLeft { 0% { transform: rotate(0deg) scaleX(1); } 100% { transform: rotate(-25deg) scaleX(0.4); } }
-        @keyframes flapRight { 0% { transform: rotate(0deg) scaleX(1); } 100% { transform: rotate(25deg) scaleX(0.4); } }
+        @keyframes floatFlower {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(-10px) scale(1.05); }
+        }
 
-        /* Magic Blast Overlay Canvas */
-        #magicBlastCanvas {
+        /* Custom Star Particle Shower from Flowers */
+        .star-dust {
             position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 215;
+            color: #ffe600;
+            font-size: 14px;
             pointer-events: none;
+            z-index: 308;
+            animation: starFall linear forwards;
+            text-shadow: 0 0 8px #ffe600;
+        }
+
+        @keyframes starFall {
+            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(180px) scale(0.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* ------------------ YELLOW & BLACK CHAT POPUP ------------------ */
+        .chat-modal {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+            width: 85%;
+            max-width: 380px;
+            background: rgba(15, 15, 15, 0.95);
+            border: 2px solid #ffe600;
+            box-shadow: 0 0 30px rgba(255, 230, 0, 0.5), inset 0 0 15px rgba(255, 230, 0, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            z-index: 400;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .chat-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 230, 0, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .chat-title {
+            color: #ffe600;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Georgia', serif;
+            text-shadow: 0 0 8px #ffe600;
+        }
+
+        .close-chat {
+            color: #ffe600;
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .chat-body {
+            color: #fff;
+            font-size: 0.98rem;
+            line-height: 1.6;
+            background: rgba(30, 30, 30, 0.8);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #ffe600;
         }
     </style>
 </head>
@@ -162,15 +266,13 @@
 
     <div class="yellow-overlay" id="overlay"></div>
 
-    <!-- FIRST PAGE CONTAINER -->
+    <!-- FIRST PAGE -->
     <div class="container" id="mainContainer">
-        <div class="Flores_Amarillas">
-            💛 Happy birthday Thenara 💛
-        </div>
+        <div class="Flores_Amarillas">💛 Happy birthday Thenara 💛</div>
         <button class="go-btn" id="goButton" onclick="startTransition()">go</button>
     </div>
 
-    <!-- FIRST PAGE BABY -->
+    <!-- BABY -->
     <div class="baby-container" id="babyCharacter">
         <svg viewBox="0 0 200 240" width="100%" height="100%">
             <path d="M 30 110 C 20 20, 180 20, 170 110 Z" fill="#3b2210"/>
@@ -185,28 +287,96 @@
 
     <audio id="babyVoice" src="Convert_lv_0_20260911223306.mp3" preload="auto"></audio>
 
-    <!-- SECOND PAGE CONTAINER -->
+    <!-- SECOND PAGE -->
     <div class="next-page" id="nextPage">
         <canvas id="thenaraCanvas"></canvas>
         <canvas id="magicBlastCanvas"></canvas>
-
-        <!-- FLYING FAIRY BABY WITH WINGS AND WAND -->
         <div class="fairy-baby" id="fairyBaby">
             <svg viewBox="0 0 200 240" width="100%" height="100%">
-                <!-- Wings -->
                 <path class="wing-left" d="M 50 80 C 0 20, -20 100, 50 110 Z" fill="#fff59d" opacity="0.8"/>
                 <path class="wing-right" d="M 150 80 C 200 20, 220 100, 150 110 Z" fill="#fff59d" opacity="0.8"/>
-
-                <!-- Body & Dress -->
                 <path d="M 60 130 Q 100 120 140 130 L 155 190 C 155 200, 45 200, 45 190 Z" fill="#ffe600"/>
                 <rect x="50" y="50" width="100" height="85" rx="30" fill="#fff0e1"/>
                 <ellipse cx="75" cy="88" rx="8" ry="11" fill="#2b1a0e"/>
                 <ellipse cx="125" cy="88" rx="8" ry="11" fill="#2b1a0e"/>
-
-                <!-- Magic Wand in Hand -->
                 <line x1="140" y1="120" x2="185" y2="80" stroke="#ffd700" stroke-width="4"/>
-                <polygon points="185,70 190,80 200,82 192,90 195,100 185,93 175,100 178,90 170,82 180,80" fill="#ffffff" filter="drop-shadow(0 0 5px #ffe600)"/>
+                <polygon points="185,70 190,80 200,82 192,90 195,100 185,93 175,100 178,90 170,82 180,80" fill="#ffffff"/>
             </svg>
+        </div>
+    </div>
+
+    <!-- THIRD PAGE (VINES + SUNFLOWERS + CHAT) -->
+    <div class="third-page" id="thirdPage">
+        <canvas id="vineCanvas"></canvas>
+
+        <div class="sunflower-container">
+            <!-- Left Sunflower -->
+            <svg class="sunflower" id="flowerLeft" style="left: 15%; top: 32%;" onclick="openChat('Flower 1 Wish')">
+                <g filter="drop-shadow(0 0 8px #ffe600)">
+                    <circle cx="45" cy="45" r="14" fill="#3b2210"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(0 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(30 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(60 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(90 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(120 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(150 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(180 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(210 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(240 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(270 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(300 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(330 45 45)"/>
+                </g>
+            </svg>
+
+            <!-- Middle Sunflower (Slanted ~1 inch Left) -->
+            <svg class="sunflower" id="flowerMid" style="left: 38%; top: 22%;" onclick="openChat('Flower 2 Wish')">
+                <g filter="drop-shadow(0 0 12px #ffe600)">
+                    <circle cx="45" cy="45" r="15" fill="#3b2210"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(0 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(30 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(60 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(90 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(120 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(150 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(180 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(210 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(240 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(270 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(300 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(330 45 45)"/>
+                </g>
+            </svg>
+
+            <!-- Right Sunflower -->
+            <svg class="sunflower" id="flowerRight" style="left: 70%; top: 35%;" onclick="openChat('Flower 3 Wish')">
+                <g filter="drop-shadow(0 0 8px #ffe600)">
+                    <circle cx="45" cy="45" r="14" fill="#3b2210"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(0 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(30 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(60 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(90 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(120 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(150 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(180 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(210 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(240 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(270 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(300 45 45)"/>
+                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(330 45 45)"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- POPUP CHAT BOX -->
+        <div class="chat-modal" id="chatBox">
+            <div class="chat-header">
+                <span class="chat-title" id="chatTitle">Special Message 💛</span>
+                <span class="close-chat" onclick="closeChat()">✕</span>
+            </div>
+            <div class="chat-body" id="chatContent">
+                මෙහි ඔයා ඉදිරියට ලබාදෙන ලස්සන Chat/Wish Message එක පෙන්නුම් කෙරේ! ✨
+            </div>
         </div>
     </div>
 
@@ -224,7 +394,6 @@
             setTimeout(() => flower.remove(), 5000);
         }
 
-        // Voice Trigger
         let hasTriggered = false;
         function triggerBabyAnimation() {
             if (hasTriggered) return;
@@ -267,7 +436,7 @@
             }, 1800);
         }
 
-        /* ------------------ SECOND PAGE FLYING & BLAST LOGIC ------------------ */
+        /* ------------------ SECOND PAGE LOGIC ------------------ */
         let fairyX = -150, fairyY = window.innerHeight * 0.3;
 
         function initSecondPage() {
@@ -279,7 +448,6 @@
             const fairy = document.getElementById('fairyBaby');
             fairy.style.display = 'block';
 
-            // Particles Array for "THENARA"
             const particles = [];
             for (let i = 0; i < 45; i++) {
                 particles.push({
@@ -291,26 +459,21 @@
                 });
             }
 
-            // Flying Animation Sequence
             let startTime = null;
             function flyStep(timestamp) {
                 if (!startTime) startTime = timestamp;
                 let progress = (timestamp - startTime) / 1000;
 
                 if (progress < 1.5) {
-                    // Fly in fast from left
                     fairyX = -150 + (canvas.width * 0.5 + 150) * (progress / 1.5);
                     fairyY = canvas.height * 0.3 + Math.sin(progress * 8) * 40;
                 } else if (progress < 4.0) {
-                    // Rapid Zig-Zag Flying Across Screen
                     fairyX = canvas.width / 2 + Math.sin(progress * 5) * (canvas.width * 0.35);
                     fairyY = canvas.height / 2 + Math.cos(progress * 6) * (canvas.height * 0.25);
                 } else if (progress < 5.0) {
-                    // Move to Exact Center
                     fairyX += (canvas.width / 2 - 60 - fairyX) * 0.1;
                     fairyY += (canvas.height / 2 - 75 - fairyY) * 0.1;
                 } else if (progress >= 5.0) {
-                    // Magic Blast Event Trigger!
                     triggerMagicBallsBlast(canvas.width / 2, canvas.height / 2);
                     return;
                 }
@@ -318,15 +481,12 @@
                 fairy.style.left = fairyX + 'px';
                 fairy.style.top = fairyY + 'px';
 
-                // Draw THENARA Particles & Make them REPEL away from Fairy!
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 particles.forEach(p => {
-                    // Calculate distance to Fairy
                     let dx = p.x - (fairyX + 60);
                     let dy = p.y - (fairyY + 75);
                     let dist = Math.sqrt(dx * dx + dy * dy);
 
-                    // Push Particles away from Fairy!
                     if (dist < 140) {
                         let force = (140 - dist) / 140;
                         p.x += (dx / dist) * force * 18;
@@ -347,11 +507,10 @@
 
                 requestAnimationFrame(flyStep);
             }
-
             requestAnimationFrame(flyStep);
         }
 
-        /* Magic Yellow Balls Expansion & Full Yellow Cover */
+        /* MAGIC BLAST & TRANSITION TO 3RD PAGE */
         function triggerMagicBallsBlast(centerX, centerY) {
             const bCanvas = document.getElementById('magicBlastCanvas');
             const bCtx = bCanvas.getContext('2d');
@@ -359,14 +518,11 @@
             bCanvas.height = window.innerHeight;
 
             const magicBalls = [];
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 35; i++) {
                 magicBalls.push({
-                    x: centerX,
-                    y: centerY,
-                    vx: (Math.random() - 0.5) * 22,
-                    vy: (Math.random() - 0.5) * 22,
-                    radius: Math.random() * 10 + 5,
-                    growth: Math.random() * 2 + 1.5
+                    x: centerX, y: centerY,
+                    vx: (Math.random() - 0.5) * 24, vy: (Math.random() - 0.5) * 24,
+                    radius: Math.random() * 10 + 5, growth: Math.random() * 2 + 2
                 });
             }
 
@@ -375,8 +531,7 @@
                 let allBig = true;
 
                 magicBalls.forEach(ball => {
-                    ball.x += ball.vx;
-                    ball.y += ball.vy;
+                    ball.x += ball.vx; ball.y += ball.vy;
                     ball.radius += ball.growth;
 
                     bCtx.beginPath();
@@ -386,21 +541,113 @@
                     bCtx.shadowBlur = 20;
                     bCtx.fill();
 
-                    if (ball.radius < Math.max(bCanvas.width, bCanvas.height)) {
-                        allBig = false;
-                    }
+                    if (ball.radius < Math.max(bCanvas.width, bCanvas.height)) allBig = false;
                 });
 
                 if (!allBig) {
                     requestAnimationFrame(animateBlast);
                 } else {
-                    // Full Screen Turned Yellow! Ready for next instructions
-                    console.log("Page transformed to solid yellow/magic background!");
+                    // Transition to 3rd Page Smoothly
+                    document.getElementById('nextPage').style.opacity = '0';
+                    const thirdPage = document.getElementById('thirdPage');
+                    thirdPage.style.opacity = '1';
+                    thirdPage.style.pointerEvents = 'auto';
+                    initVineAnimation();
                 }
             }
-
             animateBlast();
         }
+
+        /* ------------------ THIRD PAGE (ANIMATED VINES + SUNFLOWERS) ------------------ */
+        function initVineAnimation() {
+            const canvas = document.getElementById('vineCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let progress = 0;
+
+            function drawVines() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.lineWidth = 6;
+                ctx.strokeStyle = '#ffe600';
+                ctx.shadowColor = '#ffe600';
+                ctx.shadowBlur = 12;
+
+                if (progress < 1) progress += 0.015;
+
+                // Vine 1 (Left - Curved Left)
+                ctx.beginPath();
+                ctx.moveTo(canvas.width * 0.45, canvas.height);
+                ctx.quadraticCurveTo(
+                    canvas.width * 0.1, canvas.height * 0.7,
+                    canvas.width * 0.2, canvas.height * 0.38
+                );
+                ctx.stroke();
+
+                // Vine 2 (Middle - Curved Slightly Left ~1 inch)
+                ctx.beginPath();
+                ctx.moveTo(canvas.width * 0.5, canvas.height);
+                ctx.quadraticCurveTo(
+                    canvas.width * 0.38, canvas.height * 0.6,
+                    canvas.width * 0.43, canvas.height * 0.28
+                );
+                ctx.stroke();
+
+                // Vine 3 (Right - Curved Right)
+                ctx.beginPath();
+                ctx.moveTo(canvas.width * 0.55, canvas.height);
+                ctx.quadraticCurveTo(
+                    canvas.width * 0.9, canvas.height * 0.7,
+                    canvas.width * 0.75, canvas.height * 0.41
+                );
+                ctx.stroke();
+
+                if (progress < 1) {
+                    requestAnimationFrame(drawVines);
+                } else {
+                    // Bloom Flowers after Vines finish drawing!
+                    document.getElementById('flowerLeft').classList.add('bloom');
+                    document.getElementById('flowerMid').classList.add('bloom');
+                    document.getElementById('flowerRight').classList.add('bloom');
+                    
+                    startStarDustShower();
+                }
+            }
+            drawVines();
+        }
+
+        /* Star Dust Shower from Blooming Flowers */
+        function startStarDustShower() {
+            setInterval(() => {
+                const flowers = [
+                    { x: window.innerWidth * 0.2, y: window.innerHeight * 0.38 },
+                    { x: window.innerWidth * 0.43, y: window.innerHeight * 0.28 },
+                    { x: window.innerWidth * 0.75, y: window.innerHeight * 0.41 }
+                ];
+                
+                const f = flowers[Math.floor(Math.random() * flowers.length)];
+                const star = document.createElement('div');
+                star.classList.add('star-dust');
+                star.innerText = Math.random() > 0.5 ? '✦' : '★';
+                star.style.left = (f.x + (Math.random() - 0.5) * 40) + 'px';
+                star.style.top = (f.y + 30) + 'px';
+
+                document.getElementById('thirdPage').appendChild(star);
+                setTimeout(() => star.remove(), 2000);
+            }, 150);
+        }
+
+        /* CHAT MODAL LOGIC */
+        function openChat(title) {
+            document.getElementById('chatTitle').innerText = title;
+            document.getElementById('chatBox').classList.add('active');
+        }
+
+        function closeChat() {
+            document.getElementById('chatBox').classList.remove('active');
+        }
     </script>
+
 </body>
 </html>
