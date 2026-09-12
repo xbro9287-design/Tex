@@ -1,653 +1,1752 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Galaxia de Amor - Thenara Magic</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #050505;
-            overflow: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            width: 100vw;
-            height: 100vh;
-        }
+<title>Happy Birthday Thenara 💛</title>
 
-        /* ------------------ FIRST PAGE ------------------ */
-        .container {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate3d(-50%, -50%, 0);
-            text-align: center;
-            z-index: 10;
-            width: 95%;
-            max-width: 500px;
-            transition: opacity 1s ease;
-        }
+<style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
 
-        .Flores_Amarillas {
-            font-size: 2.2rem;
-            font-family: 'Georgia', serif;
-            color: #ffe600;
-            text-shadow: 0 0 15px rgba(255, 230, 0, 0.8), 0 0 30px #ffe600;
-            margin-bottom: 30px;
-        }
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#050505;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
 
-        .go-btn {
-            background: rgba(10, 10, 10, 0.9);
-            border: 2px solid #ffe600;
-            color: #ffe600;
-            padding: 12px 35px;
-            font-size: 1.5rem;
-            font-family: 'Georgia', serif;
-            letter-spacing: 3px;
-            cursor: pointer;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(255, 230, 0, 0.6), inset 0 0 10px #ffe600;
-            animation: pulseGlow 2s infinite ease-in-out;
-        }
+body{
+    position:relative;
+}
 
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px #ffe600, inset 0 0 5px #ffe600; transform: scale(1); }
-            50% { box-shadow: 0 0 30px #ffe600, 0 0 12px #ffffff, inset 0 0 15px #ffe600; transform: scale(1.04); }
-        }
+/* ================= FIRST PAGE ================= */
 
-        .flower {
-            position: absolute;
-            background-color: #ffd700;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffea00;
-            animation: floatUp linear infinite;
-            pointer-events: none;
-        }
+.container{
+    position:absolute;
+    top:40%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    z-index:20;
+    width:95%;
+    transition:opacity 1s ease;
+}
 
-        @keyframes floatUp {
-            0% { transform: translate3d(0, 100vh, 0) scale(0); opacity: 0; }
-            50% { opacity: 0.9; }
-            100% { transform: translate3d(0, -10vh, 0) scale(1.3); opacity: 0; }
-        }
+.Flores_Amarillas{
+    font-size:2.2rem;
+    font-family:Georgia,serif;
+    color:#ffe600;
+    text-shadow:
+        0 0 10px #ffe600,
+        0 0 25px #ffe600,
+        0 0 50px rgba(255,230,0,.7);
+    margin-bottom:30px;
+}
 
-        /* ------------------ 1ST PAGE BABY ------------------ */
-        .baby-container {
-            position: absolute;
-            bottom: -280px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 170px;
-            height: 230px;
-            z-index: 20;
-            transition: bottom 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-            filter: drop-shadow(0 0 20px rgba(255, 230, 0, 0.9));
-        }
+.go-btn{
+    background:rgba(10,10,10,.95);
+    border:2px solid #ffe600;
+    color:#ffe600;
+    padding:12px 35px;
+    font-size:1.5rem;
+    font-family:Georgia,serif;
+    letter-spacing:3px;
+    border-radius:12px;
+    box-shadow:
+        0 0 20px #ffe600,
+        inset 0 0 12px #ffe600;
+    animation:pulseGlow 2s infinite ease-in-out;
+}
 
-        .baby-container.enter { bottom: 25px; }
-        .baby-container.exit { bottom: -280px; transition: bottom 1.2s ease-in-out; }
-        .talking .baby-mouth { animation: talkMouth 0.22s infinite alternate ease-in-out; }
-        @keyframes talkMouth { 0% { transform: scaleY(0.2); } 100% { transform: scaleY(1.8); } }
+@keyframes pulseGlow{
+    0%,100%{
+        transform:scale(1);
+        box-shadow:0 0 15px #ffe600,inset 0 0 5px #ffe600;
+    }
+    50%{
+        transform:scale(1.05);
+        box-shadow:
+            0 0 35px #ffe600,
+            0 0 60px rgba(255,230,0,.5),
+            inset 0 0 18px #ffe600;
+    }
+}
 
-        .yellow-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #ffe600;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 100;
-            transition: opacity 1s ease-in-out;
-        }
+.flower{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#ffd700;
+    box-shadow:0 0 10px #ffd700,0 0 25px #ffe600;
+    animation:floatUp linear infinite;
+    pointer-events:none;
+}
 
-        /* ------------------ SECOND PAGE ------------------ */
-        .next-page {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #000;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 200;
-            transition: opacity 1.5s ease;
-            overflow: hidden;
-        }
+@keyframes floatUp{
+    0%{
+        transform:translateY(100vh) scale(0);
+        opacity:0;
+    }
+    50%{opacity:1;}
+    100%{
+        transform:translateY(-10vh) scale(1.5);
+        opacity:0;
+    }
+}
 
-        #thenaraCanvas, #magicBlastCanvas {
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 201;
-        }
+/* ================= BABY ================= */
 
-        .fairy-baby {
-            position: absolute;
-            width: 120px;
-            height: 150px;
-            z-index: 210;
-            top: 30%; left: -150px;
-            pointer-events: none;
-            display: none;
-            filter: drop-shadow(0 0 18px #ffe600);
-        }
+.baby-container{
+    position:absolute;
+    bottom:-280px;
+    left:50%;
+    transform:translateX(-50%);
+    width:170px;
+    height:230px;
+    z-index:30;
+    transition:bottom 1.4s cubic-bezier(.175,.885,.32,1.275);
+    pointer-events:none;
+    filter:drop-shadow(0 0 20px #ffe600);
+}
 
-        .wing-left { transform-origin: right center; animation: flapLeft 0.15s infinite alternate ease-in-out; }
-        .wing-right { transform-origin: left center; animation: flapRight 0.15s infinite alternate ease-in-out; }
-        @keyframes flapLeft { 0% { transform: rotate(0deg) scaleX(1); } 100% { transform: rotate(-28deg) scaleX(0.3); } }
-        @keyframes flapRight { 0% { transform: rotate(0deg) scaleX(1); } 100% { transform: rotate(28deg) scaleX(0.3); } }
+.baby-container.enter{
+    bottom:25px;
+}
 
-        /* ------------------ THIRD PAGE (HIGH GRAPHICS SUNFLOWERS) ------------------ */
-        .third-page {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at center, #1f1a00 0%, #050505 100%);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 300;
-            transition: opacity 1.5s ease;
-            overflow: hidden;
-        }
+.baby-container.exit{
+    bottom:-280px;
+}
 
-        #vineCanvas {
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 305;
-        }
+.talking .baby-mouth{
+    animation:talkMouth .22s infinite alternate;
+}
 
-        /* Glowing Sunflowers Container */
-        .sunflower-container {
-            position: absolute;
-            z-index: 310;
-            width: 100vw; height: 100vh;
-            pointer-events: none;
-        }
+@keyframes talkMouth{
+    from{transform:scaleY(.2);}
+    to{transform:scaleY(1.8);}
+}
 
-        .sunflower {
-            position: absolute;
-            width: 90px;
-            height: 90px;
-            cursor: pointer;
-            pointer-events: auto;
-            opacity: 0;
-            transform: scale(0) rotate(-180deg);
-            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s;
-            filter: drop-shadow(0 0 15px #ffe600);
-        }
+.yellow-overlay{
+    position:fixed;
+    inset:0;
+    background:#ffe600;
+    opacity:0;
+    pointer-events:none;
+    z-index:100;
+    transition:opacity 1s ease;
+}
 
-        .sunflower.bloom {
-            opacity: 1;
-            transform: scale(1) rotate(0deg);
-            animation: floatFlower 3s ease-in-out infinite alternate;
-        }
+/* ================= SECOND PAGE ================= */
 
-        @keyframes floatFlower {
-            0% { transform: translateY(0px) scale(1); }
-            100% { transform: translateY(-10px) scale(1.05); }
-        }
+.next-page{
+    position:fixed;
+    inset:0;
+    background:#000;
+    opacity:0;
+    pointer-events:none;
+    z-index:200;
+    transition:opacity 1.5s ease;
+    overflow:hidden;
+}
 
-        /* Custom Star Particle Shower from Flowers */
-        .star-dust {
-            position: absolute;
-            color: #ffe600;
-            font-size: 14px;
-            pointer-events: none;
-            z-index: 308;
-            animation: starFall linear forwards;
-            text-shadow: 0 0 8px #ffe600;
-        }
+#thenaraCanvas,
+#magicBlastCanvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+}
 
-        @keyframes starFall {
-            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(180px) scale(0.2) rotate(360deg); opacity: 0; }
-        }
+.fairy-baby{
+    position:absolute;
+    width:120px;
+    height:150px;
+    z-index:210;
+    display:none;
+    filter:drop-shadow(0 0 25px #ffe600);
+}
 
-        /* ------------------ YELLOW & BLACK CHAT POPUP ------------------ */
-        .chat-modal {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.7);
-            width: 85%;
-            max-width: 380px;
-            background: rgba(15, 15, 15, 0.95);
-            border: 2px solid #ffe600;
-            box-shadow: 0 0 30px rgba(255, 230, 0, 0.5), inset 0 0 15px rgba(255, 230, 0, 0.2);
-            border-radius: 20px;
-            padding: 20px;
-            z-index: 400;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+.wing-left{
+    transform-origin:right center;
+    animation:flapLeft .15s infinite alternate;
+}
 
-        .chat-modal.active {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translate(-50%, -50%) scale(1);
-        }
+.wing-right{
+    transform-origin:left center;
+    animation:flapRight .15s infinite alternate;
+}
 
-        .chat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 230, 0, 0.3);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
+@keyframes flapLeft{
+    to{transform:rotate(-28deg) scaleX(.3);}
+}
 
-        .chat-title {
-            color: #ffe600;
-            font-size: 1.2rem;
-            font-weight: bold;
-            font-family: 'Georgia', serif;
-            text-shadow: 0 0 8px #ffe600;
-        }
+@keyframes flapRight{
+    to{transform:rotate(28deg) scaleX(.3);}
+}
 
-        .close-chat {
-            color: #ffe600;
-            font-size: 1.5rem;
-            cursor: pointer;
-            line-height: 1;
-        }
+/* ================================================= */
+/* ================= THIRD PAGE ==================== */
+/* ================================================= */
 
-        .chat-body {
-            color: #fff;
-            font-size: 0.98rem;
-            line-height: 1.6;
-            background: rgba(30, 30, 30, 0.8);
-            padding: 15px;
-            border-radius: 12px;
-            border-left: 4px solid #ffe600;
-        }
-    </style>
+.third-page{
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 50% 48%,
+            rgba(255,230,0,.12) 0%,
+            rgba(255,190,0,.05) 18%,
+            transparent 42%),
+        radial-gradient(circle at 50% 100%,
+            #241e00 0%,
+            #080800 45%,
+            #010101 100%);
+    opacity:0;
+    pointer-events:none;
+    z-index:300;
+    transition:opacity 1.8s ease;
+    overflow:hidden;
+}
+
+/* moving golden atmosphere */
+
+.third-page::before{
+    content:"";
+    position:absolute;
+    inset:-50%;
+    background:
+        repeating-conic-gradient(
+            from 0deg,
+            transparent 0deg,
+            rgba(255,230,0,.025) 5deg,
+            transparent 10deg
+        );
+    animation:rotateLight 35s linear infinite;
+    pointer-events:none;
+}
+
+@keyframes rotateLight{
+    to{transform:rotate(360deg);}
+}
+
+/* stars background */
+
+.space-star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:#fff9a8;
+    border-radius:50%;
+    box-shadow:0 0 8px #ffe600;
+    animation:twinkle 1.5s infinite alternate;
+    z-index:301;
+}
+
+@keyframes twinkle{
+    from{opacity:.2;transform:scale(.5);}
+    to{opacity:1;transform:scale(1.8);}
+}
+
+/* VINE */
+
+#vineCanvas{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:305;
+}
+
+/* glow underneath flowers */
+
+.flower-aura{
+    position:absolute;
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background:radial-gradient(
+        circle,
+        rgba(255,230,0,.28),
+        rgba(255,230,0,.08) 35%,
+        transparent 70%
+    );
+    filter:blur(8px);
+    opacity:0;
+    z-index:306;
+    pointer-events:none;
+    animation:auraPulse 2s infinite alternate;
+}
+
+@keyframes auraPulse{
+    from{transform:scale(.85);opacity:.45;}
+    to{transform:scale(1.2);opacity:.8;}
+}
+
+/* FLOWERS */
+
+.sunflower-container{
+    position:absolute;
+    inset:0;
+    z-index:310;
+    pointer-events:none;
+}
+
+.sunflower{
+    position:absolute;
+    width:110px;
+    height:110px;
+    pointer-events:auto;
+    cursor:pointer;
+    opacity:0;
+    transform:translateY(180px) scale(.1) rotate(-180deg);
+    filter:
+        drop-shadow(0 0 8px #ffe600)
+        drop-shadow(0 0 22px #ffd000)
+        drop-shadow(0 0 45px rgba(255,230,0,.65));
+}
+
+/* each flower arrives separately */
+
+#flowerLeft{
+    left:10%;
+    top:29%;
+}
+
+#flowerMid{
+    left:35%;
+    top:19%;
+}
+
+#flowerRight{
+    left:69%;
+    top:32%;
+}
+
+.sunflower.bloom{
+    opacity:1;
+    animation:
+        flowerEntrance 1.5s cubic-bezier(.17,.89,.32,1.28) forwards,
+        flowerFloat 3.5s 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes flowerEntrance{
+    0%{
+        opacity:0;
+        transform:translateY(220px) scale(.05) rotate(-180deg);
+    }
+    60%{
+        opacity:1;
+        transform:translateY(-18px) scale(1.08) rotate(12deg);
+    }
+    100%{
+        opacity:1;
+        transform:translateY(0) scale(1) rotate(0deg);
+    }
+}
+
+@keyframes flowerFloat{
+    from{transform:translateY(0) rotate(-2deg) scale(1);}
+    to{transform:translateY(-12px) rotate(2deg) scale(1.04);}
+}
+
+/* slight tilt */
+
+#flowerLeft.bloom{
+    animation:
+        flowerEntranceLeft 1.5s cubic-bezier(.17,.89,.32,1.28) forwards,
+        floatLeft 3s 1.5s ease-in-out infinite alternate;
+}
+
+#flowerMid.bloom{
+    animation:
+        flowerEntranceMid 1.7s cubic-bezier(.17,.89,.32,1.28) forwards,
+        floatMid 3.3s 1.7s ease-in-out infinite alternate;
+}
+
+#flowerRight.bloom{
+    animation:
+        flowerEntranceRight 1.9s cubic-bezier(.17,.89,.32,1.28) forwards,
+        floatRight 3.5s 1.9s ease-in-out infinite alternate;
+}
+
+@keyframes flowerEntranceLeft{
+    from{
+        opacity:0;
+        transform:translate(-80px,220px) scale(.05) rotate(-180deg);
+    }
+    65%{
+        opacity:1;
+        transform:translate(10px,-15px) scale(1.1) rotate(-15deg);
+    }
+    to{
+        opacity:1;
+        transform:translate(0,0) scale(1) rotate(-8deg);
+    }
+}
+
+@keyframes flowerEntranceMid{
+    from{
+        opacity:0;
+        transform:translate(-10px,230px) scale(.05) rotate(-180deg);
+    }
+    65%{
+        opacity:1;
+        transform:translate(-15px,-20px) scale(1.1) rotate(-8deg);
+    }
+    to{
+        opacity:1;
+        transform:translate(-10px,0) scale(1) rotate(-7deg);
+    }
+}
+
+@keyframes flowerEntranceRight{
+    from{
+        opacity:0;
+        transform:translate(90px,230px) scale(.05) rotate(180deg);
+    }
+    65%{
+        opacity:1;
+        transform:translate(-10px,-15px) scale(1.1) rotate(15deg);
+    }
+    to{
+        opacity:1;
+        transform:translate(0,0) scale(1) rotate(8deg);
+    }
+}
+
+@keyframes floatLeft{
+    from{transform:translateY(0) rotate(-8deg);}
+    to{transform:translateY(-12px) rotate(-12deg);}
+}
+
+@keyframes floatMid{
+    from{transform:translate(-10px,0) rotate(-7deg);}
+    to{transform:translate(-10px,-10px) rotate(-11deg);}
+}
+
+@keyframes floatRight{
+    from{transform:translateY(0) rotate(8deg);}
+    to{transform:translateY(-13px) rotate(12deg);}
+}
+
+/* flower center */
+
+.flower-center{
+    animation:centerGlow 1.2s infinite alternate;
+}
+
+@keyframes centerGlow{
+    from{
+        filter:brightness(1);
+    }
+    to{
+        filter:brightness(1.5);
+    }
+}
+
+/* STAR DUST */
+
+.star-dust{
+    position:absolute;
+    color:#ffe600;
+    font-size:14px;
+    pointer-events:none;
+    z-index:308;
+    text-shadow:
+        0 0 5px #fff,
+        0 0 12px #ffe600,
+        0 0 25px #ffd000;
+    animation:starFall 2.2s linear forwards;
+}
+
+@keyframes starFall{
+    0%{
+        opacity:0;
+        transform:translate(0,0) scale(.2) rotate(0deg);
+    }
+    15%{opacity:1;}
+    100%{
+        opacity:0;
+        transform:
+            translate(
+                calc((var(--random-x) - .5) * 100px),
+                220px
+            )
+            scale(.1)
+            rotate(500deg);
+    }
+}
+
+/* glowing particles */
+
+.magic-particle{
+    position:absolute;
+    border-radius:50%;
+    background:#ffe600;
+    box-shadow:
+        0 0 5px #fff,
+        0 0 12px #ffe600,
+        0 0 25px #ffd000;
+    pointer-events:none;
+    z-index:307;
+    animation:particleMove 2s linear forwards;
+}
+
+@keyframes particleMove{
+    0%{
+        opacity:0;
+        transform:translateY(0) scale(.2);
+    }
+    20%{opacity:1;}
+    100%{
+        opacity:0;
+        transform:translate(
+            calc((var(--dx) - .5) * 160px),
+            250px
+        ) scale(.05);
+    }
+}
+
+/* ================= CHAT ================= */
+
+.chat-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    backdrop-filter:blur(5px);
+    z-index:390;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .4s ease;
+}
+
+.chat-backdrop.active{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.chat-modal{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(.55);
+    width:88%;
+    max-width:400px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(25,25,25,.98),
+            rgba(5,5,5,.98)
+        );
+    border:2px solid #ffe600;
+    border-radius:22px;
+    padding:22px;
+    z-index:400;
+    opacity:0;
+    pointer-events:none;
+    box-shadow:
+        0 0 15px #ffe600,
+        0 0 45px rgba(255,230,0,.45),
+        inset 0 0 20px rgba(255,230,0,.12);
+    transition:
+        opacity .45s ease,
+        transform .45s cubic-bezier(.175,.885,.32,1.275);
+}
+
+.chat-modal.active{
+    opacity:1;
+    pointer-events:auto;
+    transform:translate(-50%,-50%) scale(1);
+}
+
+.chat-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(255,230,0,.35);
+    padding-bottom:12px;
+    margin-bottom:16px;
+}
+
+.chat-title{
+    color:#ffe600;
+    font-size:1.2rem;
+    font-weight:bold;
+    font-family:Georgia,serif;
+    text-shadow:
+        0 0 8px #ffe600,
+        0 0 18px #ffe600;
+}
+
+.close-chat{
+    color:#ffe600;
+    font-size:1.5rem;
+    cursor:pointer;
+    text-shadow:0 0 10px #ffe600;
+}
+
+.chat-body{
+    color:white;
+    font-size:1rem;
+    line-height:1.7;
+    background:rgba(30,30,30,.8);
+    padding:17px;
+    border-radius:14px;
+    border-left:4px solid #ffe600;
+    box-shadow:inset 0 0 15px rgba(255,230,0,.08);
+}
+
+/* little heart */
+
+.chat-heart{
+    text-align:center;
+    color:#ffe600;
+    font-size:28px;
+    margin-bottom:8px;
+    animation:heartBeat 1s infinite;
+}
+
+@keyframes heartBeat{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.25);}
+}
+
+/* mobile */
+
+@media(max-width:500px){
+
+    .Flores_Amarillas{
+        font-size:1.75rem;
+    }
+
+    .sunflower{
+        width:88px;
+        height:88px;
+    }
+
+    #flowerLeft{
+        left:4%;
+        top:31%;
+    }
+
+    #flowerMid{
+        left:32%;
+        top:21%;
+    }
+
+    #flowerRight{
+        left:65%;
+        top:34%;
+    }
+
+    .chat-modal{
+        width:90%;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="yellow-overlay" id="overlay"></div>
+<div class="yellow-overlay" id="overlay"></div>
 
-    <!-- FIRST PAGE -->
-    <div class="container" id="mainContainer">
-        <div class="Flores_Amarillas">💛 Happy birthday Thenara 💛</div>
-        <button class="go-btn" id="goButton" onclick="startTransition()">go</button>
+<!-- FIRST PAGE -->
+
+<div class="container" id="mainContainer">
+    <div class="Flores_Amarillas">
+        💛 Happy birthday Thenara 💛
     </div>
 
-    <!-- BABY -->
-    <div class="baby-container" id="babyCharacter">
-        <svg viewBox="0 0 200 240" width="100%" height="100%">
-            <path d="M 30 110 C 20 20, 180 20, 170 110 Z" fill="#3b2210"/>
-            <path d="M 60 140 Q 100 130 140 140 L 160 215 C 160 225, 40 225, 40 215 Z" fill="#ffe600"/>
-            <rect x="45" y="55" width="110" height="95" rx="35" fill="#fff0e1"/>
-            <ellipse cx="75" cy="98" rx="10" ry="13" fill="#2b1a0e"/>
-            <ellipse cx="125" cy="98" rx="10" ry="13" fill="#2b1a0e"/>
-            <rect x="43" y="50" width="114" height="16" rx="8" fill="#ffe600"/>
-            <ellipse class="baby-mouth" cx="100" cy="122" rx="7" ry="5" fill="#e64a19"/>
-        </svg>
-    </div>
+    <button class="go-btn" id="goButton" onclick="startTransition()">
+        go
+    </button>
+</div>
 
-    <audio id="babyVoice" src="Convert_lv_0_20260911223306.mp3" preload="auto"></audio>
+<!-- BABY -->
 
-    <!-- SECOND PAGE -->
-    <div class="next-page" id="nextPage">
-        <canvas id="thenaraCanvas"></canvas>
-        <canvas id="magicBlastCanvas"></canvas>
-        <div class="fairy-baby" id="fairyBaby">
-            <svg viewBox="0 0 200 240" width="100%" height="100%">
-                <path class="wing-left" d="M 50 80 C 0 20, -20 100, 50 110 Z" fill="#fff59d" opacity="0.8"/>
-                <path class="wing-right" d="M 150 80 C 200 20, 220 100, 150 110 Z" fill="#fff59d" opacity="0.8"/>
-                <path d="M 60 130 Q 100 120 140 130 L 155 190 C 155 200, 45 200, 45 190 Z" fill="#ffe600"/>
-                <rect x="50" y="50" width="100" height="85" rx="30" fill="#fff0e1"/>
-                <ellipse cx="75" cy="88" rx="8" ry="11" fill="#2b1a0e"/>
-                <ellipse cx="125" cy="88" rx="8" ry="11" fill="#2b1a0e"/>
-                <line x1="140" y1="120" x2="185" y2="80" stroke="#ffd700" stroke-width="4"/>
-                <polygon points="185,70 190,80 200,82 192,90 195,100 185,93 175,100 178,90 170,82 180,80" fill="#ffffff"/>
-            </svg>
-        </div>
-    </div>
+<div class="baby-container" id="babyCharacter">
+<svg viewBox="0 0 200 240" width="100%" height="100%">
 
-    <!-- THIRD PAGE (VINES + SUNFLOWERS + CHAT) -->
-    <div class="third-page" id="thirdPage">
-        <canvas id="vineCanvas"></canvas>
+<path d="M30 110 C20 20,180 20,170 110Z" fill="#3b2210"/>
 
-        <div class="sunflower-container">
-            <!-- Left Sunflower -->
-            <svg class="sunflower" id="flowerLeft" style="left: 15%; top: 32%;" onclick="openChat('Flower 1 Wish')">
-                <g filter="drop-shadow(0 0 8px #ffe600)">
-                    <circle cx="45" cy="45" r="14" fill="#3b2210"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(0 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(30 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(60 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(90 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(120 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(150 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(180 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(210 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(240 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(270 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(300 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(330 45 45)"/>
-                </g>
-            </svg>
+<path
+d="M60 140 Q100 130 140 140 L160 215
+C160 225,40 225,40 215Z"
+fill="#ffe600"/>
 
-            <!-- Middle Sunflower (Slanted ~1 inch Left) -->
-            <svg class="sunflower" id="flowerMid" style="left: 38%; top: 22%;" onclick="openChat('Flower 2 Wish')">
-                <g filter="drop-shadow(0 0 12px #ffe600)">
-                    <circle cx="45" cy="45" r="15" fill="#3b2210"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(0 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(30 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(60 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(90 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(120 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(150 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(180 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(210 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(240 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(270 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(300 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffea00" transform="rotate(330 45 45)"/>
-                </g>
-            </svg>
+<rect
+x="45"
+y="55"
+width="110"
+height="95"
+rx="35"
+fill="#fff0e1"/>
 
-            <!-- Right Sunflower -->
-            <svg class="sunflower" id="flowerRight" style="left: 70%; top: 35%;" onclick="openChat('Flower 3 Wish')">
-                <g filter="drop-shadow(0 0 8px #ffe600)">
-                    <circle cx="45" cy="45" r="14" fill="#3b2210"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(0 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(30 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(60 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(90 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(120 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(150 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(180 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(210 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(240 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(270 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(300 45 45)"/>
-                    <path d="M45,5 L49,25 L45,31 L41,25 Z" fill="#ffe600" transform="rotate(330 45 45)"/>
-                </g>
-            </svg>
-        </div>
+<ellipse cx="75" cy="98" rx="10" ry="13" fill="#2b1a0e"/>
+<ellipse cx="125" cy="98" rx="10" ry="13" fill="#2b1a0e"/>
 
-        <!-- POPUP CHAT BOX -->
-        <div class="chat-modal" id="chatBox">
-            <div class="chat-header">
-                <span class="chat-title" id="chatTitle">Special Message 💛</span>
-                <span class="close-chat" onclick="closeChat()">✕</span>
-            </div>
-            <div class="chat-body" id="chatContent">
-                මෙහි ඔයා ඉදිරියට ලබාදෙන ලස්සන Chat/Wish Message එක පෙන්නුම් කෙරේ! ✨
-            </div>
-        </div>
-    </div>
+<rect
+x="43"
+y="50"
+width="114"
+height="16"
+rx="8"
+fill="#ffe600"/>
 
-    <script>
-        let spawnInterval = setInterval(createFlower, 180);
+<ellipse
+class="baby-mouth"
+cx="100"
+cy="122"
+rx="7"
+ry="5"
+fill="#e64a19"/>
 
-        function createFlower() {
-            const flower = document.createElement('div');
-            flower.classList.add('flower');
-            flower.style.width = '6px';
-            flower.style.height = '6px';
-            flower.style.left = Math.random() * 100 + 'vw';
-            flower.style.animationDuration = (Math.random() * 3 + 3) + 's';
-            document.body.appendChild(flower);
-            setTimeout(() => flower.remove(), 5000);
-        }
+</svg>
+</div>
 
-        let hasTriggered = false;
-        function triggerBabyAnimation() {
-            if (hasTriggered) return;
-            hasTriggered = true;
-            const baby = document.getElementById('babyCharacter');
-            const voice = document.getElementById('babyVoice');
+<audio
+id="babyVoice"
+src="Convert_lv_0_20260911223306.mp3"
+preload="auto">
+</audio>
 
-            setTimeout(() => {
-                baby.classList.add('enter');
-                setTimeout(() => {
-                    voice.play().then(() => baby.classList.add('talking')).catch(() => {});
-                }, 1200);
-            }, 2000);
+<!-- SECOND PAGE -->
 
-            voice.addEventListener('ended', () => {
-                baby.classList.remove('talking', 'enter');
-                baby.classList.add('exit');
-            });
-        }
+<div class="next-page" id="nextPage">
 
-        window.addEventListener('DOMContentLoaded', () => {
-            triggerBabyAnimation();
-            const enableAudio = () => {
-                triggerBabyAnimation();
-                window.removeEventListener('touchstart', enableAudio);
-                window.removeEventListener('click', enableAudio);
-            };
-            window.addEventListener('touchstart', enableAudio);
-            window.addEventListener('click', enableAudio);
+<canvas id="thenaraCanvas"></canvas>
+<canvas id="magicBlastCanvas"></canvas>
+
+<div class="fairy-baby" id="fairyBaby">
+
+<svg viewBox="0 0 200 240" width="100%" height="100%">
+
+<path
+class="wing-left"
+d="M50 80 C0 20,-20 100,50 110Z"
+fill="#fff59d"
+opacity=".8"/>
+
+<path
+class="wing-right"
+d="M150 80 C200 20,220 100,150 110Z"
+fill="#fff59d"
+opacity=".8"/>
+
+<path
+d="M60 130 Q100 120 140 130
+L155 190 C155 200,45 200,45 190Z"
+fill="#ffe600"/>
+
+<rect
+x="50"
+y="50"
+width="100"
+height="85"
+rx="30"
+fill="#fff0e1"/>
+
+<ellipse cx="75" cy="88" rx="8" ry="11" fill="#2b1a0e"/>
+<ellipse cx="125" cy="88" rx="8" ry="11" fill="#2b1a0e"/>
+
+<line
+x1="140"
+y1="120"
+x2="185"
+y2="80"
+stroke="#ffd700"
+stroke-width="4"/>
+
+<polygon
+points="185,70 190,80 200,82 192,90
+195,100 185,93 175,100 178,90
+170,82 180,80"
+fill="#ffffff"/>
+
+</svg>
+</div>
+
+</div>
+
+<!-- ================= THIRD PAGE ================= -->
+
+<div class="third-page" id="thirdPage">
+
+<canvas id="vineCanvas"></canvas>
+
+<div id="stars"></div>
+
+<!-- FLOWER AURAS -->
+
+<div class="flower-aura" style="left:2%;top:25%;"></div>
+<div class="flower-aura" style="left:29%;top:15%;"></div>
+<div class="flower-aura" style="left:63%;top:27%;"></div>
+
+<div class="sunflower-container">
+
+<!-- LEFT FLOWER -->
+
+<svg
+class="sunflower"
+id="flowerLeft"
+onclick="openChat('Flower 1 Wish')"
+viewBox="0 0 90 90">
+
+<g>
+
+<circle
+cx="45"
+cy="45"
+r="15"
+fill="#3b2210"
+class="flower-center"/>
+
+<script type="application/none"></script>
+
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(30 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(60 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(90 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(120 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(150 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(180 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(210 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(240 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(270 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(300 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(330 45 45)"/>
+
+</g>
+</svg>
+
+<!-- MIDDLE -->
+
+<svg
+class="sunflower"
+id="flowerMid"
+onclick="openChat('Flower 2 Wish')"
+viewBox="0 0 90 90">
+
+<g>
+
+<circle
+cx="45"
+cy="45"
+r="16"
+fill="#3b2210"
+class="flower-center"/>
+
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00"/>
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00" transform="rotate(30 45 45)"/>
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00" transform="rotate(60 45 45)"/>
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00" transform="rotate(90 45 45)"/>
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00" transform="rotate(120 45 45)"/>
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00" transform="rotate(150 45 45)"/>
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00" transform="rotate(180 45 45)"/>
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00" transform="rotate(210 45 45)"/>
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00" transform="rotate(240 45 45)"/>
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00" transform="rotate(270 45 45)"/>
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00" transform="rotate(300 45 45)"/>
+<path d="M45 3 L50 25 L45 31 L40 25Z" fill="#ffea00" transform="rotate(330 45 45)"/>
+
+</g>
+</svg>
+
+<!-- RIGHT -->
+
+<svg
+class="sunflower"
+id="flowerRight"
+onclick="openChat('Flower 3 Wish')"
+viewBox="0 0 90 90">
+
+<g>
+
+<circle
+cx="45"
+cy="45"
+r="15"
+fill="#3b2210"
+class="flower-center"/>
+
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(30 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(60 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(90 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(120 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(150 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(180 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(210 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(240 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(270 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(300 45 45)"/>
+<path d="M45 4 L49 25 L45 31 L41 25Z" fill="#ffe600" transform="rotate(330 45 45)"/>
+
+</g>
+</svg>
+
+</div>
+
+<!-- CHAT BACKDROP -->
+
+<div
+class="chat-backdrop"
+id="chatBackdrop"
+onclick="closeChat()">
+</div>
+
+<!-- CHAT -->
+
+<div class="chat-modal" id="chatBox">
+
+<div class="chat-header">
+
+<span
+class="chat-title"
+id="chatTitle">
+Special Message 💛
+</span>
+
+<span
+class="close-chat"
+onclick="closeChat()">
+✕
+</span>
+
+</div>
+
+<div class="chat-heart">
+💛
+</div>
+
+<div
+class="chat-body"
+id="chatContent">
+
+මෙතන ඔයා ඉස්සරහට දෙන
+ලස්සන Birthday Wish එක දාන්න පුළුවන්. ✨
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ================================================= */
+/* FIRST PAGE FLOWERS */
+/* ================================================= */
+
+let spawnInterval=setInterval(createFlower,180);
+
+function createFlower(){
+
+    const flower=document.createElement("div");
+
+    flower.className="flower";
+
+    flower.style.left=Math.random()*100+"vw";
+
+    flower.style.animationDuration=
+        (Math.random()*3+3)+"s";
+
+    document.body.appendChild(flower);
+
+    setTimeout(()=>{
+        flower.remove();
+    },5000);
+}
+
+
+/* ================================================= */
+/* BABY */
+/* ================================================= */
+
+let hasTriggered=false;
+
+function triggerBabyAnimation(){
+
+    if(hasTriggered)return;
+
+    hasTriggered=true;
+
+    const baby=document.getElementById("babyCharacter");
+    const voice=document.getElementById("babyVoice");
+
+    setTimeout(()=>{
+
+        baby.classList.add("enter");
+
+        setTimeout(()=>{
+
+            voice.play()
+            .then(()=>{
+                baby.classList.add("talking");
+            })
+            .catch(()=>{});
+
+        },1200);
+
+    },2000);
+
+    voice.addEventListener("ended",()=>{
+
+        baby.classList.remove("talking","enter");
+        baby.classList.add("exit");
+
+    });
+
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+    triggerBabyAnimation();
+});
+
+
+/* ================================================= */
+/* TRANSITION */
+/* ================================================= */
+
+function startTransition(){
+
+    clearInterval(spawnInterval);
+
+    document.getElementById("mainContainer")
+    .style.opacity="0";
+
+    setTimeout(()=>{
+
+        document.getElementById("overlay")
+        .style.opacity="1";
+
+    },600);
+
+    setTimeout(()=>{
+
+        document.getElementById("nextPage")
+        .style.opacity="1";
+
+        document.getElementById("nextPage")
+        .style.pointerEvents="auto";
+
+        initSecondPage();
+
+    },1800);
+}
+
+
+/* ================================================= */
+/* SECOND PAGE */
+/* ================================================= */
+
+let fairyX=-150;
+let fairyY=window.innerHeight*.3;
+
+function initSecondPage(){
+
+    const canvas=document.getElementById("thenaraCanvas");
+    const ctx=canvas.getContext("2d");
+
+    canvas.width=innerWidth;
+    canvas.height=innerHeight;
+
+    const fairy=document.getElementById("fairyBaby");
+
+    fairy.style.display="block";
+
+    const particles=[];
+
+    for(let i=0;i<55;i++){
+
+        particles.push({
+
+            x:Math.random()*canvas.width,
+            y:Math.random()*canvas.height,
+
+            vx:(Math.random()-.5)*.8,
+            vy:(Math.random()-.5)*.8,
+
+            size:Math.random()*5+10
+
         });
 
-        function startTransition() {
-            clearInterval(spawnInterval);
-            document.getElementById('mainContainer').style.opacity = '0';
-            setTimeout(() => document.getElementById('overlay').style.opacity = '1', 600);
-            setTimeout(() => {
-                document.getElementById('nextPage').style.opacity = '1';
-                document.getElementById('nextPage').style.pointerEvents = 'auto';
-                initSecondPage();
-            }, 1800);
+    }
+
+    let startTime=null;
+
+    function flyStep(timestamp){
+
+        if(!startTime)
+            startTime=timestamp;
+
+        let progress=(timestamp-startTime)/1000;
+
+        if(progress<1.5){
+
+            fairyX=
+                -150+
+                (canvas.width*.5+150)*
+                (progress/1.5);
+
+            fairyY=
+                canvas.height*.3+
+                Math.sin(progress*8)*40;
+
         }
 
-        /* ------------------ SECOND PAGE LOGIC ------------------ */
-        let fairyX = -150, fairyY = window.innerHeight * 0.3;
+        else if(progress<4){
 
-        function initSecondPage() {
-            const canvas = document.getElementById('thenaraCanvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            fairyX=
+                canvas.width/2+
+                Math.sin(progress*5)*
+                canvas.width*.35;
 
-            const fairy = document.getElementById('fairyBaby');
-            fairy.style.display = 'block';
+            fairyY=
+                canvas.height/2+
+                Math.cos(progress*6)*
+                canvas.height*.25;
 
-            const particles = [];
-            for (let i = 0; i < 45; i++) {
-                particles.push({
-                    x: Math.random() * (canvas.width - 80),
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.8,
-                    vy: (Math.random() - 0.5) * 0.8,
-                    size: Math.random() * 4 + 10
-                });
-            }
-
-            let startTime = null;
-            function flyStep(timestamp) {
-                if (!startTime) startTime = timestamp;
-                let progress = (timestamp - startTime) / 1000;
-
-                if (progress < 1.5) {
-                    fairyX = -150 + (canvas.width * 0.5 + 150) * (progress / 1.5);
-                    fairyY = canvas.height * 0.3 + Math.sin(progress * 8) * 40;
-                } else if (progress < 4.0) {
-                    fairyX = canvas.width / 2 + Math.sin(progress * 5) * (canvas.width * 0.35);
-                    fairyY = canvas.height / 2 + Math.cos(progress * 6) * (canvas.height * 0.25);
-                } else if (progress < 5.0) {
-                    fairyX += (canvas.width / 2 - 60 - fairyX) * 0.1;
-                    fairyY += (canvas.height / 2 - 75 - fairyY) * 0.1;
-                } else if (progress >= 5.0) {
-                    triggerMagicBallsBlast(canvas.width / 2, canvas.height / 2);
-                    return;
-                }
-
-                fairy.style.left = fairyX + 'px';
-                fairy.style.top = fairyY + 'px';
-
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => {
-                    let dx = p.x - (fairyX + 60);
-                    let dy = p.y - (fairyY + 75);
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 140) {
-                        let force = (140 - dist) / 140;
-                        p.x += (dx / dist) * force * 18;
-                        p.y += (dy / dist) * force * 18;
-                    } else {
-                        p.x += p.vx;
-                        p.y += p.vy;
-                    }
-
-                    ctx.save();
-                    ctx.font = `600 ${p.size}px Georgia, serif`;
-                    ctx.fillStyle = '#ffe600';
-                    ctx.shadowColor = '#ffe600';
-                    ctx.shadowBlur = 8;
-                    ctx.fillText('THENARA', p.x, p.y);
-                    ctx.restore();
-                });
-
-                requestAnimationFrame(flyStep);
-            }
-            requestAnimationFrame(flyStep);
         }
 
-        /* MAGIC BLAST & TRANSITION TO 3RD PAGE */
-        function triggerMagicBallsBlast(centerX, centerY) {
-            const bCanvas = document.getElementById('magicBlastCanvas');
-            const bCtx = bCanvas.getContext('2d');
-            bCanvas.width = window.innerWidth;
-            bCanvas.height = window.innerHeight;
+        else if(progress<5){
 
-            const magicBalls = [];
-            for (let i = 0; i < 35; i++) {
-                magicBalls.push({
-                    x: centerX, y: centerY,
-                    vx: (Math.random() - 0.5) * 24, vy: (Math.random() - 0.5) * 24,
-                    radius: Math.random() * 10 + 5, growth: Math.random() * 2 + 2
-                });
-            }
+            fairyX+=(canvas.width/2-60-fairyX)*.1;
+            fairyY+=(canvas.height/2-75-fairyY)*.1;
 
-            function animateBlast() {
-                bCtx.clearRect(0, 0, bCanvas.width, bCanvas.height);
-                let allBig = true;
-
-                magicBalls.forEach(ball => {
-                    ball.x += ball.vx; ball.y += ball.vy;
-                    ball.radius += ball.growth;
-
-                    bCtx.beginPath();
-                    bCtx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-                    bCtx.fillStyle = '#ffe600';
-                    bCtx.shadowColor = '#ffe600';
-                    bCtx.shadowBlur = 20;
-                    bCtx.fill();
-
-                    if (ball.radius < Math.max(bCanvas.width, bCanvas.height)) allBig = false;
-                });
-
-                if (!allBig) {
-                    requestAnimationFrame(animateBlast);
-                } else {
-                    // Transition to 3rd Page Smoothly
-                    document.getElementById('nextPage').style.opacity = '0';
-                    const thirdPage = document.getElementById('thirdPage');
-                    thirdPage.style.opacity = '1';
-                    thirdPage.style.pointerEvents = 'auto';
-                    initVineAnimation();
-                }
-            }
-            animateBlast();
         }
 
-        /* ------------------ THIRD PAGE (ANIMATED VINES + SUNFLOWERS) ------------------ */
-        function initVineAnimation() {
-            const canvas = document.getElementById('vineCanvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        else{
 
-            let progress = 0;
+            triggerMagicBallsBlast(
+                canvas.width/2,
+                canvas.height/2
+            );
 
-            function drawVines() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.lineWidth = 6;
-                ctx.strokeStyle = '#ffe600';
-                ctx.shadowColor = '#ffe600';
-                ctx.shadowBlur = 12;
+            return;
+        }
 
-                if (progress < 1) progress += 0.015;
+        fairy.style.left=fairyX+"px";
+        fairy.style.top=fairyY+"px";
 
-                // Vine 1 (Left - Curved Left)
-                ctx.beginPath();
-                ctx.moveTo(canvas.width * 0.45, canvas.height);
-                ctx.quadraticCurveTo(
-                    canvas.width * 0.1, canvas.height * 0.7,
-                    canvas.width * 0.2, canvas.height * 0.38
+        ctx.clearRect(
+            0,0,
+            canvas.width,
+            canvas.height
+        );
+
+        particles.forEach(p=>{
+
+            p.x+=p.vx;
+            p.y+=p.vy;
+
+            ctx.save();
+
+            ctx.font=
+                `600 ${p.size}px Georgia`;
+
+            ctx.fillStyle="#ffe600";
+
+            ctx.shadowColor="#ffe600";
+            ctx.shadowBlur=12;
+
+            ctx.fillText(
+                "THENARA",
+                p.x,
+                p.y
+            );
+
+            ctx.restore();
+
+        });
+
+        requestAnimationFrame(flyStep);
+    }
+
+    requestAnimationFrame(flyStep);
+}
+
+
+/* ================================================= */
+/* MAGIC BLAST */
+/* ================================================= */
+
+function triggerMagicBallsBlast(centerX,centerY){
+
+    const canvas=document.getElementById(
+        "magicBlastCanvas"
+    );
+
+    const ctx=canvas.getContext("2d");
+
+    canvas.width=innerWidth;
+    canvas.height=innerHeight;
+
+    const balls=[];
+
+    for(let i=0;i<45;i++){
+
+        balls.push({
+
+            x:centerX,
+            y:centerY,
+
+            vx:(Math.random()-.5)*25,
+            vy:(Math.random()-.5)*25,
+
+            radius:Math.random()*10+5,
+            growth:Math.random()*2+2
+
+        });
+
+    }
+
+    function animateBlast(){
+
+        ctx.clearRect(
+            0,0,
+            canvas.width,
+            canvas.height
+        );
+
+        let allBig=true;
+
+        balls.forEach(ball=>{
+
+            ball.x+=ball.vx;
+            ball.y+=ball.vy;
+
+            ball.radius+=ball.growth;
+
+            ctx.beginPath();
+
+            ctx.arc(
+                ball.x,
+                ball.y,
+                ball.radius,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fillStyle="#ffe600";
+
+            ctx.shadowColor="#ffe600";
+            ctx.shadowBlur=25;
+
+            ctx.fill();
+
+            if(
+                ball.radius<
+                Math.max(
+                    canvas.width,
+                    canvas.height
+                )
+            ){
+                allBig=false;
+            }
+
+        });
+
+        if(!allBig){
+
+            requestAnimationFrame(
+                animateBlast
+            );
+
+        }else{
+
+            document.getElementById(
+                "nextPage"
+            ).style.opacity="0";
+
+            const third=
+                document.getElementById(
+                    "thirdPage"
                 );
-                ctx.stroke();
 
-                // Vine 2 (Middle - Curved Slightly Left ~1 inch)
-                ctx.beginPath();
-                ctx.moveTo(canvas.width * 0.5, canvas.height);
-                ctx.quadraticCurveTo(
-                    canvas.width * 0.38, canvas.height * 0.6,
-                    canvas.width * 0.43, canvas.height * 0.28
-                );
-                ctx.stroke();
+            third.style.opacity="1";
+            third.style.pointerEvents="auto";
 
-                // Vine 3 (Right - Curved Right)
-                ctx.beginPath();
-                ctx.moveTo(canvas.width * 0.55, canvas.height);
-                ctx.quadraticCurveTo(
-                    canvas.width * 0.9, canvas.height * 0.7,
-                    canvas.width * 0.75, canvas.height * 0.41
-                );
-                ctx.stroke();
+            setTimeout(
+                initThirdPage,
+                600
+            );
 
-                if (progress < 1) {
-                    requestAnimationFrame(drawVines);
-                } else {
-                    // Bloom Flowers after Vines finish drawing!
-                    document.getElementById('flowerLeft').classList.add('bloom');
-                    document.getElementById('flowerMid').classList.add('bloom');
-                    document.getElementById('flowerRight').classList.add('bloom');
-                    
-                    startStarDustShower();
-                }
-            }
-            drawVines();
         }
 
-        /* Star Dust Shower from Blooming Flowers */
-        function startStarDustShower() {
-            setInterval(() => {
-                const flowers = [
-                    { x: window.innerWidth * 0.2, y: window.innerHeight * 0.38 },
-                    { x: window.innerWidth * 0.43, y: window.innerHeight * 0.28 },
-                    { x: window.innerWidth * 0.75, y: window.innerHeight * 0.41 }
-                ];
-                
-                const f = flowers[Math.floor(Math.random() * flowers.length)];
-                const star = document.createElement('div');
-                star.classList.add('star-dust');
-                star.innerText = Math.random() > 0.5 ? '✦' : '★';
-                star.style.left = (f.x + (Math.random() - 0.5) * 40) + 'px';
-                star.style.top = (f.y + 30) + 'px';
+    }
 
-                document.getElementById('thirdPage').appendChild(star);
-                setTimeout(() => star.remove(), 2000);
-            }, 150);
+    animateBlast();
+}
+
+
+/* ================================================= */
+/* THIRD PAGE */
+/* ================================================= */
+
+function initThirdPage(){
+
+    createBackgroundStars();
+
+    createAuras();
+
+    initVines();
+
+}
+
+
+/* ================================================= */
+/* BACKGROUND STARS */
+/* ================================================= */
+
+function createBackgroundStars(){
+
+    const container=
+        document.getElementById("stars");
+
+    container.innerHTML="";
+
+    for(let i=0;i<90;i++){
+
+        const star=
+            document.createElement("div");
+
+        star.className="space-star";
+
+        star.style.left=
+            Math.random()*100+"%";
+
+        star.style.top=
+            Math.random()*100+"%";
+
+        star.style.animationDelay=
+            Math.random()*2+"s";
+
+        star.style.opacity=
+            Math.random();
+
+        container.appendChild(star);
+    }
+
+}
+
+
+/* ================================================= */
+/* AURAS */
+/* ================================================= */
+
+function createAuras(){
+
+    document
+    .querySelectorAll(".flower-aura")
+    .forEach((aura,index)=>{
+
+        setTimeout(()=>{
+
+            aura.style.opacity=".7";
+
+        },900+index*550);
+
+    });
+
+}
+
+
+/* ================================================= */
+/* VINES */
+/* ================================================= */
+
+function initVines(){
+
+    const canvas=
+        document.getElementById(
+            "vineCanvas"
+        );
+
+    const ctx=canvas.getContext("2d");
+
+    canvas.width=innerWidth;
+    canvas.height=innerHeight;
+
+    let progress=0;
+
+    function draw(){
+
+        ctx.clearRect(
+            0,0,
+            canvas.width,
+            canvas.height
+        );
+
+        progress+=.012;
+
+        if(progress>1)
+            progress=1;
+
+        ctx.lineWidth=5;
+
+        ctx.lineCap="round";
+
+        ctx.strokeStyle="#ffe600";
+
+        ctx.shadowColor="#ffe600";
+        ctx.shadowBlur=18;
+
+        /* LEFT VINE */
+
+        drawPartialCurve(
+            ctx,
+            .45,
+            1,
+            .10,
+            .70,
+            .20,
+            .38,
+            progress
+        );
+
+        /* MIDDLE VINE */
+
+        drawPartialCurve(
+            ctx,
+            .50,
+            1,
+            .38,
+            .60,
+            .43,
+            .28,
+            progress
+        );
+
+        /* RIGHT VINE */
+
+        drawPartialCurve(
+            ctx,
+            .55,
+            1,
+            .90,
+            .70,
+            .75,
+            .41,
+            progress
+        );
+
+        /* tiny glowing leaves */
+
+        if(progress>.35){
+
+            drawLeaf(
+                ctx,
+                canvas.width*.29,
+                canvas.height*.70,
+                -35
+            );
+
+            drawLeaf(
+                ctx,
+                canvas.width*.68,
+                canvas.height*.70,
+                35
+            );
+
         }
 
-        /* CHAT MODAL LOGIC */
-        function openChat(title) {
-            document.getElementById('chatTitle').innerText = title;
-            document.getElementById('chatBox').classList.add('active');
+        if(progress<1){
+
+            requestAnimationFrame(draw);
+
+        }else{
+
+            bloomFlowers();
+
         }
 
-        function closeChat() {
-            document.getElementById('chatBox').classList.remove('active');
+    }
+
+    draw();
+
+}
+
+
+/* ================================================= */
+/* PARTIAL VINE */
+/* ================================================= */
+
+function drawPartialCurve(
+    ctx,
+    sx,sy,
+    cx,cy,
+    ex,ey,
+    progress
+){
+
+    const w=innerWidth;
+    const h=innerHeight;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        w*sx,
+        h*sy
+    );
+
+    const endX=
+        w*sx+
+        (w*ex-w*sx)*progress;
+
+    const endY=
+        h*sy+
+        (h*ey-h*sy)*progress;
+
+    ctx.quadraticCurveTo(
+        w*cx,
+        h*cy,
+        endX,
+        endY
+    );
+
+    ctx.stroke();
+
+}
+
+
+/* ================================================= */
+/* LEAVES */
+/* ================================================= */
+
+function drawLeaf(ctx,x,y,angle){
+
+    ctx.save();
+
+    ctx.translate(x,y);
+
+    ctx.rotate(
+        angle*Math.PI/180
+    );
+
+    ctx.fillStyle="#ffe600";
+
+    ctx.shadowColor="#ffe600";
+    ctx.shadowBlur=12;
+
+    ctx.beginPath();
+
+    ctx.ellipse(
+        0,0,
+        22,8,
+        0,
+        0,
+        Math.PI*2
+    );
+
+    ctx.fill();
+
+    ctx.restore();
+
+}
+
+
+/* ================================================= */
+/* FLOWER BLOOM */
+/* ================================================= */
+
+function bloomFlowers(){
+
+    const left=
+        document.getElementById(
+            "flowerLeft"
+        );
+
+    const mid=
+        document.getElementById(
+            "flowerMid"
+        );
+
+    const right=
+        document.getElementById(
+            "flowerRight"
+        );
+
+    /* one by one */
+
+    setTimeout(()=>{
+        left.classList.add("bloom");
+        startFlowerParticles(left,0);
+    },300);
+
+    setTimeout(()=>{
+        mid.classList.add("bloom");
+        startFlowerParticles(mid,1);
+    },1100);
+
+    setTimeout(()=>{
+        right.classList.add("bloom");
+        startFlowerParticles(right,2);
+    },1900);
+
+}
+
+
+/* ================================================= */
+/* PARTICLES FROM FLOWERS */
+/* ================================================= */
+
+function startFlowerParticles(flower,index){
+
+    const interval=setInterval(()=>{
+
+        if(
+            !flower.classList.contains(
+                "bloom"
+            )
+        ) return;
+
+        const rect=
+            flower.getBoundingClientRect();
+
+        const x=
+            rect.left+
+            rect.width/2;
+
+        const y=
+            rect.top+
+            rect.height/2;
+
+        /* STAR */
+
+        const star=
+            document.createElement("div");
+
+        star.className="star-dust";
+
+        star.innerText=
+            Math.random()>.5
+            ? "✦"
+            : "★";
+
+        star.style.left=x+"px";
+        star.style.top=y+"px";
+
+        star.style.setProperty(
+            "--random-x",
+            Math.random()
+        );
+
+        document
+        .getElementById("thirdPage")
+        .appendChild(star);
+
+        setTimeout(()=>{
+            star.remove();
+        },2300);
+
+        /* extra glowing dot */
+
+        if(Math.random()>.3){
+
+            const p=
+                document.createElement("div");
+
+            p.className="magic-particle";
+
+            const size=
+                Math.random()*5+3;
+
+            p.style.width=size+"px";
+            p.style.height=size+"px";
+
+            p.style.left=
+                x+
+                (Math.random()-.5)*35+
+                "px";
+
+            p.style.top=
+                y+
+                30+
+                "px";
+
+            p.style.setProperty(
+                "--dx",
+                Math.random()
+            );
+
+            document
+            .getElementById("thirdPage")
+            .appendChild(p);
+
+            setTimeout(()=>{
+                p.remove();
+            },2100);
+
         }
-    </script>
+
+    },130);
+
+}
+
+
+/* ================================================= */
+/* CHAT */
+/* ================================================= */
+
+function openChat(title){
+
+    document.getElementById(
+        "chatTitle"
+    ).innerText=title;
+
+    document.getElementById(
+        "chatBox"
+    ).classList.add("active");
+
+    document.getElementById(
+        "chatBackdrop"
+    ).classList.add("active");
+
+}
+
+
+function closeChat(){
+
+    document.getElementById(
+        "chatBox"
+    ).classList.remove("active");
+
+    document.getElementById(
+        "chatBackdrop"
+    ).classList.remove("active");
+
+}
+
+
+/* ================================================= */
+/* RESIZE */
+/* ================================================= */
+
+window.addEventListener(
+    "resize",
+    ()=>{
+        const canvas=
+            document.getElementById(
+                "vineCanvas"
+            );
+
+        if(canvas){
+
+            canvas.width=innerWidth;
+            canvas.height=innerHeight;
+
+        }
+    }
+);
+
+</script>
 
 </body>
-</html>
+    </html>
