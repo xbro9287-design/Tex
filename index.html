@@ -22,58 +22,79 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100vh;
-            overflow: hidden;
+            padding: 10px;
+            overflow-x: hidden;
         }
 
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             width: 100%;
+            max-width: 900px;
         }
 
-        /* Responsive Text Area for exact ASCII */
+        /* Responsive Box for Mobile View */
+        .ascii-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            display: flex;
+            justify-content: center;
+            background: #000;
+            border: 1px solid #00ff66;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+            border-radius: 6px;
+            padding: 5px;
+        }
+
         #asciiOutput {
-            font-size: 5px;
-            line-height: 5px;
+            font-size: 2.2px; /* Mobile එකට ගැලපෙන ලෙස කුඩා කර ඇත */
+            line-height: 2.2px;
             letter-spacing: 0px;
             white-space: pre;
-            background: #000;
-            padding: 10px;
-            border: 1px solid #00ff66;
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);
-            border-radius: 6px;
-            transition: transform 0.05s ease-out; /* Smooth movement */
+            transition: transform 0.05s ease-out;
             user-select: none;
+            display: inline-block;
+        }
+
+        /* Desktop සහ ටැබ්ලට් සඳහා Font Size එක විශාල කිරීම */
+        @media (min-width: 600px) {
+            #asciiOutput {
+                font-size: 4px;
+                line-height: 4px;
+            }
         }
 
         .controls {
             display: flex;
-            gap: 10px;
-            width: 90%;
-            max-width: 800px;
+            gap: 8px;
+            width: 100%;
+            flex-wrap: wrap;
         }
 
         input {
             flex: 1;
+            min-width: 180px;
             padding: 10px;
             border: 1px solid #00ff66;
             background: #051008;
             color: #00ff66;
             border-radius: 4px;
+            font-size: 12px;
         }
 
         button {
-            padding: 10px 20px;
+            padding: 10px 15px;
             background: #00ff66;
             color: #000;
             border: none;
             font-weight: bold;
             cursor: pointer;
             border-radius: 4px;
+            font-size: 12px;
         }
 
         #hiddenVideo { display: none; }
@@ -82,7 +103,9 @@
 <body>
 
     <div class="container">
-        <pre id="asciiOutput"></pre>
+        <div class="ascii-wrapper">
+            <pre id="asciiOutput"></pre>
+        </div>
 
         <div class="controls">
             <input type="password" id="geminiKey" placeholder="Enter Google Gemini API Key">
@@ -98,11 +121,10 @@
     <video id="hiddenVideo" autoplay playsinline></video>
 
     <script>
-        // Exact ASCII Model String provided by user
         const originalAscii = [
 "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
 "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB999#99###99#999#9#99999BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB999#99###99#999#9#99999BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
 "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB#SGHMhMMMMMMMMMMHMHMHMMMMMHHGS9BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
 "BBBBBBBBBBB9BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB#SHHMhh522A522222222222222225553hHHHGGS9BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
 "BBBBBBBBBB93#BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB99#Mh3352AXXXXAAA2A2222222AAA22A2222553hhMMH#9BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB#h9BBBBBBBBBB",
@@ -170,13 +192,12 @@
 "&&BBB9#HAXXsri,.....,i,...,,:,.,rsiAX;:,,::,;i;;;3XM5:...,,,,,,:;;;;;rrrssXA2555HMMMMMsriri;;:..:Ah5h22Ariii;issA2sAA::ii:;;;;rXi;;;;ir25533hH#9BB&B&",
 "#H5XXsr;,,.....;AMGGHMGHh,.....,,;:ri:,,.,,,,:i;;isXrr....,,.,,,:;;;;rrrrXAA23hhMMMh5rri;;:;:,.:r5H352Ari;;;.;irssrs;:.,,,.,MGGHGGGM5r;::;;;rA5333hG#",
 "sri:,,.....:AhGGHHMh35MHh.......,::.,,,....,..;;;;;sih,.......,,,,;;r:,;ssAA5Hi:;MhXir;;;;,,,..HMM3222r:::.,.:;;;;si;:......MHH3hhMHHGH3Ai,,:::;isA25",
-",.....,s5MGGGHMh322Xsr;ir:........,:.....,:,.,,;;;;rriX.........,,:::;i:srXAhG3Mhs:ri;;;;::,..:H5S252s,;iii;..;;:rr;::,....:sir22A233hMHHHHM3X:.,,,::",
- me.map(line => line);
+",.....,s5MGGGHMh322Xsr;ir:........,:.....,:,.,,;;;;rriX.........,,:::;i:srXAhG3Mhs:ri;;;;::,..:H5S252s,;iii;..;;:rr;::,....:sir22A233hMHHHHM3X:.,,,::"
+        ];
 
         const asciiBox = document.getElementById('asciiOutput');
-        let mouthMovableLines = [60, 61, 62, 63]; // Mouth lines area
+        let mouthMovableLines = [60, 61, 62, 63];
 
-        // Initialize exact image
         asciiBox.innerText = originalAscii.join('\n');
 
         function startSystem() {
@@ -191,11 +212,8 @@
             faceMesh.onResults((results) => {
                 if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
                     const nose = results.multiFaceLandmarks[0][1];
-                    
-                    // Head Motion Tracking (Translates image based on face)
-                    let moveX = (nose.x - 0.5) * 60; 
-                    let moveY = (nose.y - 0.5) * 40;
-                    
+                    let moveX = (nose.x - 0.5) * 30; 
+                    let moveY = (nose.y - 0.5) * 20;
                     asciiBox.style.transform = `translate(${moveX}px, ${moveY}px)`;
                 }
             });
@@ -207,7 +225,6 @@
             camera.start();
         }
 
-        // Voice Lip Sync Functionality
         async function speakAI() {
             const input = document.getElementById('userInput').value;
             const key = document.getElementById('geminiKey').value;
@@ -227,10 +244,8 @@
 
                 const utterance = new SpeechSynthesisUtterance(reply);
                 
-                // Animate mouth part of exact ASCII image during speech
                 utterance.onboundary = () => {
                     let tempAscii = [...originalAscii];
-                    // Replace mouth characters temporarily to simulate opening/closing
                     mouthMovableLines.forEach(idx => {
                         tempAscii[idx] = tempAscii[idx].replace(/2s2/g, "   ").replace(/522/g, "   ");
                     });
@@ -238,7 +253,7 @@
                 };
 
                 utterance.onend = () => {
-                    asciiBox.innerText = originalAscii.join('\n'); // Reset image
+                    asciiBox.innerText = originalAscii.join('\n');
                 };
 
                 window.speechSynthesis.speak(utterance);
