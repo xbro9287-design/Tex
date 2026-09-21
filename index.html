@@ -1,76 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wi-Fi Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .login-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0  4px 8px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 300px;
-        }
-        h2 {
-            color: #333;
-        }
-        input[type="password"], input[type="text"] {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Robot Face</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#000;
+    color:#00ffcc;
+    font-family:monospace;
+    overflow:hidden;
+}
+
+#camera{
+    position:fixed;
+    width:1px;
+    height:1px;
+    opacity:0;
+}
+
+#screen{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+}
+
+.ui{
+    position:fixed;
+    top:15px;
+    left:15px;
+    right:15px;
+    display:flex;
+    justify-content:space-between;
+    z-index:10;
+    font-size:12px;
+    letter-spacing:2px;
+    text-shadow:0 0 10px #00ffcc;
+}
+
+.status{
+    padding:7px 10px;
+    border:1px solid #00ffcc55;
+    background:#00151099;
+    border-radius:8px;
+}
+
+#loading{
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#000;
+    z-index:20;
+    font-size:15px;
+    letter-spacing:3px;
+}
+
+#loading.hide{
+    display:none;
+}
+</style>
 </head>
+
 <body>
 
-<div class="login-container">
-    <h2>Wi-Fi Login</h2>
-    <p>Please enter your password to connect.</p>
-    <form id="wifiForm" action="#" method="POST">
-        <input type="text" placeholder="Username (optional)" name="username">
-        <input type="password" placeholder="Password" name="password" required>
-        <button type="submit">Connect</button>
-    </form>
+<div id="loading">
+    INITIALIZING ROBOT BRAIN...
 </div>
 
+<div class="ui">
+    <div class="status">● CAMERA <span id="cam">WAIT</span></div>
+    <div class="status">AI FACE <span id="brain">LOADING</span></div>
+</div>
+
+<video id="camera" autoplay playsinline></video>
+
+<canvas id="screen"></canvas>
+
+<!-- MediaPipe -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
 <script>
-    document.getElementById('wifiForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevent actual form submission
-        
-        const password = document.querySelector('input[name="password"]').value;
-        const username = document.querySelector('input[name="username"]').value;
-        
-        // In a real attack, this would send data to your server
-        alert(`Password Captured: ${password}`);
-        
-        console.log(`Username: ${username}, Password: ${password}``);
-    });
+
+const video = document.getElementById("camera");
+const canvas = document.getElementById("screen");
+const ctx = canvas.getContext("2d");
+
+const camText = document.getElementById("cam");
+const brainText = document.getElementById("brain");
+const loading = document.getElementById("loading");
+
+let W,H;
+
+function resize(){
+    W = canvas.width = innerWidth;
+    H = canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize",resize);
+
+
+/* =========================================
+   ROBOT ASCII FACE
+========================================= */
+
+const robot = [
+
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+"BBBBBBBBBBBBBBBBBBBBBBBB999#99###99#999#9#99999BBBBBBBBBBBBBBBB",
+"BBBBBBBBBBBBBBBBBBBBBB#SGHMhMMMMMMMMMMHMHMHMMMMMHHGS9BBBBBBBBBBB",
+"BBBBBBBBBBBBBBBBBBB#SHHMhh522A5222222222222222225553hHHHGGS9BBBB",
+"BBBBBBBBBBBBBBBBB99#Mh3352AXXXXAAA2A2222222AAA22A2222553hhMMH#9",
+"BBBBBBBBBBBBBBBB9SHh2h52AXXssrrrsX532ssrrsssrrrsA55AAA2AAA2253",
+"BBBBBBBBBBBBBB9Sh335A2iXssrrrrss5rrsAXXXXXXXXXXssXAXr;2AXssAAX",
+"BBBBBBBBBBBB9#M5552AAXAisrrsrrr5rsrssAAAAAAAAAAAAAA5XsXs:AXXX",
+"BBBBBBBBBBB9HMh522AXXXssssrrrrXrssrsss222222252525223AXsssX",
+"BBBBBBBBBB#GHMA52AAXssrrrr;,;sXissrssssX5525553555255AAAXXX",
+"BBBBBBBBB#GGHMh3AXXXssrrrriirrX;rsrssrssrX55h533h355522AAA",
+"BBBBBBBB#hh3352AssAii;riririiiiX;irrrrrirss222222522255322",
+"BBBBBBB#H5232AXsriiXirriiriiiirrX,rrrrrrrrsAAAAAA222225M25",
+"BBBBBBB#GH352Xssriiiirriiiiiri;:,i,rrrrrrrrrXXXXAAA22h553",
+"BBBBBBSHHhAXrriii;iir:;;,:;ii;;;ss;iiirrrrrXXXXAAAA25533",
+"BBBBBB#GHHMXrrii;;;;;;2i;;;;;;;;;i3,irrriiiisXXXXAXA22553",
+"BBBBB9GHHHMriii;;;;;i;i,i;;;;;;;;;is;iiiiiiisXAXXXAA22253",
+"BBBB9HHGHM3;;;;;;;;;;;s;;;;;;;;;::Xiiiiiiiis5XXAAA25255",
+"BBB9GGGHMMXr;;;;;;;;;5:;;;;;;;;;:;2,;iiiiirXXXXAA22553",
+"BB9HGGHMMM3i;;;;;;;;;r,;;;;;::;;;::;2;;,,;ssXXXXsssXXX",
+"B9AHGHHhh3i;;;:::;;;;i;;;::;;;:::;::;iirirsXXXXXAAA",
+"9MXXA#H33ri:;AM,,,:rhGS;:..,,..;:::;i;;iiiiiiiiiiii",
+"3h2,.sH:::.,5HGA,:.:,.,:,,:::irssrssrrissiii;;;ii",
+"52irhr..,,ihGGM,,;,::,:,,:;rsX3HSSMssi:iii::rrrr",
+"3s3i;;;rri;AM,,,:rhGS;:..,,..;:::;i;;iiiiiiii",
+"2hhM3r::::i,;::::::;;;;;;;;;;;::;;:iiiiiiir",
+"333hMMX::::::i,:;;;;;;;;;;;;;;::::;iiiiii",
+"555hMM3r::::i,;::::::;;;;;;;;;;;::;;:iiiiii",
+"hhMMsi::;r,::::::;;;;;;;;;;;::;;:iiiiii",
+"MMMM3r::::i,;::::::;;;;;;;;;;;::;;:iiiiii",
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+];
+
+
+/* =========================================
+   CREATE CHARACTER POINTS
+========================================= */
+
+let points = [];
+
+function buildRobot(){
+
+    points=[];
+
+    const rows=robot.length;
+    const cols=Math.max(...robot.map(x=>x.length));
+
+    const cellW=7;
+    const cellH=9;
+
+    const totalW=cols*cellW;
+    const totalH=rows*cellH;
+
+    const startX=(W-totalW)/2;
+    const startY=(H-totalH)/2;
+
+    for(let y=0;y<rows;y++){
+
+        for(let x=0;x<robot[y].length;x++){
+
+            const char=robot[y][x];
+
+            if(char!=="B" && char!==" "){
+
+                points.push({
+                    x:startX+x*cellW,
+                    y:startY+y*cellH,
+                    char:char,
+                    ox:x,
+                    oy:y
+                });
+
+            }
+        }
+    }
+}
+
+buildRobot();
+
+
+/* =========================================
+   FACE TRACKING VARIABLES
+========================================= */
+
+let yaw=0;
+let targetYaw=0;
+
+let pitch=0;
+let targetPitch=0;
+
+let faceFound=false;
+
+
+/* =========================================
+   MEDIAPIPE FACE MESH
+========================================= */
+
+const faceMesh = new FaceMesh({
+    locateFile:(file)=>{
+        return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+    }
+});
+
+faceMesh.setOptions({
+
+    maxNumFaces:1,
+
+    refineLandmarks:true,
+
+    minDetectionConfidence:0.5,
+
+    minTrackingConfidence:0.5
+});
+
+
+faceMesh.onResults(results=>{
+
+    if(
+        results.multiFaceLandmarks &&
+        results.multiFaceLandmarks.length>0
+    ){
+
+        faceFound=true;
+
+        const face=results.multiFaceLandmarks[0];
+
+        /*
+          Nose tip
+        */
+        const nose=face[1];
+
+        /*
+          Left / right face edges
+        */
+        const left=face[234];
+        const right=face[454];
+
+        const center=(left.x+right.x)/2;
+
+        /*
+          Calculate head rotation
+        */
+
+        targetYaw=(nose.x-center)*3.5;
+
+        targetPitch=(nose.y-0.5)*2.0;
+
+        targetYaw=Math.max(-1,Math.min(1,targetYaw));
+        targetPitch=Math.max(-1,Math.min(1,targetPitch));
+
+        brainText.textContent="ACTIVE";
+
+    }else{
+
+        faceFound=false;
+
+        targetYaw=0;
+        targetPitch=0;
+
+        brainText.textContent="SEARCHING";
+    }
+});
+
+
+/* =========================================
+   START CAMERA
+========================================= */
+
+async function startCamera(){
+
+    try{
+
+        const stream=await navigator.mediaDevices.getUserMedia({
+
+            video:{
+                facingMode:"user",
+                width:{ideal:640},
+                height:{ideal:480}
+            },
+
+            audio:false
+        });
+
+        video.srcObject=stream;
+
+        camText.textContent="ON";
+
+        loading.classList.add("hide");
+
+        const camera=new Camera(video,{
+
+            onFrame:async()=>{
+                await faceMesh.send({image:video});
+            },
+
+            width:640,
+            height:480
+        });
+
+        camera.start();
+
+    }catch(error){
+
+        loading.textContent=
+        "CAMERA ACCESS DENIED — PLEASE ALLOW CAMERA";
+
+        console.error(error);
+    }
+}
+
+startCamera();
+
+
+/* =========================================
+   ROBOT RENDER
+========================================= */
+
+function draw(){
+
+    requestAnimationFrame(draw);
+
+    /*
+      Smooth movement
+    */
+
+    yaw += (targetYaw-yaw)*0.12;
+
+    pitch += (targetPitch-pitch)*0.12;
+
+    ctx.clearRect(0,0,W,H);
+
+    /*
+      Background
+    */
+
+    ctx.fillStyle="#000";
+    ctx.fillRect(0,0,W,H);
+
+    /*
+      Robot center
+    */
+
+    const centerX=W/2;
+    const centerY=H/2;
+
+    /*
+      Character rendering
+    */
+
+    ctx.textAlign="center";
+    ctx.textBaseline="middle";
+
+    for(const p of points){
+
+        /*
+          Horizontal distortion based
+          on head rotation
+        */
+
+        let px=p.x;
+
+        let py=p.y;
+
+        const dx=px-centerX;
+        const dy=py-centerY;
+
+        /*
+          Simulated 3D head rotation
+        */
+
+        const depthFactor=
+            1 + Math.sin((p.oy/robot.length)*Math.PI)*0.15;
+
+        px=centerX + dx*(1-yaw*0.22);
+
+        /*
+          Shift different parts differently.
+          This creates a 3D turning effect.
+        */
+
+        px += yaw * dy * 0.28;
+
+        py += pitch * dx * 0.12;
+
+        /*
+          Slight live movement
+        */
+
+        const breathing=
+            Math.sin(Date.now()/700 + p.ox*0.03)*0.5;
+
+        py+=breathing;
+
+        /*
+          Size
+        */
+
+        const size=
+            Math.max(
+                5,
+                Math.min(15,7*depthFactor)
+            );
+
+        ctx.font=
+            `${size}px monospace`;
+
+        /*
+          Glow
+        */
+
+        ctx.shadowBlur=12;
+        ctx.shadowColor="#00ffcc";
+
+        ctx.fillStyle="#00ffcc";
+
+        ctx.fillText(
+            p.char,
+            px,
+            py
+        );
+    }
+
+    /*
+      Face tracking indicator
+    */
+
+    if(faceFound){
+
+        ctx.shadowBlur=0;
+
+        ctx.font="11px monospace";
+
+        ctx.fillStyle="#00ffcc";
+
+        ctx.textAlign="center";
+
+        ctx.fillText(
+            "FACE TRACKING",
+            W/2,
+            H-25
+        );
+
+    }else{
+
+        ctx.shadowBlur=0;
+
+        ctx.font="11px monospace";
+
+        ctx.fillStyle="#555";
+
+        ctx.textAlign="center";
+
+        ctx.fillText(
+            "SEARCHING FOR FACE...",
+            W/2,
+            H-25
+        );
+    }
+}
+
+draw();
+
 </script>
 
 </body>
-</html>
+    </html>
