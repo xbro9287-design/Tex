@@ -1,287 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOI-SYN | Fixed Mobile Responsive ASCII</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: #030508;
-            color: #00ff66;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 10px;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        /* Responsive Canvas Box */
-        .ascii-card {
-            width: 100%;
-            aspect-ratio: 1 / 0.75;
-            background: #000;
-            border: 1px solid #00ff66;
-            box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
-            border-radius: 6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        .controls {
-            display: flex;
-            gap: 8px;
-            width: 100%;
-        }
-
-        input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #00ff66;
-            background: #051008;
-            color: #00ff66;
-            border-radius: 4px;
-            font-size: 12px;
-        }
-
-        button {
-            padding: 10px 15px;
-            background: #00ff66;
-            color: #000;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 12px;
-            white-space: nowrap;
-        }
-
-        #hiddenVideo { display: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misti - AI Assistant</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+    body { background: #f4f1ea; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
+    .chat-card { width: 100%; max-width: 400px; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; height: 90vh; }
+    .header { background: #3c2a21; color: #fff; padding: 15px; text-align: center; font-weight: bold; font-size: 1.2rem; }
+    .chat-box { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+    .msg { padding: 10px 14px; border-radius: 12px; max-width: 80%; word-wrap: break-word; font-size: 0.95rem; line-height: 1.4; }
+    .user { background: #d3e3fd; align-self: flex-end; color: #000; }
+    .bot { background: #f0f0f0; align-self: flex-start; color: #333; }
+    .input-area { display: flex; padding: 10px; background: #fff; border-top: 1px solid #eee; }
+    input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 8px; outline: none; }
+    button { background: #3c2a21; color: white; border: none; padding: 10px 15px; margin-left: 8px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Direct Canvas Renderer for Zero Glitch -->
-        <div class="ascii-card">
-            <canvas id="asciiCanvas"></canvas>
-        </div>
+<div class="chat-card">
+  <div class="header">Chat with Misti ✨</div>
+  <div class="chat-box" id="chatBox">
+    <div class="msg bot">Hello! I am Misti. How can I help you today?</div>
+  </div>
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendMessage()">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
 
-        <div class="controls">
-            <input type="password" id="geminiKey" placeholder="Enter Gemini API Key">
-            <button onclick="startSystem()">ACTIVATE TRACKING</button>
-        </div>
+<script>
+  // Manifest Key and URL Added Directly
+  const API_KEY = "mnfst_AFS1hPkKSC_1QeAqb1ALHUABWhuAMZ1Bk-8hdcrRZvM"; 
+  const BASE_URL = "https://app.manifest.build/v1/chat/completions";
 
-        <div class="controls">
-            <input type="text" id="userInput" placeholder="Talk to VOI-SYN..." onkeypress="handleKey(event)">
-            <button onclick="speakAI()">SEND</button>
-        </div>
-    </div>
+  async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const chatBox = document.getElementById("chatBox");
+    const text = input.value.trim();
+    if (!text) return;
 
-    <video id="hiddenVideo" autoplay playsinline></video>
+    // Display User Message
+    chatBox.innerHTML += `<div class="msg user">${text}</div>`;
+    input.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
 
-    <script>
-        const originalAscii = [
-"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB999#99###99#999#9#99999BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB#SGHMhMMMMMMMMMMHMHMHMMMMMHHGS9BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-"BBBBBBBBBBB9BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB#SHHMhh522A522222222222222225553hHHHGGS9BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-"BBBBBBBBBB93#BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB99#Mh3352AXXXXAAA2A2222222AAA22A2222553hhMMH#9BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB#h9BBBBBBBBBB",
-"BBBBBBBBBB9hh9BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB9SHh2h52AXXssrrrsX532ssrrsssrrrsA55AAA2AAA22533h5MG#BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB9MM9BBBBBBBBBB",
-"BBBBBBBBBB9G2hBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB9Sh335A2iXssrrrrss5rrsAXXXXXXXXXXssXAXr;2AXssAAX22r25hhMMS9BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBh5GBBBBBBBBBBB",
-"BBBBBBBBBBB#22#BBBBBBBBBBBBBBBBBBBBBBBBBBB9#M5552AAXAisrrsrrr5rsrssAAAAAAAAAAAAAA5XsXs:AXXXXAAAr25533hhhH#9BBBBBBBBBBBBBBBBBBBBBBBBBBB#53#BBBBBBBBBBB",
-"BBBBBBBBBBB9H239BBBBBBBBBBBBBBBBBBBBBBBB#HMh522AXXXssssrrrrXrssrsss222222252525223AXsssX:AXXAA2X2A2253hhhHMH#BBBBBBBBBBBBBBBBBBBBBBBB#h5H9BBBBBBBBBBB",
-"BBBBBBBBBBBB#32H9BBBBBBBBBBBBBBBBBBBBB#GHMA52AAXssrrrr;,;sXissrssssX5525553555255AAAXXXAXi;2XiiXAA2AA255332HGG#BBBBBBBBBBBBBBBBBBBBB9H53#BBBBBBBBBBBB",
-"BBBBBBBBBBBB9GA2H9BBBBBBBBBBBBBBBBB#GGHMh3AXXXssrrrriirrX;rsrssrssrX55h533h355522AAAXAXXXXXrsAXXXXXAAAA2522hMHGGG9BBBBBBBBBBBBBBBBBBG52G9BBBBBBBBBBBB",
-"BBBBBBBBBBBBB#225#BBBBBBBBBBBBBBBBGHMMh35AX;Xsrrrrirrrir3,isssrsrrrs23535355555252AAAAAAAA2:3AAXAXXAAXAA2;23hMHHHGGBBBBBBBBBBBBBBBB#555#BBBBBBBBBBBBB",
-"BBBBBBBBBBBBB9hA239BBBBBBBBBBBBBB#hh3352AssAii;riririiiiX;irrrrrirss222222522255322AA22AAA5:AAXXAXXXAAAAXAA233hMMMM#BBBBBBBBBBBBBB9h52M9BBBBBBBBBBBBB",
-"BBBBBBBBBBBBBBS3X2h9BBBBBBBBBBBB#H5232AXsriiXirriiriiiirrX,rrrrrrrrsAAAAAA222225M2525h5225rsAAXXAAXXA2AAXXAA2233hhMG9BBBBBBBBBBBB9M523GBBBBBBBBBBBBBB",
-"BBBBBBBBBBBBBB9MAA2HBBBBBBBBBBBBGH352Xssriiiirriiiiiri;:,i,rrrrrrrrrXXXXAAA22h553555555555;;iAAAAXXXXA2iXXXAAA253hMGSBBBBBBBBBBBBG252M9BBBBBBBBBBBBBB",
-"BBBBBBBBBBBBBBBS3s229BBBBBBBBBBSHHhAXrriii;iir:;;,:;ii;;;ss;iiirrrrrXXXXAAAA25533h3523533Ai3XXXXXsrrAA;AXXXXXXAA55MGGSBBBBBBBBBBB522hG9BBBBBBBBBBBBBB",
-"BBBBBBBBBBBBBBB9MAX2HBBBBBBBBB#GHHMXrrii;;;;;;2i;;;;;;;;;i3,irrriiiisXXXXAXA22553HMM3hhh3sAAsAAXAAAAXA5XXXXXXXXAA2GGGG#BBBBBBBBBG222H9BBBBBBBBBBBBBBB",
-"BBBBBBBBBBBBBBBB#MsXXHBBBBBBB9GHHHMriii;;;;;i;i,i;;;;;;;;;is;iiiiiiisXAXXXAA22253GHHGHHMM:MsXX222222Ar5XXXXXAXAAAAGGGGG9BBBBBBBSAAAMSBBBBBBBBBBBBBBBB",
-"BBBBGG9BBBBBBBBB9H2siA#BBBBBBSHGHHM2iii;;;;;;;i,;;;;;;;;;:;h,iiiiiiisAXXAXA22225MGGGGGHHss3sAA22222AX:AXXXXXXXXXXhGSGGG#BBBBBB#2XA3H9BBBBBBBBB9SSBBBB",
-"BBBB9h39BBBBBBBBBShXis29BBBBB9HHGHM3;;;;;;;;;;;s;;;;;;;;;::Xiiiiiiiis5XXAAA25255HGGGGGHM;#XA22222252A;XXAXAXXXXXXHGGGGGBBBBBB93As2hSBBBBBBBBB9Mh9BBBB",
-"BBBBB935#BBBBBBBBBM5s;s59BBBB9GGGHMMXr;;;;;;;;;5:;;;;;;;;;:;2,;iiiiirXXXXAA22553#SGGSSSr55A255555555sXAXAAAXXXXX2HHGGGG9BBBBBh2sA3M9BBBBBBBB#3h9BBBBB",
-"BBBBBB#AAH9BBBBBBB#5sriXMBBBS5HGGMMM3i;;;;;;;;;r,;;;;;::;;;::;2;;,,;ssXXXXsssXXXAr::irXHM22555555355rHAAAXXXXXAA3HHGGGGhSBBBG5XX2hSBBBBBBB9G52#BBBBBB",
-"BBBBBBBMXA5#BBBBBBBh2s;iXSBB3AHGHHhh3i;;;:::;;;;i;;;::;;;:::;::;iirirsXXXXXAAAAX23hhHB35M55553333352,3AAAssXXAX2MHHHGGG5hBB#5AsA5h9B&&BBB9h22HBBBBBBB",
-"BBBBB&&9MXXA#BBBBBBS3sr;sA9G3sHGHMh33s;:::::::::X:;;;;:;:;:;;:::rrrrrssssXXXXXXAX3hhMHA2h35353333h3Ai2AAAXAXAsX2MHHHHGG5MS952sA2hSBBBBBB#522H9BBBBBBB",
-"BBBBBBBB9H2XAhBBBBBBh5sr;rs3hiGGMMhh3s,i::::;:::r::;;;:;;:;;;:::irrirsssXsXXsXsXX225HAAh35333hhh332rMAAAAAXX2hXhMHHHHGGAHM22sX23MBBBBBBH225G9BBBBBBBB",
-"BBBBBBBBB9HAsASBBBBBhhXssrr3MiHGhhh35si,r;;;;;;::;A,:;;;;;;;;;:::rrrrrssXsrsssssXXAXHX2M53h33hhh2rh3222AA2A2hsA3MHHHMGHAHMA2222MhBBBBBS222H9BBBBBBBBB",
-"BBBBBBBBBB9MXssMBBBB#h5:,;rhHiMG3hhM5s;i:;;;;;;;;;;iA:;;;;;;;;:::rrrssrrssXXsssssXX33X2hhhhhhhhsSM3335522552X3A5MHHHMGHXHMss;ihM#BBBBGAA2H9BBBBBBBBBB",
-"BBBBBBBBBBB9MXri59B&Bh5;Ari3MiMGhhMM3Xrii;ii;;;;;;;;;;A,;;;;;;;::irrrrrrrsssrrrrsss2X2h3hhhMMs2MH3Mh3h33555A2X25HHHHMGHAHhsX3i3hBBB9MsX2M9BBBBBBBBBBB",
-"BBBBBBBBBBBB9Hsi;rSBB9h5Xr;AMA3HH5h32XXi;::::::;;;;;;;iiis,;i;;;:;rrrrrrrrrrrrrrrrsSA5hhhGsrGHMHHMMMhhhXssssAA23hMMMHHH3M2sX5Mh9&B#XsXAH9BB&BBBBBBBBB",
-"BBB9GS9BBBBBB93si;iGBBGsii:ihhAHH2hhAsAs::::::::::;;iiiiiiiX:;;i::irirrrsrrrrrrrrrXAX333rXHhMHHHGhGXsssXXXXs22323MMhGHMhMXrXA5SBBSssXAh#BB&BBB9#G9BBB",
-"BB&B#339BBBBBBH5ri;i#BMs;;::3M,HHh35s,sMXX;::::::::;;;iiiiiis:ii;:irrrsrrrrrrsssrs2sA53A5hMMhMXXXXAsXsXXX5A22hX:XMMMGHsMhrsXX2GB9XrsAhMBBBBBB9hh9BBBB",
-"&&&BB9hAG9BBB&BM3si:i33X::;,2hMirh5,;;r2MXi;::i;;;;;;;;;;iii;;A,;i:;XrrrrrrrrisrrrX5sA2;XXssXXXXXXAXXXAAXXsX2hArir;3M2sHM2sXXX5hhXrsXhH9BBBB9G2M9BBBBB",
-"&&B&BB9AX2SB&BB9h3ri:;23,::,rMGHi,.;iXAi,5s;;;;;:;;i;;;iiii;;;s:;i:irrrrrrrssrrrrAAAA;ssssAXXXsXXXXXAXssssX5,i22sX:iAMGHXrAss35sisXhM9BBBBS5A29BBBBBB",
-"&&B&&BBGAsXh9B&B#33ri;AM,,,:rhGS;:..,,..;:::;i;;iiiiiiiiiiii;;;i;;:;rirrrrsrsrrss3AX;ssssssXXXAXAAsXssrrr;irA:,r2h;XsGGMX5XssH3rsX3M#BBB9HAA2GBB&B&&&",
-"&&&B&&B9G2ss2#BBBSh2,.sH:::.,5HGA,:.:,.,:,,:::irssrssrrissiii;;;ii:;sirrrrrrrrrrsss;sssXssXXXsAAXXXXXr2riX::Xs,hMiss2GH3:.isXG2;;5MGBBB#5AX5GBBB&&&BB",
-"&B&&B&BBBS3rsX#BBBS52irhr..,,XMGS,,;.:,..:,:i:isX5#9B9hsssii:irriiii:iiiii;;;iiriAsssssX;irXXA59BBS3XXsrXr:;X;22:2AsSSMX:r.:XH2Xh5#BBB#XXXhSBB&&&BB&B",
-"&&BB&&&BBBS3rssHB&BH2;;Ar,.:,ihGGM,,;,::,,:,,:;rsX3HSSMssi:iii::rrrr::ssrrsssXAh,sXsXi;isiirXXHSSGhXsssr;:AAi2XihXrhSGMr,i.:X3Xs3SB&9GAAAhSBBB&&&&&&B",
-"&&&&&&&&BBBS3srs59BSr;:ii,.:,,2HHG:,,::,:,,::,:;iirsXriis:,,i:,::;rr,irrrrsssXA2;ssX;i:;s;:;AsssAXsssi;;rXX;5srAAXsSGH3:,i.:X2sX2#B93XXA3SB&B&&&&&&&&",
-"&&&&&B&&BBBBShsirsG#i:::;,.,..:5HGH::,:i:;:,,::;;;;::::::,,:,,.;i,,::;iiiirrrrr2s:ii2X:;::;irsssXXXXXXsss;XAs2XXs2HGHhi.,;.:srXXX9GAXsAhSBB&&B&&&&&BB",
-"B&&B&&&&&&BBBS5ri;r2r:::,......rMHHHi,:,::i;:,,,,,,,::;rsr;::::,,,,:,iiiiirrrrrXiXX;iAXrriX233Asr;;:;irirX3rAsssXHHGHX:..,.:isss25AXsXhGBBBB&&&&B&BBB",
-"B&&&&&B&&BB&B9M3s;;ih::::,.....;2MhMMM::::;i;;;;;;;;i;;;;;;ii;;;;r,:iirrrXssss5srrSHHG##h3333H32X22AXA2X25XXXsMMMMM5r.....sAXssMXssAhMBBB&&&&BB&&&&B",
-"B&&B&&&&&BBBB&#M3r;:5A:,,..,...,r3hhhMMX::::::i,:;;;;;;;;;;;;;;::::;,:iiiiiirrrXsrH333333355222AAXrsXXM52AAXX2hMMhh3s:;;;r.,XXX33rrXMM#&B&&B&BB&&&&&B",
-"&BB&&B&&&BBB&BB9Mhi:,3;,:.:i:,..,s2s2hhM3r::::i,;:::::;;;;;;;;;;::i,:iiiirirrrXsh3335522AA2XA2rrrssr222XXs3hMh5A2s;:iisXi.rrAM;iXMH9BB&&&B&&&B&B&BB",
-"&&&&B&B&&B&&&BBB#hAi::Ai,;irr:,..,iXA:5hMsi::;r,::::::;;;;;;;;;;::;;:iiiiiiirrss3335525222AXA2rrrrrr:2XiirXhh3r5Asi:iirAAXr,X5rrX2M9&&&&&B&B&B&BB&BB",
-"B&&B&&B&B&BBB&BBB#HA;:,irMrris:,.....:s;5Ai::,:2.;::::,;;;:;;::;;:::A:iiiiiiiirX25355AA22AAXAA;rrrrr,;;;irs23XAi,.,,irs2222Hrssss5H#B&B&&&&&&&B&&B&BB",
-"&&&&B&&&&B&&&&&&&&9Hi:,,XHMii;Xi:,...,.,;is;:::::::;::::;::::::::::::;i;i;i;iiirsA22AAAXXXAA5irrrsr:r;;;irXXXi,Xr;,XX2hAAAHG2rXAAGBB&&&&B&&&&B&&BB&BB",
-"&BBBBB&&&&&&&&&&BBB9i,::XHHr;;iX;:......,:r;:::,,:;:::::::::::::::::;iii;i;iiiirrsssXXsXXXX2rrssri;;;;;;irXr;,;2;,,XA55sA2SGhM3A29&&&&&&&&&&&B&&BB&BB",
-"&&&&B&&&&B&&&&&&&&&BH,,,3GG2riiXi:,...,..,,,:::,:,:;,::::::::::::::iiiiiiiiiiiirrrrrrsssssrrrrsrir;;;;ifri;,,2:,.XA5M2225SS3iirG&&&&&&&&&B&&&&&B&&BB",
-"B&&&&&&&B&&&&B&B&&&&BBB9SGGMr;;;X;,.........,:::,,,,:,,::::;;:::;;;iiiiiiiiirrrrrrrrrrrsssrrrrrrri;;;;rr;i:,,X;,.XA255225HGS#9B&B&&&&&&B&&&B&BBB&&&&B",
-"B&&&&&&&&&&&B&BB&B&&BBBBSSG2M:::;X;,,...,.....:,,,,,,:::::,:;;;;iiiiiiiiiiiiirrrrrrrrrrssrrrriisiiiiirr;;:,.r;,.XAAS5222MhHSSBB&B&&&&&B&BBBB&&&B&&&&B",
-"&B&&&&&BBBBB&B&&&B&BBBBGSS3HG;::::s::,.........,,:,,,,,,,::,r;;iiiiiiiiiiiiiirrrrrrrrrrsArirri;iiirisr::,,.;,.,XsXGAA22AGGASSSBB&&&&&&&BB&BBBB&&&&&BB",
-"&&&B&&B&&&BB&&&&&&B&BBBMGSsMHAi::::ii,,...,,...,,,,,,,:.,:,,;i;ii;;iiiiiiiiiiirrrrrrrrsrXiiiiiriirisri:,:ss:,.XAAhXAA22AGG;SSH9B&BB&&&&&B&&&B&&&&&&BB",
-"&B&&&B&&&&&B&&&&BB&&&&9GHG;hM:.;;:::;i;,....,,,.,,,,,,,;,,,,,i;iiiiiiiiiiiiiirrrrrrrsrrsiiiiiirirrrrr:XXsr;:.X252AXAAi:;MMiSGG9&&&&&&&&&&&&&&&&BBB&BB",
-"&&&&&&&&&&&&BB&&&&&&&&BSHHhhr,....::;:;.......,::,,:,,,,;,,,,r;;iiiiiiiiiiiiirirrrrsrrsXiii;:ririsrrAAr:,,,..;2rsAA,,,,:sMHGGSB&&&&&&BBB&&&B&B&&&&BBB",
-"&&&&&&&&&&B&&&&B&&&&&&B#GHGM:,....,r::::,.......,;:,,,,,;.,,,:;;iiiiiiiiiiiiiirrrrrrsssXrii;sririis2i:,,,.:.iAAsXX:::,::;MSGS#B&B&&&B&&&B&&&B&B&&B&BB",
-"&&&&&&&&&&&&&&&B&&&&&&B9SGHH,,..,..:;:,::,........,,:,,,,X,,,,iiiiiiiiiiiiririrrrrsrrrsiirr:rrii:;;:::,,:,.,s5AXXs.iXXrs;hGGS9&&&&&BB&&&&&&&&B&B&&&&B",
-"BB&&&&&BB&&&&&&&&&&&BBBB#GGH:5;:.,..i;::;i........,,,,,,,;r:,,:;iii;;iiiiiiiirrrrrrrrsXiir,Xriii.;::;,;,..,r5sAXX.;s223hiGGS#B&&&BB&&B&&B&&B&&&&&&&BB",
-"&B&B&B&&BB&&BB&&&&&&&&&BBSGM:3X;,:...r;;,:sr,......,.,,,,,3,,,,;;;;i;;;;iiirirrrrrsssrii;:rii;i.,:,;:..,22h;AXA.;i5A3MMiGG#B&&&&&&&&&&B&&&&&&&&&&&&B",
-"B&&&&&&&&B&&&&BB&B&&B&&BBBSHXXHi:,,...si:;sXr;;......,,,,,:X:::;;;;;ii;i;;iiirirrrrrrsrrr,Xiiiii:.,,,.siA3G2AAA.;irXAAGAXGSBBBB&&&&&&&BBB&B&B&&&BB&BB",
-"&&B&&&&&&&B&B&&&BBB&BB&&BBBHh:MHri::...2:;;AXs;,......,,,,,A.::,;;;;;iii;;;iiiiiirirrirri;riiii;,..,.;iA5M22A5.:;sAA2HGrhGBBBBBB&BBBB&&&B&BBB&B&&B&&B",
-"&&&&&&&&B&&&&BB&B&&&&&&&BBB9M;iM35r:;...5;;;XiXi:...,.,,,,,,i::::;;;;;;;;;;iiiiiiiiisrr:siiii:sX;.:;X52h2AA5:;;AX253MXsM9BB&&&&&&&B&&&B&&&&B&B&BBBB&",
-"BB&&&&&&B&&&&BB&&&&&&&B&&BBBB;,;hAr;;::.,;;;;Arss;,.,,:.,,,:X::::;;;;;i;irrrir:iiiiirrrr:iiii;rii:;;X;53522Ai:XXAsXAMi;rBB&&&&&&B&&B&&&B&&&&&BBB&&&BB",
-"&&&&&B&&B&&&BB&&&&B&&BBB&BBBBB#:.si;ir::,r;;;iA2iX;,...;:,,,:::::;;;;i:;iirrrs2:iiiirsssXrrir2ii:;is:523222Ais22rrrA:iSBB&B&&&B&BB&&&&&&&&BB&&&&B&&BB",
-"B&B&&&&&BB&BB&BBBBBBBBBBBBBBBB#r::;i;;;;;:r;;;iX2rXi:.,,,:;..:::::;;i,iiiiirsX32;iirrrsir;s2iri:;rs:5A52222sAriirrrriX#BBBBBBBB&&B&&B&B&B&&B&&&&B&&&&",
-"&&&&&&&BBBBBBBBBBBB99#SHGGGGGGA:s32H2;::;i:s;;;2s2irii.,,,,i;;:,,.,;iiiiiirrss5H3si:,:i;iAiiii:iis;5AM222XXXiiii3H3hXr2SSGGGGGS#9BBBBBBBBB&&&&&&&&&BB",
-"&&&&BBBBBB9#HhhMh5s:,..,r3MMhX,,A5X52i:;:::;r;;i2r5iir,,,,,,:,;;;;;iisrrrrsXXA552MMhhMMXXrii;;,iri22h522XriiiiiX53235;r2hMM3s;i;is5hHHMHG#9BBB&&B&&BB",
-"&&BBB9#HAXXsri,.....,i,...,,:,.,rsiAX;:,,::,;i;;;3XM5:...,,,,,,:;;;;;rrrssXA2555HMMMMMsriri;;:..:Ah5h22Ariii;issA2sAA::ii:;;;;rXi;;;;ir25533hH#9BB&B&",
-"#H5XXsr;,,.....;AMGGHMGHh,.....,,;:ri:,,.,,,,:i;;isXrr....,,.,,,:;;;;rrrrXAA23hhMMMh5rri;;:;:,.:r5H352Ari;;;.;irssrs;:.,,,.,MGGHGGGM5r;::;;;rA5333hG#",
-"sri:,,.....:AhGGHHMh35MHh.......,::.,,,....,..;;;;;sih,.......,,,,;;r:,;ssAA5Hi:;MhXir;;;;,,,..HMM3222r:::.,.:;;;;si;:......MHH3hhMHHGH3Ai,,:::;isA25",
-",.....,s5MGGGHMh322Xsr;ir:........,:.....,:,.,,;;;;rriX.........,,:::;i:srXAhG3Mhs:ri;;;;::,..:H5S252s,;iii;..;;:rr;::,....:sir22A233hMHHHHM3X:.,,,::"
-        ];
+    // Display Loading Message
+    const loadingDiv = document.createElement("div");
+    loadingDiv.className = "msg bot";
+    loadingDiv.innerText = "Misti is thinking...";
+    chatBox.appendChild(loadingDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
 
-        let offsetX = 0, offsetY = 0;
-        let mouthMovableLines = [60, 61, 62, 63];
-        let currentAscii = [...originalAscii];
+    try {
+      const response = await fetch(BASE_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${API_KEY}`
+        },
+        body: JSON.stringify({
+          model: "auto",
+          messages: [
+            { role: "system", content: "You are Misti, a friendly and smart AI beauty advisor." },
+            { role: "user", content: text }
+          ]
+        })
+      });
 
-        function drawCanvas() {
-            const canvas = document.getElementById('asciiCanvas');
-            const ctx = canvas.getContext('2d');
+      const data = await response.json();
+      if (data.choices && data.choices[0] && data.choices[0].message) {
+        loadingDiv.innerText = data.choices[0].message.content;
+      } else {
+        loadingDiv.innerText = "Sorry, Misti couldn't process that response.";
+      }
+    } catch (err) {
+      loadingDiv.innerText = "Error connecting to Misti. Please try again.";
+    }
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+</script>
 
-            // Responsive Scaling Engine
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = canvas.parentElement.clientHeight;
-
-            ctx.fillStyle = "#000";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = "#00ff66";
-            
-            // Calculating precise dynamic font sizing
-            const rows = currentAscii.length;
-            const cols = currentAscii[0].length;
-            
-            const fontSize = Math.min(canvas.width / cols, canvas.height / rows);
-            ctx.font = `${fontSize}px monospace`;
-            ctx.textBaseline = "top";
-
-            const startX = (canvas.width - (cols * fontSize)) / 2 + offsetX;
-            const startY = (canvas.height - (rows * fontSize)) / 2 + offsetY;
-
-            for (let i = 0; i < rows; i++) {
-                ctx.fillText(currentAscii[i], startX, startY + (i * fontSize));
-            }
-
-            requestAnimationFrame(drawCanvas);
-        }
-
-        function startSystem() {
-            const video = document.getElementById('hiddenVideo');
-            
-            const faceMesh = new FaceMesh({
-                locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`
-            });
-
-            faceMesh.setOptions({ maxNumFaces: 1, refineLandmarks: true });
-            
-            faceMesh.onResults((results) => {
-                if (results.multiFaceLandmarks && results.multiFaceLandmarks.length > 0) {
-                    const nose = results.multiFaceLandmarks[0][1];
-                    offsetX = (nose.x - 0.5) * 40; 
-                    offsetY = (nose.y - 0.5) * 30;
-                }
-            });
-
-            const camera = new Camera(video, {
-                onFrame: async () => { await faceMesh.send({ image: video }); },
-                width: 320, height: 240
-            });
-            camera.start();
-        }
-
-        async function speakAI() {
-            const input = document.getElementById('userInput').value;
-            const key = document.getElementById('geminiKey').value;
-            if(!input || !key) return alert("Enter Gemini Key and Input Message!");
-
-            document.getElementById('userInput').value = "";
-
-            try {
-                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ contents: [{ parts: [{ text: "You are VOI-SYN. Answer briefly in 1 sentence: " + input }] }] })
-                });
-                
-                const data = await res.json();
-                const reply = data.candidates[0].content.parts[0].text;
-
-                const utterance = new SpeechSynthesisUtterance(reply);
-                
-                utterance.onboundary = () => {
-                    let tempAscii = [...originalAscii];
-                    mouthMovableLines.forEach(idx => {
-                        tempAscii[idx] = tempAscii[idx].replace(/2s2/g, "   ").replace(/522/g, "   ");
-                    });
-                    currentAscii = tempAscii;
-                };
-
-                utterance.onend = () => { currentAscii = [...originalAscii]; };
-
-                window.speechSynthesis.speak(utterance);
-
-            } catch (e) {
-                alert("Gemini API Error!");
-            }
-        }
-
-        function handleKey(e) { if(e.key === 'Enter') speakAI(); }
-
-        // Initial Loop Run
-        drawCanvas();
-    </script>
 </body>
 </html>
