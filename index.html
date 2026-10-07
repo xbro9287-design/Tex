@@ -32,7 +32,7 @@
 </div>
 
 <script>
-  // ඔයා ලබාදුන් OpenRouter API Key එක
+  // Simple 'sk-or-v1-' වලින් පටන් ගන්නා නිවැරදි API Key එක
   const OPENROUTER_API_KEY = "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"; 
 
   async function sendMessage() {
@@ -41,12 +41,10 @@
     const text = input.value.trim();
     if (!text) return;
 
-    // User Message එක පෙන්වීම
     chatBox.innerHTML += `<div class="msg user">${text}</div>`;
     input.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Loading status එක පෙන්වීම
     const loadingDiv = document.createElement("div");
     loadingDiv.className = "msg bot";
     loadingDiv.innerText = "Misti is thinking...";
@@ -63,9 +61,9 @@
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          model: "google/gemini-2.0-flash-lite-001",
+          model: "google/gemini-2.0-flash-lite-001:free",
           messages: [
-            { role: "system", content: "You are Misti, a friendly and helpful AI assistant. Answer concisely and politely." },
+            { role: "system", content: "You are Misti, a friendly AI assistant. Answer concisely." },
             { role: "user", content: text }
           ]
         })
