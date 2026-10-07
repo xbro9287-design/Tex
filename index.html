@@ -32,8 +32,8 @@
 </div>
 
 <script>
-  // OpenRouter API Key
-  const OPENROUTER_API_KEY = "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"; 
+  // ඔයා ලබාදුන් OpenRouter API Key එක
+  const OPENROUTER_API_KEY = "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"; 
 
   async function sendMessage() {
     const input = document.getElementById("userInput");
@@ -46,7 +46,7 @@
     input.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Loading State එක පෙන්වීම
+    // Loading status එක පෙන්වීම
     const loadingDiv = document.createElement("div");
     loadingDiv.className = "msg bot";
     loadingDiv.innerText = "Misti is thinking...";
@@ -63,9 +63,9 @@
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          model: "openai/gpt-4o",
+          model: "google/gemini-2.0-flash-lite-001",
           messages: [
-            { role: "system", content: "You are Misti, a friendly and helpful AI assistant. Answer warmly and concisely." },
+            { role: "system", content: "You are Misti, a friendly and helpful AI assistant. Answer concisely and politely." },
             { role: "user", content: text }
           ]
         })
