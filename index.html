@@ -51,25 +51,16 @@
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-      // Free AI Gateway Endpoint (No API Key Required)
-      const response = await fetch("https://text.pollinations.ai/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: [
-            { role: "system", content: "You are Misti, a friendly and helpful AI assistant. Answer warmly and concisely." },
-            { role: "user", content: text }
-          ],
-          model: "openai"
-        })
-      });
+      // Pollinations GET Endpoint (Simple, Stable & Fast)
+      const promptText = encodeURIComponent(`You are Misti, a friendly AI assistant. Reply concisely to: ${text}`);
+      const response = await fetch(`https://text.pollinations.ai/${promptText}?model=openai`);
 
       const replyText = await response.text();
       
-      if (replyText) {
+      if (replyText && !replyText.includes("error")) {
         loadingDiv.innerText = replyText;
       } else {
-        loadingDiv.innerText = "Sorry, Misti couldn't process that response.";
+        loadingDiv.innerText = "Sorry, Misti couldn't process that response. Please try again.";
       }
     } catch (err) {
       loadingDiv.innerText = "Network Error. Please try again.";
