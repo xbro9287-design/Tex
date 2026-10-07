@@ -32,19 +32,18 @@
 </div>
 
 <script>
-  // Simple 'sk-or-v1-' වලින් පටන් ගන්නා නිවැරදි API Key එක
-  const OPENROUTER_API_KEY = "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"; 
-
   async function sendMessage() {
     const input = document.getElementById("userInput");
     const chatBox = document.getElementById("chatBox");
     const text = input.value.trim();
     if (!text) return;
 
+    // User Message
     chatBox.innerHTML += `<div class="msg user">${text}</div>`;
     input.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 
+    // Loading status
     const loadingDiv = document.createElement("div");
     loadingDiv.className = "msg bot";
     loadingDiv.innerText = "Misti is thinking...";
@@ -52,29 +51,23 @@
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      // Free AI Gateway Endpoint (No API Key Required)
+      const response = await fetch("https://text.pollinations.ai/", {
         method: "POST",
-        headers: {
-          "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-          "HTTP-Referer": "https://xbro9287-design.github.io",
-          "X-Title": "Misti AI Assistant",
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "google/gemini-2.0-flash-lite-001:free",
           messages: [
-            { role: "system", content: "You are Misti, a friendly AI assistant. Answer concisely." },
+            { role: "system", content: "You are Misti, a friendly and helpful AI assistant. Answer warmly and concisely." },
             { role: "user", content: text }
-          ]
+          ],
+          model: "openai"
         })
       });
 
-      const data = await response.json();
+      const replyText = await response.text();
       
-      if (data.choices && data.choices[0] && data.choices[0].message) {
-        loadingDiv.innerText = data.choices[0].message.content;
-      } else if (data.error) {
-        loadingDiv.innerText = "Error: " + data.error.message;
+      if (replyText) {
+        loadingDiv.innerText = replyText;
       } else {
         loadingDiv.innerText = "Sorry, Misti couldn't process that response.";
       }
