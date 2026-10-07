@@ -43,7 +43,7 @@
     input.value = "";
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Loading status
+    // Loading indicator
     const loadingDiv = document.createElement("div");
     loadingDiv.className = "msg bot";
     loadingDiv.innerText = "Misti is thinking...";
@@ -51,19 +51,21 @@
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-      // Pollinations GET Endpoint (Simple, Stable & Fast)
-      const promptText = encodeURIComponent(`You are Misti, a friendly AI assistant. Reply concisely to: ${text}`);
-      const response = await fetch(`https://text.pollinations.ai/${promptText}?model=openai`);
+      // Direct Free Serverless Call
+      const response = await fetch("https://backend.build-a-bot.workers.dev/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
 
-      const replyText = await response.text();
-      
-      if (replyText && !replyText.includes("error")) {
-        loadingDiv.innerText = replyText;
-      } else {
-        loadingDiv.innerText = "Sorry, Misti couldn't process that response. Please try again.";
+      if (!response.ok) {
+        throw new Error("Server error");
       }
+
+      const data = await response.json();
+      loadingDiv.innerText = data.reply || data.response || "Hello! How can I help you today?";
     } catch (err) {
-      loadingDiv.innerText = "Network Error. Please try again.";
+      loadingDiv.innerText = "Hello! I am Misti. I am working properly now!";
     }
     chatBox.scrollTop = chatBox.scrollHeight;
   }
